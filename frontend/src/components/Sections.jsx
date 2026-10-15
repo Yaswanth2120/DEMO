@@ -4,6 +4,7 @@ import {Button,Eyebrow,SectionHeading} from './UI.jsx';
 import Icon from './Icons.jsx';
 
 export function Hero(){
+ const [paused,setPaused]=useState(false);
  return <section className="hero-band" id="hero"><div className="hero section">
   <div className="hero-copy"><Eyebrow>Science · Engineering · Possibility</Eyebrow>
    <h1>Innovate Beyond<br/><em>Boundaries.</em></h1>
@@ -17,7 +18,10 @@ export function Hero(){
    <div className="visual-badge badge-left"><span><Icon name="nodes"/></span><div><small>CONNECTED THINKING</small><strong>Science meets engineering</strong></div></div>
    <div className="visual-badge badge-bottom"><span><Icon name="tool"/></span><div><strong>From concept to production</strong><small>One integrated approach</small></div></div>
   </div>
- </div><div className="discipline-strip container">{disciplines.map(([name],i)=><span key={name}><Icon name={['nodes','tool','shield','battery','car'][i]}/>{name}</span>)}</div></section>;
+ </div><div className="discipline-strip" data-paused={paused} aria-label="Five core disciplines">
+  <div className="discipline-viewport" tabIndex={0} aria-label="Core disciplines ticker"><div className="discipline-track">{[0,1,2].map(copy=><div className="discipline-group" key={copy} role={copy===0?'list':undefined} aria-hidden={copy>0?true:undefined}>{disciplines.map(([name],i)=><span key={name} role={copy===0?'listitem':undefined}><Icon name={['nodes','tool','shield','battery','car'][i]}/>{name}</span>)}</div>)}</div></div>
+  <button className="discipline-toggle" type="button" aria-label={paused?'Resume disciplines scrolling':'Pause disciplines scrolling'} aria-pressed={paused} onClick={()=>setPaused(!paused)}><svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">{paused?<path d="m7 4 8 6-8 6z"/>:<path d="M7 4v12M13 4v12"/>}</svg></button>
+ </div></section>;
 }
 
 export function AboutSection(){
