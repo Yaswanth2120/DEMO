@@ -18,7 +18,7 @@ test('served logo is byte-for-byte the original N5 artwork',()=>withServer(async
 
 test('second design renders independently with complete inline business content',()=>withServer(async base=>{
  const response=await fetch(base+'/v2');assert.equal(response.status,200);const html=await response.text();
- assert.equal((html.match(/<h1/g)||[]).length,1);assert.match(html,/Engineering<br\/>what/);assert.match(html,/class="v2"/);
+ assert.equal((html.match(/<h1/g)||[]).length,1);assert.match(html,/Small details\.<br\/>Extraordinary/);assert.match(html,/class="v2"/);
  for(const id of ['about','pillars','solutions','industries','process','partners','faq','contact','privacy','battery-engineering','lightweight-automotive','tooling-manufacturing','ai-optimization','corrosion-mitigation'])assert.match(html,new RegExp(`id="${id}"`));
  for(const match of html.matchAll(/<a\b[^>]*href="#([^"]+)"/g))assert.match(html,new RegExp(`id="${match[1]}"`));
  assert.match(html,/missouri-st-logo\.png/);assert.match(html,/nexafive-logo\.png/);assert.match(html,/formsubmit\.co\/ajax\/info@nexafiveglobal\.com/);

@@ -41,3 +41,14 @@ The page explains the connections between material, process and performance. Exp
 - Contact success and error feedback checked with intercepted requests; no real enquiry sent.
 - All images load. Scroll progress moves from 0 to 100 and back. Reduced motion disables the decorative ring. No application errors during normal production use; the mocked HTTP 500 form test produced the expected resource error.
 - Screenshots: v2-desktop.png, v2-mobile.png, v2-research-mobile.png, v2-full-desktop.png.
+
+
+## Creative revision — October 15, 2026
+
+The creative direction now centers on a custom SVG exploded battery assembly, replacing the low-resolution bearing photo completely in Version 2. It is labeled as a concept illustration. Material, System, and Performance buttons change the layer emphasis and explanatory text. CSS animates individual layers; reduced-motion preferences disable movement. No image generation service, animation library, or runtime API is needed.
+
+The capability photo has been replaced with a five-node engineering map. Each node opens the corresponding inline service details. The three solution narratives follow a stepped, connected path, and the process uses a vertical resolution sequence. Industry panels now use large typographic numbers and line artwork instead of stock photos. The original NexaFive logo and the official university marks remain unchanged.
+
+Implementation: SystemSculpture.jsx contains the original vector artwork and its controls; creative.css scopes the new composition to Version 2. VersionTwo.jsx integrates the artwork, capability map, and industry graphics. Version 1 is unchanged.
+
+Verification: eight widths from 320 to 1920px showed no page overflow or clipped visible text. All three perspective controls, the capability map links, the mobile menu, and all five industry selections worked. Reduced motion stops the layer animation. Production build and all seven backend tests pass. Current screenshots use the v2-creative-* prefix; earlier v2-* screenshots document the previous iteration.

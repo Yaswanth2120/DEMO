@@ -146,3 +146,5 @@ The five-discipline strip below the hero is now a compact, centered ticker cappe
 ## Second design
 
 Version 1 remains at `/`. The independent engineering-focused Version 2 is at `/v2`. Run `npm run dev` and open http://localhost:5173/v2, or build and start production at http://localhost:3001/v2. Both use the same React frontend and Node/Express backend. The original logo is unchanged. See [Version 2 design and business review](docs/version-two.md).
+
+The current Version 2 uses original interactive SVG battery-system artwork, a capability map, connected solution diagrams, and typographic industry panels. The stock bearing hero photograph has been removed from this version.
