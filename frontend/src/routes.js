@@ -4,5 +4,6 @@ export const legacyRedirects={
  '/about':'/#about','/services':'/#pillars','/solutions':'/#solutions','/industries':'/#industries','/research':'/#partners','/contact':'/#contact','/privacy':'/#privacy',
  ...Object.fromEntries(services.map(service=>[`/services/${service.slug}`,`/#${service.slug}`]))
 };
-// The alternate design is directly accessible, but stays out of the main sitemap.
-export function getPageMeta(path){return {title:path==='/v2'?'NexaFive Global — Engineering What’s Next':path==='/'?'NexaFive Global — Innovate Beyond Boundaries':'Page Not Found | NexaFive Global',description:company.overview,notFound:!['/','/v2'].includes(path)}}
+// The alternate designs are directly accessible, but stays out of the main sitemap.
+const titles={'/':'NexaFive Global — Innovate Beyond Boundaries','/v2':'NexaFive Global — Engineering What’s Next','/v3':'NexaFive Global — A Journey Beyond Boundaries'};
+export function getPageMeta(path){return {title:titles[path]||'Page Not Found | NexaFive Global',description:company.overview,notFound:!titles[path]}}

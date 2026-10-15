@@ -27,4 +27,14 @@ test('second design renders independently with complete inline business content'
  assert.equal((await fetch(base+'/v2/',{redirect:'manual'})).status,308);
 }));
 
+test('third design renders a complete, readable server document for the WebGL journey',()=>withServer(async base=>{
+ const response=await fetch(base+'/v3');assert.equal(response.status,200);const html=await response.text();
+ assert.equal((html.match(/<h1/g)||[]).length,1);assert.match(html,/aria-label="Innovate beyond boundaries\."/);assert.match(html,/class="v3"/);
+ for(const id of ['hero','about','battery-engineering','lightweight-automotive','tooling-manufacturing','ai-optimization','corrosion-mitigation','process','industries','partners','contact','privacy','contact-form'])assert.match(html,new RegExp(`id="${id}"`));
+ for(const match of html.matchAll(/<a\b[^>]*href="#([^"]+)"/g))assert.match(html,new RegExp(`id="${match[1]}"`));
+ assert.match(html,/formsubmit\.co\/ajax\/info@nexafiveglobal\.com/);assert.match(html,/nexafive-logo\.png/);assert.match(html,/Healthcare Technologies/);
+ assert.match(html,/<title>NexaFive Global — A Journey Beyond Boundaries<\/title>/);assert.match(html,/canonical" href="[^"]+\/v3"/);
+ assert(!html.includes('ISO 17025'),'verified claims stay hidden by default');
+}));
+
 test('security headers, self-hosted fonts and redirects',()=>withServer(async base=>{const response=await fetch(base+'/fonts/outfit-latin.woff2');assert.equal(response.status,200);assert.match(response.headers.get('content-security-policy'),/script-src 'self'/);assert.equal(response.headers.get('x-powered-by'),null);assert.equal((await fetch(base+'/fonts/jakarta-latin.woff2')).status,200);assert.equal((await fetch(base+'/assets/no-such-image.png')).status,404);const redirect=await fetch(base+'/index.html',{redirect:'manual'});assert.equal(redirect.status,301);assert.equal(redirect.headers.get('location'),'/')}));
