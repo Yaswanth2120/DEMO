@@ -1,54 +1,177 @@
 import {useEffect,useRef,useState} from 'react';
-import {company,services,disciplines,industries,process,claims} from '../content.js';
-import {Logo} from '../components/UI.jsx';
-import Icon from '../components/Icons.jsx';
-import ContactForm from '../components/ContactForm.jsx';
-import Footer from '../components/Footer.jsx';
-import SystemSculpture from './SystemSculpture.jsx';
-import './version-two.css';
-import './creative.css';
+import {company,claims} from '../content.js';
+import Glyph from './Glyph.jsx';
+import Constellation from './Constellation.jsx';
+import Capabilities from './Capabilities.jsx';
+import Method from './Method.jsx';
+import Sectors from './Sectors.jsx';
+import Enquiry from './Enquiry.jsx';
+import CommandPalette from './CommandPalette.jsx';
+import {useReveal,usePointerGlow} from './motion.js';
+import './v2.css';
 
-const links=[['#about','Our thinking'],['#pillars','Capabilities'],['#industries','Industries'],['#process','Our approach'],['#partners','Research']];
-const num=i=>String(i+1).padStart(2,'0');
-function Label({children,number}){return <p className="v2-label">{number&&<span>{number}</span>}{children}</p>}
-function Action({children,href='#contact',light=false}){return <a className={`v2-action${light?' v2-action-light':''}`} href={href}>{children}<Icon name="arrow"/></a>}
+const links=[['#pillars','Capabilities'],['#process','Method'],['#industries','Industries'],['#partners','Research']];
+const chapters=[['hero','Intro'],['pillars','Capabilities'],['process','Method'],['industries','Industries'],['partners','Research'],['contact','Contact']];
 
-function Navigation(){
- const [open,setOpen]=useState(false);const toggle=useRef(null),nav=useRef(null);
+function Logo({className=''}){
+ return <a className={`n5-logo ${className}`} href="#hero" aria-label="NexaFive Global home"><img src="/assets/nexafive-logo.png" alt="NexaFive Global — Innovate Beyond Boundaries" width="163" height="45"/></a>;
+}
+
+function Island({onSearch,shortcut}){
+ const [open,setOpen]=useState(false);
+ const [compact,setCompact]=useState(false);
+ const toggle=useRef(null);
  useEffect(()=>{
-  const key=e=>{if(e.key==='Escape'){setOpen(false);toggle.current?.focus()}};
-  const outside=e=>{if(!nav.current?.contains(e.target)&&!toggle.current?.contains(e.target))setOpen(false)};
-  const query=matchMedia('(min-width: 1001px)');const resize=()=>{if(query.matches)setOpen(false)};
-  document.addEventListener('keydown',key);document.addEventListener('click',outside);query.addEventListener('change',resize);
-  return()=>{document.removeEventListener('keydown',key);document.removeEventListener('click',outside);query.removeEventListener('change',resize)};
+  const onScroll=()=>setCompact(window.scrollY>24);
+  onScroll();
+  window.addEventListener('scroll',onScroll,{passive:true});
+  const wide=window.matchMedia('(min-width: 961px)');
+  const onWide=()=>{if(wide.matches)setOpen(false)};
+  wide.addEventListener('change',onWide);
+  return()=>{window.removeEventListener('scroll',onScroll);wide.removeEventListener('change',onWide)};
  },[]);
- return <header className="v2-header"><div className="v2-container v2-nav"><Logo/><button className="v2-menu" ref={toggle} type="button" aria-label={open?'Close navigation':'Open navigation'} aria-expanded={open} aria-controls="v2-navigation" onClick={()=>setOpen(!open)}><Icon name={open?'close':'menu'}/></button><nav id="v2-navigation" className={open?'v2-nav-open':''} ref={nav} aria-label="Main navigation">{links.map(([href,text])=><a key={href} href={href} onClick={()=>setOpen(false)}>{text}</a>)}<a className="v2-nav-cta" href="#contact" onClick={()=>setOpen(false)}>Let’s talk<Icon name="arrow"/></a></nav></div></header>;
+ useEffect(()=>{
+  if(!open)return;
+  const onKey=event=>{if(event.key==='Escape'){setOpen(false);toggle.current?.focus()}};
+  document.addEventListener('keydown',onKey);
+  return()=>document.removeEventListener('keydown',onKey);
+ },[open]);
+ const close=()=>setOpen(false);
+ return <header className="n5-island" data-compact={compact} data-open={open}>
+  <div className="n5-island-bar">
+   <Logo/>
+   <nav id="n5-nav" className="n5-nav" aria-label="Main navigation">
+    {links.map(([href,label])=><a key={href} href={href} onClick={close}>{label}</a>)}
+    <a className="n5-nav-contact" href="#contact" onClick={close}>Start a project<Glyph name="arrow"/></a>
+   </nav>
+   <div className="n5-island-tools">
+    <button type="button" className="n5-search" onClick={onSearch} aria-label={`Search the site (${shortcut})`}><Glyph name="search"/><kbd>{shortcut}</kbd></button>
+    <a className="n5-btn n5-btn-sm n5-island-cta" href="#contact">Let’s talk</a>
+    <button type="button" ref={toggle} className="n5-burger" aria-expanded={open} aria-controls="n5-nav" aria-label={open?'Close menu':'Open menu'} onClick={()=>setOpen(value=>!value)}><span/><span/></button>
+   </div>
+  </div>
+ </header>;
 }
 
-function Hero(){return <section id="hero" className="v2-hero"><div className="v2-container">
- <div className="v2-hero-top"><Label>Five disciplines. Infinite connections.</Label><span className="v2-location">Minneapolis, MN / Working beyond boundaries</span></div>
- <div className="v2-hero-layout"><div className="v2-hero-copy"><h1>Small details.<br/>Extraordinary<br/><em>possibilities.</em></h1><p>The interface between materials. The leap from research to reality. We connect the details that move engineering forward.</p><div className="v2-hero-actions"><Action>Bring us your challenge</Action><a className="v2-text-link" href="#pillars">Explore our capabilities<span>↓</span></a></div><div className="v2-hero-footnote"><span className="v2-cross">+</span><span>Materials. Processes. Products.<br/><strong>One connected perspective.</strong></span></div></div>
- <SystemSculpture/></div>
- <div className="v2-discipline-line" aria-label="Our five disciplines">{disciplines.map(([title],i)=><span key={title}><small>{num(i)}</small>{title}<span aria-hidden="true">+</span></span>)}</div>
- </div></section>}
-
-function Thinking(){return <section className="v2-section v2-container" id="about"><div className="v2-intro v2-reveal"><Label number="01">The NexaFive perspective</Label><div><h2>Five disciplines.<br/><em>A wider view.</em></h2><div className="v2-intro-copy"><p>A lighter structure still needs durability. A new material still needs a manufacturing process. A test result still needs a practical next step.</p><p>We are a specialized engineering and technology consultancy connecting these decisions. From battery packs to dissimilar metal assemblies, we bring materials science, research, and production thinking into the same conversation.</p><a className="v2-text-link" href="#solutions">See how we connect the work<Icon name="arrow"/></a></div></div></div><div className="v2-principles">{[['Understand the material.','Metals, polymers, composites, and the interfaces between them.'],['Consider the whole system.','Design, thermal performance, structures, tooling, and durability.'],['Carry the insight forward.','Testing, validation, and support through implementation.']].map(([title,text],i)=><article className="v2-reveal" key={title}><span>{num(i)}</span><h3>{title}</h3><p>{text}</p></article>)}</div></section>}
-
-function Capabilities(){
- const details=useRef(new Map());
- useEffect(()=>{const reveal=()=>{const slug=location.hash.slice(1);const element=details.current.get(slug);if(element)element.open=true};reveal();window.addEventListener('hashchange',reveal);return()=>window.removeEventListener('hashchange',reveal)},[]);
- return <section id="pillars" className="v2-capabilities"><div className="v2-container v2-section"><div className="v2-heading-row v2-reveal"><div><Label number="02">Our capabilities</Label><h2>One challenge.<br/><span>More than one way in.</span></h2></div><p>Five capabilities. A shared understanding of how materials, processes, and performance depend on each other.</p></div><div className="v2-capability-layout"><div className="v2-service-list">{services.map((s,i)=><details className="v2-service" id={s.slug} key={s.slug} open={i===0?true:undefined} ref={node=>{if(node)details.current.set(s.slug,node);else details.current.delete(s.slug)}}><summary><span className="v2-service-number">{num(i)}</span><div><small>{s.category}</small><h3>{s.title}</h3></div><span className="v2-expand" aria-hidden="true">+</span></summary><div className="v2-service-body"><p>{s.description}</p><p>{s.detail}</p><ul>{s.applications.map(item=><li key={item}>{item}</li>)}</ul><a className="v2-text-link" href="#contact">Discuss this capability<Icon name="arrow"/></a></div></details>)}</div><aside className="v2-capability-aside n5-network v2-reveal"><Label>One connected practice</Label><div className="n5-network-map"><svg viewBox="0 0 400 400" fill="none" aria-hidden="true"><circle cx="200" cy="200" r="135" stroke="#ffffff25"/><path d="m200 65 128 93-49 151H121L72 158zM200 65v135l128-42M200 200l79 109M200 200l-79 109M200 200 72 158" stroke="#7eb6e0" strokeWidth="1"/></svg><span className="n5-network-center">CONNECTED<br/>EXPERTISE</span>{services.map((s,i)=><a className={`n5-network-node n5-node-${i}`} href={`#${s.slug}`} key={s.slug} onClick={()=>{const node=details.current.get(s.slug);if(node)node.open=true}}><Icon name={s.icon}/><span>{['Battery','Lightweight','Tooling','Intelligence','Durability'][i]}</span></a>)}</div><p>Start with one challenge.<br/>Connect the expertise it needs.</p></aside></div></div></section>;
+function Rail(){
+ const [active,setActive]=useState('hero');
+ const [tone,setTone]=useState('light');
+ useEffect(()=>{
+  const observer=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){setActive(entry.target.id);setTone(entry.target.dataset.tone||'light')}},{rootMargin:'-48% 0px -48% 0px'});
+  chapters.forEach(([id])=>{const element=document.getElementById(id);if(element)observer.observe(element)});
+  return()=>observer.disconnect();
+ },[]);
+ return <nav className="n5-rail" data-tone={tone} aria-label="Page chapters">
+  {chapters.map(([id,label])=><a key={id} href={`#${id}`} aria-current={active===id?'true':undefined}><span className="n5-rail-label">{label}</span><span className="n5-rail-dot"/></a>)}
+ </nav>;
 }
 
-function Solutions(){const rows=[['tool','Engineering','Design with the next step in mind.','Battery systems, lightweight structures, tooling, and multi-material assemblies — with manufacturability and durability considered together.'],['shield','Research & validation','Turn evidence into direction.','Connect diagnostic testing, root-cause analysis, surface treatment, adhesion, sealing, and failure analysis with practical engineering decisions.'],['nodes','Materials intelligence','Make informed trade-offs.','AI/ML guidance for material selection, stamping, structural integrity, corrosion risk, and part performance. Discuss data requirements and platform fit with our team.']];return <section className="v2-section v2-container" id="solutions"><div className="v2-heading-row v2-reveal"><div><Label number="03">Integrated solutions</Label><h2>Think beyond<br/>a single discipline.</h2></div><p>Your challenge may start with a material, a process, or a failed part. We follow the connections to support the whole program.</p></div><div className="v2-solution-grid n5-connected-path">{rows.map(([icon,title,headline,text],i)=><article key={title} className="v2-reveal"><div className="v2-solution-top"><Icon name={icon}/><span>{num(i)}</span></div><small>{title}</small><h3>{headline}</h3><p>{text}</p></article>)}</div></section>}
+function Hero(){
+ return <section id="hero" className="n5-hero" data-tone="light">
+  <div className="n5-hero-sky" aria-hidden="true"><span/><span/><span/></div>
+  <div className="n5-wrap n5-hero-grid">
+   <div className="n5-hero-copy">
+    <p className="n5-kicker"><span className="n5-live" aria-hidden="true"/>Engineering &amp; technology consultancy · Minneapolis</p>
+    <h1 className="n5-title" aria-label="Innovate beyond boundaries.">
+     <span className="n5-line" aria-hidden="true"><span>Innovate</span></span>
+     <span className="n5-line" aria-hidden="true"><span>beyond</span></span>
+     <span className="n5-line" aria-hidden="true"><span className="n5-shine">boundaries.</span></span>
+    </h1>
+    <p className="n5-lede">{company.overview}</p>
+    <div className="n5-actions">
+     <a className="n5-btn" href="#contact">Start a project<Glyph name="arrow"/></a>
+     <a className="n5-btn n5-btn-quiet" href="#pillars">Explore capabilities</a>
+    </div>
+    <dl className="n5-facts">
+     <div><dt>05</dt><dd>Disciplines</dd></div>
+     <div><dt>05</dt><dd>Capabilities</dd></div>
+     <div><dt>E2E</dt><dd>Concept to production</dd></div>
+    </dl>
+   </div>
+   <Constellation/>
+  </div>
+  <a className="n5-scroll-cue" href="#pillars" aria-label="Scroll to capabilities"><span/></a>
+ </section>;
+}
 
-const sectorNotes=['Lightweight structures. Lasting performance.','A stronger link in the supply chain.','Energy systems, considered as a whole.','Engineering for connected care.','From process insight to production.'];
-function Sectors(){const [selected,setSelected]=useState(0);return <section className="v2-sectors" id="industries"><div className="v2-container v2-section"><div className="v2-heading-row v2-reveal"><div><Label number="04">Where we work</Label><h2>Different industries.<br/>Shared fundamentals.</h2></div><p>Specialized expertise for the teams building what comes next in mobility, energy, healthcare technology, and industry.</p></div><div className="v2-sector-layout"><div className="v2-sector-choices" role="group" aria-label="Choose an industry">{industries.map(([title],i)=><button type="button" aria-pressed={selected===i} aria-controls="v2-sector-detail" key={title} onClick={()=>setSelected(i)}><span>{num(i)}</span>{title}<Icon name="arrow"/></button>)}</div><div id="v2-sector-detail" className="v2-sector-detail"><div className="n5-sector-art" aria-hidden="true"><span>{num(selected)}</span><Icon name={['car','tool','battery','nodes','tool'][selected]}/><div className="n5-sector-lines"/></div><div key={selected} className="v2-sector-description" aria-live="polite" aria-atomic="true"><Label>{industries[selected][0]}</Label><h3>{sectorNotes[selected]}</h3><p>{industries[selected][1]}</p><Action>Discuss your program</Action></div></div></div></div></section>}
+function Research({verified}){
+ const methods=['SEM / EDX','EIS','Cross-section metallography','Galvanic testing','Accelerated corrosion testing'];
+ return <section id="partners" className="n5-research n5-dark" data-tone="dark">
+  <div className="n5-wrap n5-research-grid">
+   <div className="n5-research-intro n5-r">
+    <p className="n5-eyebrow">Research &amp; collaboration</p>
+    <h2>Curiosity,<br/><span>backed by evidence.</span></h2>
+    <p>Academic insight and diagnostic testing bring a different depth to industrial questions. Our published research network identifies Missouri S&amp;T and Kansas State University.</p>
+    <p className="n5-fine">{verified?claims.partnerships:'Ask our team about the current collaboration scope for your program.'}</p>
+   </div>
+   <div className="n5-partners n5-r">
+    <article className="n5-partner"><div className="n5-partner-logo"><img src="/assets/missouri-st-logo.png" alt="Missouri S&T university logo" width="2315" height="1880" loading="lazy"/></div><div><h3>Missouri S&amp;T</h3><p>Missouri University of Science and Technology</p></div></article>
+    <article className="n5-partner"><div className="n5-partner-logo"><img src="/assets/university-1.jpg" alt="Kansas State University wordmark" width="300" height="158" loading="lazy"/></div><div><h3>Kansas State University</h3><p>College of Engineering</p></div></article>
+   </div>
+   <div className="n5-lab n5-glow n5-r">
+    <p className="n5-eyebrow">Diagnostic methods</p>
+    <ul className="n5-chips">{methods.map(method=><li key={method}>{method}</li>)}</ul>
+    <div className="n5-standards" aria-label="Standards"><span>ASTM</span><span>SAE</span><span>ISO</span></div>
+    <p className="n5-fine">{verified?claims.testing:'Confirm applicable standards, laboratory accreditation, and OEM procedures for your test program.'}</p>
+   </div>
+  </div>
+ </section>;
+}
 
-function Approach(){return <section className="v2-section v2-container" id="process"><div className="v2-heading-row v2-reveal"><div><Label number="05">From question to implementation</Label><h2>Find the cause.<br/><em>Follow through.</em></h2></div><p>Our corrosion-resolution approach connects investigation and engineering with validation and implementation. The work continues beyond the diagnosis.</p></div><div className="v2-process">{process.map(([title,text],i)=><article className="v2-reveal" key={title}><div className="v2-step-number">{num(i)}<span aria-hidden="true">→</span></div><h3>{title}</h3><p>{text}</p></article>)}</div><div className="v2-process-note"><span><Icon name="shield"/>Evidence informs the decision. Validation checks the solution.</span><a className="v2-text-link" href="#contact">Talk through your challenge<Icon name="arrow"/></a></div></section>}
+function Footer(){
+ return <footer className="n5-foot">
+  <div className="n5-wrap">
+   <div className="n5-foot-top">
+    <Logo className="n5-logo-foot"/>
+    <p className="n5-foot-tag">Connected expertise.<br/><span>Boundless possibilities.</span></p>
+    <nav className="n5-foot-nav" aria-label="Footer">{[...links,['#faq','Questions'],['#contact','Contact']].map(([href,label])=><a key={href} href={href}>{label}</a>)}</nav>
+   </div>
+   <details id="privacy" className="n5-privacy">
+    <summary>Privacy notice<span className="n5-faq-icon" aria-hidden="true"/></summary>
+    <div>
+     <h3>Project enquiries</h3>
+     <p>Your name, email, optional phone, subject, and message are sent to FormSubmit to deliver your enquiry to {company.email}. Contact the team to request access or deletion. Please do not submit confidential project data.</p>
+     <h3>Website data &amp; WhatsApp</h3>
+     <p>This website does not add tracking cookies or analytics. Your hosting provider may keep access logs under its own policy. Opening WhatsApp leaves this website and uses WhatsApp’s privacy terms. Its link is available only after the official business number is configured.</p>
+     <p>Privacy questions: <a href={`mailto:${company.email}`}>{company.email}</a>.</p>
+    </div>
+   </details>
+   <div className="n5-foot-bottom">
+    <span>© {new Date().getFullYear()} NexaFive Global. {company.tagline}</span>
+    <a href="/">View the original design<Glyph name="up"/></a>
+   </div>
+  </div>
+ </footer>;
+}
 
-function Research({verified}){return <section id="partners" className="v2-research"><div className="v2-container v2-section v2-research-layout"><div className="v2-reveal"><Label number="06">Research & collaboration</Label><h2>Curiosity, backed<br/>by <em>evidence.</em></h2><p>Academic insight and diagnostic testing bring a different depth to industrial questions. Our published research network identifies Missouri S&T and Kansas State University.</p><p className="v2-small">{verified?claims.partnerships:'Ask our team about the current collaboration scope for your program.'}</p><div className="v2-standards"><span>ASTM</span><span>SAE</span><span>ISO</span><small>Confirm applicable standards, laboratory accreditation, and OEM procedures for your test program.</small></div></div><div className="v2-research-partners v2-reveal"><article><div><img src="/assets/missouri-st-logo.png" alt="Missouri S&T university logo" width="2315" height="1880" loading="lazy"/></div><h3>Missouri S&T</h3><p>Missouri University of Science and Technology</p></article><article><div><img src="/assets/university-1.jpg" alt="Kansas State University wordmark" width="300" height="158" loading="lazy"/></div><h3>Kansas State University</h3><p>College of Engineering</p></article><details><summary>Explore diagnostic methods<span>+</span></summary><p>SEM/EDX, EIS, cross-section metallography, galvanic testing, and accelerated corrosion testing can support material and interface investigations. Discuss test scope and applicable procedures with the team.</p></details></div></div></section>}
-
-function Questions(){const qa=[['Where should we start?','Start with your engineering challenge: a material decision, a failed part, a battery program, or a production requirement. Share the context through the enquiry form so we can discuss the scope and next steps.'],['Can you support more than one stage of a program?','Yes. The published service scope spans design and simulation, research and diagnostic testing, solution engineering, prototype validation, and implementation support. Specific deliverables are agreed for each program.'],['What does the AI/ML offering involve?','Materials and manufacturing decision support, including material selection, stamping optimization, structural integrity, corrosion risk scoring, and part performance. Contact the team to confirm data requirements, validation needs, platform fit, and availability.'],['Do you work in healthcare?','The healthcare technology offering focuses on EHR software development, healthcare data integration, and secure software solutions for providers and health systems.']];return <section id="faq" className="v2-section v2-container v2-questions"><div className="v2-reveal"><Label>Before we get started</Label><h2>A few useful<br/>answers.</h2></div><div>{qa.map(([q,a])=><details key={q}><summary>{q}<span>+</span></summary><p>{a}</p></details>)}</div></section>}
-
-export default function VersionTwo({config={}}){return <div className="v2"><a className="skip-link" href="#main">Skip to content</a><div className="v2-edition"><div className="v2-container"><span>NEXAFIVE GLOBAL <span className="v2-edition-divider">/</span> DESIGN 02</span><a href="/">View the original design<Icon name="arrow"/></a></div></div><Navigation/><main id="main"><Hero/><Thinking/><Capabilities/><Solutions/><Sectors/><Approach/><Research verified={config.verified}/><Questions/><section className="v2-invitation"><div className="v2-container v2-reveal"><Label>Innovate beyond boundaries.</Label><h2>Bring the challenge.<br/>Let’s find <span>a way forward.</span></h2><a href="#contact" aria-label="Start a project" className="v2-invitation-arrow"><Icon name="arrow"/></a><p>Materials. Manufacturing. Engineering.<br/>A conversation is the first step.</p></div></section><ContactForm/></main><Footer/><div className="v2-design-link"><a href="/">Compare with Version 1 <Icon name="arrow"/></a><span>{company.tagline}</span></div></div>}
+export default function VersionTwo({config={}}){
+ const [palette,setPalette]=useState(false);
+ const [shortcut,setShortcut]=useState('⌘K');
+ useReveal();
+ usePointerGlow();
+ useEffect(()=>{
+  if(!/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent))setShortcut('Ctrl K');
+  const onKey=event=>{
+   const typing=event.target.closest?.('input, textarea, select, [contenteditable="true"]');
+   if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==='k'){event.preventDefault();setPalette(value=>!value)}
+   else if(event.key==='/'&&!typing&&!event.metaKey&&!event.ctrlKey){event.preventDefault();setPalette(true)}
+  };
+  document.addEventListener('keydown',onKey);
+  return()=>document.removeEventListener('keydown',onKey);
+ },[]);
+ return <div className="v2">
+  <a className="n5-skip" href="#main">Skip to content</a>
+  <Island onSearch={()=>setPalette(true)} shortcut={shortcut}/>
+  <Rail/>
+  <main id="main">
+   <Hero/>
+   <Capabilities/>
+   <Method/>
+   <Sectors/>
+   <Research verified={config.verified}/>
+   <Enquiry/>
+  </main>
+  <Footer/>
+  <CommandPalette open={palette} onClose={()=>setPalette(false)}/>
+ </div>;
+}

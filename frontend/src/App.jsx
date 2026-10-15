@@ -15,6 +15,6 @@ export default function App({path='/',config={}}){
   const click=event=>{if(event.target.closest('a[href="#privacy"]')){const details=document.getElementById('privacy');if(details)details.open=true}};
   reveal();window.addEventListener('hashchange',reveal);document.addEventListener('click',click);return()=>{window.removeEventListener('hashchange',reveal);document.removeEventListener('click',click)};
  },[]);
- if(path==='/v2')return <><ScrollProgress/><VersionTwo config={config}/><WhatsApp number={config.whatsapp}/></>;
+ if(path==='/v2')return <><VersionTwo config={config}/><WhatsApp number={config.whatsapp}/></>;
  return <><ScrollProgress/><a className="skip-link" href="#main">Skip to content</a><Header path={path}/><main id="main"><PageContent path={path} config={config}/></main><Footer/><WhatsApp number={config.whatsapp}/></>;
 }

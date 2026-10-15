@@ -9,46 +9,54 @@ Run `npm install` once, then `npm run dev` from the repository root.
 
 Production: `npm run build`, then `npm start`. The same two paths are available at http://localhost:3001. No AI credentials are required. This change does not deploy either version.
 
-## Business review
+## Business understanding
 
-Reviewed all content on the live https://nexafiveglobal.com/ homepage on October 15, 2026, including its navigation, capabilities, solutions, process, industries, research, and enquiry sections. Its internal navigation points to sections on one page. The current text is archived in v2-source-content.txt; the existing content module remains the shared source for the five services, industries, disciplines, and process.
+NexaFive Global is a specialized engineering and technology consultancy in Minneapolis. It connects five disciplines (Science, Engineering, Research, Material, Eco) across five capabilities: battery module & pack engineering, lightweight automotive solutions, high-performance tooling & manufacturing, the AI/ML optimization platform, and corrosion mitigation. Its published five-step process describes corrosion problem resolution, from intake through implementation support. It serves automotive OEMs, tier suppliers, energy/BEV, healthcare technologies (EHR software and data integration, not clinical care) and industrial manufacturing. All copy comes from the shared `frontend/src/content.js`, so both versions stay consistent. The live-site text is archived in `v2-source-content.txt`.
 
-NexaFive is a specialized engineering and technology consultancy. Its work spans materials science, manufacturing, mobility and energy systems. The five capabilities are battery module/pack engineering, lightweight automotive solutions, tooling/manufacturing, AI/ML optimization, and corrosion mitigation. These connect design and simulation with testing and implementation. Healthcare is a software/data integration offering (including EHR), not clinical care. The five-step published process specifically describes corrosion problem resolution; Version 2 labels it accordingly rather than claiming every project follows that sequence.
-
-The live source describes university agreements, laboratory accreditation, OEM procedures, and a proprietary platform. Version 2 preserves the existing qualified wording and verification configuration rather than asserting independent confirmation of those claims. It adds no invented clients, testimonials, case studies, performance metrics, or certifications.
+University agreements, laboratory accreditation, OEM procedures and proprietary-platform wording stay behind `PUBLISH_VERIFIED_CLAIMS`, as in Version 1. Version 2 adds no clients, testimonials, case studies, metrics or certifications.
 
 ## Design direction
 
-An original engineering editorial direction, independent of the healthcare reference: oversized black typography, the original logo blue (#0E579E), white and pale gray surfaces, fine rules, square actions, and alternating light/dark sections. The logo is the existing unmodified PNG at its original proportions. Both official university marks are preserved without cropping.
+The concept comes from the "5" in the N5 mark: five disciplines, five capabilities, a five-step method. It uses no template or reference layout. The palette is limited to the logo's blue `#0E579E`, near-black `#080A0B`, white and tints of that blue. The original PNG logo is unchanged; because it has a white background, it always sits on the white navigation island and footer.
 
-The page explains the connections between material, process and performance. Expandable capabilities keep detailed applications on the same page. The industry selector exposes each of the five business sectors. The technical ring, entry motion and scroll reveals add restrained movement; reduced-motion preferences disable animation. Reading progress and the existing loading screen work in both versions.
+To reduce scrolling, each chapter is about one screen and long lists become interactive stages. Desktop height dropped from about 10 screens to about 6, and phone height from about 14 to about 9.
+
+| Chapter | What it does |
+| --- | --- |
+| Hero | Kinetic headline and a live **constellation**: the five disciplines on a pentagon with a travelling pulse. It cycles automatically, tilts with the pointer and shows each discipline when tapped. |
+| Capabilities (dark) | All five services on **one stage**. Tabs with progress bars tour automatically and pause on hover or interaction. Each service has its own animated engineering illustration: cells charging, a car drawn in multi-material, a press forming a part, signals crossing a network, ions stopped by a coating stack. |
+| Method | The five steps as an animated **track** with stations. The three integrated solutions sit underneath (a swipe row on phones). |
+| Industries | A horizontal **expanding accordion** of the five sectors (a vertical accordion on phones). |
+| Research (dark) | University partners, diagnostic methods and standards, with the qualified wording kept. |
+| Contact | Floating-label enquiry form, direct contact details and FAQ, in one screen. |
+
+Other features:
+
+- **Spotlight search**: press ⌘K / Ctrl K, `/`, or the search button. It jumps to any section, capability or industry, and can start an email, call or enquiry.
+- **Chapter rail**: shows the current chapter on wide screens and adapts to light or dark sections.
+- **Context-aware enquiry**: a "Discuss this capability" or "Discuss your program" button pre-selects the matching form subject and focuses the form.
+- Pointer-following light on cards, scroll reveals, and scroll-linked depth where the browser supports scroll-driven animations.
+- Deep links such as `/v2#battery-engineering` open the matching capability.
+
+## Accessibility and robustness
+
+- Server-rendered: all copy, all five capability panels and every anchor are in the HTML without JavaScript.
+- Accessible tablist, accordion, combobox/listbox and modal-dialog patterns, with keyboard support (arrow keys, Home/End, Escape) and visible focus.
+- `prefers-reduced-motion` turns off auto-tours and decorative motion; content stays visible.
+- Strict CSP compatible: no inline style attributes; dynamic values are set through CSSOM custom properties.
+- The intro animation waits for the existing loading screen to finish.
 
 ## Implementation
 
-- frontend/src/v2/VersionTwo.jsx: independent layout and local interactions.
-- frontend/src/v2/version-two.css: scoped styles; Version 1 retains its existing layout.
-- frontend/src/App.jsx and routes.js: select Version 2 at /v2, including SSR metadata and a working /v2/ redirect.
-- Existing Express backend, React SSR/hydration, contact form, privacy notice, fonts and original logo are reused.
-- /v2 stays out of the main production sitemap while it is an alternate design for comparison.
-- Reuses locally stored photography; no new third-party runtime dependency or API.
+- `frontend/src/v2/VersionTwo.jsx`: page shell, navigation island, hero, chapter rail, research and footer.
+- `Constellation.jsx`, `Capabilities.jsx`, `Illustrations.jsx`, `Method.jsx`, `Sectors.jsx`, `Enquiry.jsx`, `CommandPalette.jsx`: the chapters and features.
+- `Glyph.jsx` (icons), `motion.js` (reveal, in-view and pointer helpers), `v2.css` (scoped styles).
+- `frontend/src/components/enquiry.js`: shared FormSubmit integration used by both versions, with unchanged field names.
+- `/v2` stays out of the production sitemap while it is an alternate design.
 
 ## Verification
 
-- Production build and seven backend tests pass, including the new Version 2 SSR/anchor checks and the original logo checksum.
-- Browser layouts checked at 320, 375, 390, 430, 768, 1024, 1440 and 1920px: no horizontal page overflow or clipped visible main-content text.
-- Mobile menu opens, closes on selection, and restores focus on Escape.
-- Capability sections open with pointer and keyboard. Industry selection switches all five sectors. FAQ and privacy expand inline.
-- Contact success and error feedback checked with intercepted requests; no real enquiry sent.
-- All images load. Scroll progress moves from 0 to 100 and back. Reduced motion disables the decorative ring. No application errors during normal production use; the mocked HTTP 500 form test produced the expected resource error.
-- Screenshots: v2-desktop.png, v2-mobile.png, v2-research-mobile.png, v2-full-desktop.png.
-
-
-## Creative revision — October 15, 2026
-
-The creative direction now centers on a custom SVG exploded battery assembly, replacing the low-resolution bearing photo completely in Version 2. It is labeled as a concept illustration. Material, System, and Performance buttons change the layer emphasis and explanatory text. CSS animates individual layers; reduced-motion preferences disable movement. No image generation service, animation library, or runtime API is needed.
-
-The capability photo has been replaced with a five-node engineering map. Each node opens the corresponding inline service details. The three solution narratives follow a stepped, connected path, and the process uses a vertical resolution sequence. Industry panels now use large typographic numbers and line artwork instead of stock photos. The original NexaFive logo and the official university marks remain unchanged.
-
-Implementation: SystemSculpture.jsx contains the original vector artwork and its controls; creative.css scopes the new composition to Version 2. VersionTwo.jsx integrates the artwork, capability map, and industry graphics. Version 1 is unchanged.
-
-Verification: eight widths from 320 to 1920px showed no page overflow or clipped visible text. All three perspective controls, the capability map links, the mobile menu, and all five industry selections worked. Reduced motion stops the layer animation. Production build and all seven backend tests pass. Current screenshots use the v2-creative-* prefix; earlier v2-* screenshots document the previous iteration.
+- Production build and seven backend tests pass, including the Version 2 SSR, anchor and logo checks.
+- Checked at 320, 360, 375, 390, 414, 430, 667×375, 768, 1024, 1280, 1440 and 1920px: no horizontal overflow, no text under 12px (10px for uppercase labels), touch targets of at least 40px, no console errors.
+- 21 browser interaction checks pass: search palette (open, filter, Enter, Escape, `/`), capability tabs (click, arrow keys, deep link), pre-selected enquiry subject and focus, accordion, method stations, form validation, intercepted form submission with the original field names (no real enquiry sent), the mobile menu, and reduced-motion behaviour.
+- Screenshots: `v2-desktop.png`, `v2-capabilities.png`, `v2-mobile.png`.
