@@ -16,4 +16,15 @@ test('former page URLs redirect to corresponding homepage sections',()=>withServ
 
 test('served logo is byte-for-byte the original N5 artwork',()=>withServer(async base=>{const response=await fetch(base+'/assets/nexafive-logo.png');assert.equal(response.status,200);const bytes=Buffer.from(await response.arrayBuffer());assert.equal(createHash('sha256').update(bytes).digest('hex'),'dc55a5e5693956f24b6dc353549b4ad57e16b31d2037eac60e408f183cf03a5f');assert.match(response.headers.get('content-type'),/image\/png/);assert.equal((await fetch(base+'/assets/nexafive-logo.svg')).status,404)}));
 
+test('second design renders independently with complete inline business content',()=>withServer(async base=>{
+ const response=await fetch(base+'/v2');assert.equal(response.status,200);const html=await response.text();
+ assert.equal((html.match(/<h1/g)||[]).length,1);assert.match(html,/Engineering<br\/>what/);assert.match(html,/class="v2"/);
+ for(const id of ['about','pillars','solutions','industries','process','partners','faq','contact','privacy','battery-engineering','lightweight-automotive','tooling-manufacturing','ai-optimization','corrosion-mitigation'])assert.match(html,new RegExp(`id="${id}"`));
+ for(const match of html.matchAll(/<a\b[^>]*href="#([^"]+)"/g))assert.match(html,new RegExp(`id="${match[1]}"`));
+ assert.match(html,/missouri-st-logo\.png/);assert.match(html,/nexafive-logo\.png/);assert.match(html,/formsubmit\.co\/ajax\/info@nexafiveglobal\.com/);
+ assert.match(html,/canonical" href="[^"]+\/v2"/);assert.match(html,/View the original design/);
+ const original=await(await fetch(base+'/')).text();assert.match(original,/class="hero-band"/);assert(!original.includes('class="v2"'));
+ assert.equal((await fetch(base+'/v2/',{redirect:'manual'})).status,308);
+}));
+
 test('security headers, self-hosted fonts and redirects',()=>withServer(async base=>{const response=await fetch(base+'/fonts/outfit-latin.woff2');assert.equal(response.status,200);assert.match(response.headers.get('content-security-policy'),/script-src 'self'/);assert.equal(response.headers.get('x-powered-by'),null);assert.equal((await fetch(base+'/fonts/jakarta-latin.woff2')).status,200);assert.equal((await fetch(base+'/assets/no-such-image.png')).status,404);const redirect=await fetch(base+'/index.html',{redirect:'manual'});assert.equal(redirect.status,301);assert.equal(redirect.headers.get('location'),'/')}));

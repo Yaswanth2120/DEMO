@@ -4,7 +4,7 @@ export function revealWhenReady(){
  const loader=window.__nexafiveLoader;
  if(!loader)return()=>{};
  let cancelled=false;
- const hero=document.querySelector('.hero-visual img');
+ const hero=document.querySelector('.hero-visual img, .v2-hero-image');
  const assets=[document.fonts?.ready||Promise.resolve()];
  if(hero?.decode)assets.push(hero.decode());
  const deadline=window.setTimeout(()=>{if(!cancelled)loader.ready()},2500);
