@@ -5,10 +5,25 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
  <meta name="theme-color" content="#0E579E" />
  <link rel="icon" href="/assets/favicon.png" type="image/png" />
+ <link rel="stylesheet" href="/loading.css" />
+ <script src="/loading-boot.js"></script>
  <!--app-head-->
  <title>NexaFive Global — Innovate Beyond Boundaries</title>
 </head>
 <body>
+ <div id="page-loader" class="page-loader" hidden>
+  <div class="loader-content">
+   <div class="loader-ring" aria-hidden="true">
+    <svg viewBox="0 0 120 120" fill="none"><circle class="loader-ring-track" cx="60" cy="60" r="54" stroke-width="2"/><circle class="loader-ring-spinner" cx="60" cy="60" r="54" stroke-width="2" stroke-linecap="round"/></svg>
+    <div class="loader-mark"><img src="/assets/favicon.png" width="43" height="43" alt=""/></div>
+   </div>
+   <p class="loader-brand">NexaFive <span>Global</span></p>
+   <p class="loader-tagline">Innovate Beyond Boundaries.</p>
+   <div class="loader-line" aria-hidden="true"></div>
+   <p class="loader-status" role="status">Loading NexaFive Global…</p>
+   <button id="loading-skip" class="loading-skip" type="button">Skip animation</button>
+  </div>
+ </div>
  <div id="root"><!--app-html--></div>
  <!--app-config-->
  <script type="module" src="/src/entry-client.jsx"></script>

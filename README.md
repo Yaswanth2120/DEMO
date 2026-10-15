@@ -130,3 +130,13 @@ The inline privacy notice covers enquiries, hosting logs and WhatsApp. No tracki
 - Current screenshots are in `docs/`; reference screenshots are review material only and are not product assets.
 
 Live contact email delivery and a configured WhatsApp conversation need final production verification. Accessibility review is not formal WCAG certification; production Core Web Vitals have not been measured.
+
+## Scroll progress and loading animation
+
+A fixed 3px blue bar at the very top follows the actual reading position in both directions: empty at the top, full at the bottom. It recalculates after viewport changes, expanded details and service filtering. Passive scroll events and animation-frame updates keep it lightweight; its accessible progress value updates without repeated live announcements.
+
+The initial loading animation uses the original N5 favicon, a blue rotating ring, a dark branded background and an indeterminate loading line. React reveals the page after the initial fonts and hero image settle. Normal motion includes a short 450ms minimum intro and a 220ms fade; reduced motion disables animation and removes the minimum hold. No fake loading percentages are displayed.
+
+Skip animation works independently of React, including when its bundle fails. A standalone 5-second deadline releases the page if the application cannot finish booting. The server-rendered page remains visible with JavaScript disabled. The intro runs on full page loads, not on same-page navigation, and does not replay on browser back/forward cache restoration. No new dependencies or changes to the original logo were introduced.
+
+Browser verification covers scroll progress in both directions across all seven viewport widths, dynamic page-height updates, normal loading, missing application bundles, the skip button, reduced motion, and JavaScript-disabled access. Screenshots: `docs/loading-desktop.png`, `docs/loading-mobile.png`, and `docs/scroll-progress-desktop.png`.
