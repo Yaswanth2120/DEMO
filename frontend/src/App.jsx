@@ -1,5 +1,6 @@
 import {useEffect} from 'react';
 import ScrollProgress from './components/ScrollProgress.jsx';
+import {revealOnScroll} from './utils/reveal.js';
 import {revealWhenReady} from './utils/loading.js';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
@@ -7,6 +8,7 @@ import WhatsApp from './components/WhatsApp.jsx';
 import PageContent from './pages/PageContent.jsx';
 export default function App({path='/',config={}}){
  useEffect(revealWhenReady,[]);
+ useEffect(revealOnScroll,[]);
  useEffect(()=>{
   const reveal=()=>{if(window.location.hash==='#privacy'){const details=document.getElementById('privacy');if(details)details.open=true}};
   const click=event=>{if(event.target.closest('a[href="#privacy"]')){const details=document.getElementById('privacy');if(details)details.open=true}};
