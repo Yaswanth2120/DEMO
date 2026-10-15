@@ -1,6 +1,6 @@
 # Review of changes/Changes
 
-The five supplied files are retained unchanged as proposal snapshots; the running app uses frontend/src.
+The five supplied proposal snapshots (formerly in changes/Changes) were merged selectively into frontend/src and the snapshot folder has since been removed; the running app uses frontend/src.
 
 Applied: supplied stock photography in the hero, about, services and solutions; official university imagery; a shrinking header after scrolling; section entrance animations; and a compact research standards strip. Photos are downloaded into public/assets, with source URLs in changes-assets.json. Image descriptions were corrected to match the actual assets. The Kansas State source is a wordmark, so it is contained rather than cropped.
 
