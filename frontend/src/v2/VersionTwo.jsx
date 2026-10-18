@@ -90,7 +90,6 @@ function Hero(){
    </div>
    <Constellation/>
   </div>
-  <a className="n5-scroll-cue" href="#pillars" aria-label="Scroll to capabilities"><span/></a>
  </section>;
 }
 

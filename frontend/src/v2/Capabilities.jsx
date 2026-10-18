@@ -35,7 +35,7 @@ export default function Capabilities(){
   event.preventDefault();choose(next,true);
  };
 
- return <section id="pillars" ref={section} className="n5-cap n5-dark" data-tone="dark" data-playing={playing&&inView}>
+ return <section id="pillars" ref={section} className="n5-cap" data-tone="light" data-playing={playing&&inView}>
   <div className="n5-wrap">
    <header className="n5-head n5-head-row n5-r">
     <div><p className="n5-eyebrow">Capabilities</p><h2>Five capabilities.<br/><span>One connected system.</span></h2></div>
