@@ -6,7 +6,7 @@ Run `npm install` once, then `npm run dev` from the repository root.
 
 - Primary site: http://localhost:5173/
 - Classic backup: http://localhost:5173/backup
-- Board Members: http://localhost:5173/boardmembers
+- Our Board: http://localhost:5173/boardmembers
 
 Production: `npm run build`, then `npm start`. The same routes are available at http://localhost:3001. No AI credentials are required. This change does not deploy the site.
 

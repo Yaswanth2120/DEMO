@@ -12,7 +12,7 @@ import {useReveal,usePointerGlow} from './motion.js';
 import './v2.css';
 import MobileFold from '../v3/MobileFold.jsx';
 
-const links=[['#pillars','Capabilities'],['#process','Method'],['#industries','Industries'],['#partners','Research'],['/boardmembers','Board Members']];
+const links=[['#pillars','Capabilities'],['#process','Method'],['#industries','Industries'],['#partners','Research'],['/boardmembers','Our Board']];
 const chapters=[['hero','Intro'],['pillars','Capabilities'],['process','Method'],['industries','Industries'],['partners','Research'],['contact','Contact']];
 
 function Logo({className=''}){

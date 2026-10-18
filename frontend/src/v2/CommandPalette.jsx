@@ -14,7 +14,7 @@ function buildItems(boardPath){
   {group:'Actions',icon:'arrow',title:'Start a project enquiry',detail:'Open the enquiry form',run:()=>{enquire();scrollToHash('#contact')}},
   {group:'Actions',icon:'mail',title:`Email ${company.email}`,detail:'Opens your mail app',run:()=>{window.location.href=`mailto:${company.email}`}},
   {group:'Actions',icon:'phone',title:`Call ${company.phoneDisplay}`,detail:company.location,run:()=>{window.location.href=`tel:${company.phone}`}},
-  {group:'Go to',icon:'arrow',title:'Board Members',detail:'NexaFive Global governance and leadership',run:()=>{window.location.href=boardPath}},
+  {group:'Go to',icon:'arrow',title:'Our Board',detail:'NexaFive Global governance and leadership',run:()=>{window.location.href=boardPath}},
   {group:'Actions',icon:'up',title:'View the classic site',detail:'Version 1 backup',run:()=>{window.location.href='/backup'}}
  ];
 }

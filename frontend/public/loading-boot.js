@@ -4,6 +4,8 @@
  const started=performance.now();
  const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
  let dismissed=false,prepared=false,readyTimer=0,hideTimer=0,observer;
+ // The board page renders its own opening sequence, so it skips the general loader.
+ if(/\/boardmembers\/?$/.test(location.pathname)){try{const key='nexafive-board-intro';if(sessionStorage.getItem(key))documentRoot.classList.add('board-intro-quick');sessionStorage.setItem(key,'1')}catch{/* Storage can be unavailable; the full intro still plays. */}return}
  documentRoot.classList.add('site-loading');
  const dismiss=()=>{
   if(dismissed)return;
