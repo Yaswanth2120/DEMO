@@ -24,3 +24,4 @@ html.n5-motion .v2 .n5-r:focus-within { opacity:1;transform:none; }
 @media(max-width:600px){.n5-theme-shell .n5-island-tools .n5-search{display:none;}.n5-theme-shell .n5-logo img{width:128px;}.n5-theme-shell .n5-island-tools{gap:6px;}.n5-theme-shell .n5-island-bar{gap:8px;padding-left:10px;}.n5-theme-control{padding-inline:5px;gap:2px;}.n5-theme-control select{font-size:11px;max-width:72px;}}
 .v2 .n5-theme-control {display:flex;align-items:center;height:42px;margin:0;}
 .v2 .n5-theme-control select {width:auto;min-height:40px;margin:0;padding:0 3px;border-radius:0;box-shadow:none;}
+.v3-preview .n5-burger {background:#1761a8;}
