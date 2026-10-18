@@ -17,7 +17,7 @@ function Logo({className=''}){
  return <a className={`n5-logo ${className}`} href="#hero" aria-label="NexaFive Global home"><img src="/assets/nexafive-logo.png" alt="NexaFive Global — Innovate Beyond Boundaries" width="163" height="45"/></a>;
 }
 
-function Island({onSearch,shortcut}){
+function Island({onSearch,shortcut,boardPath}){
  const [open,setOpen]=useState(false);
  const [compact,setCompact]=useState(false);
  const toggle=useRef(null);
@@ -41,7 +41,7 @@ function Island({onSearch,shortcut}){
   <div className="n5-island-bar">
    <Logo/>
    <nav id="n5-nav" className="n5-nav" aria-label="Main navigation">
-    {links.map(([href,label])=><a key={href} href={href} onClick={close}>{label}</a>)}
+    {links.map(([href,label])=><a key={href} href={href==='/boardmembers'?boardPath:href} onClick={close}>{label}</a>)}
     <a className="n5-nav-contact" href="#contact" onClick={close}>Start a project<Glyph name="arrow"/></a>
    </nav>
    <div className="n5-island-tools">
@@ -127,13 +127,13 @@ function Research({verified}){
  </section>;
 }
 
-function Footer(){
+function Footer({boardPath}){
  return <footer className="n5-foot">
   <div className="n5-wrap">
    <div className="n5-foot-top">
     <Logo className="n5-logo-foot"/>
     <p className="n5-foot-tag">Connected expertise.<br/><span>Boundless possibilities.</span></p>
-    <nav className="n5-foot-nav" aria-label="Footer">{[...links,['#faq','Questions'],['#contact','Contact']].map(([href,label])=><a key={href} href={href}>{label}</a>)}</nav>
+    <nav className="n5-foot-nav" aria-label="Footer">{[...links,['#faq','Questions'],['#contact','Contact']].map(([href,label])=><a key={href} href={href==='/boardmembers'?boardPath:href}>{label}</a>)}</nav>
    </div>
    <details id="privacy" className="n5-privacy">
     <summary>Privacy notice<span className="n5-faq-icon" aria-hidden="true"/></summary>
@@ -153,7 +153,8 @@ function Footer(){
  </footer>;
 }
 
-export default function VersionTwo({config={}}){
+export default function VersionTwo({config={},basePath='',mixed=false}){
+ const boardPath=`${basePath}/boardmembers`;
  const [palette,setPalette]=useState(false);
  const [shortcut,setShortcut]=useState('⌘K');
  useReveal();
@@ -170,17 +171,17 @@ export default function VersionTwo({config={}}){
  },[]);
  return <div className="v2">
   <a className="n5-skip" href="#main">Skip to content</a>
-  <Island onSearch={()=>setPalette(true)} shortcut={shortcut}/>
+  <Island boardPath={boardPath} onSearch={()=>setPalette(true)} shortcut={shortcut}/>
   <Rail/>
   <main id="main">
    <Hero/>
-   <Capabilities/>
+   {mixed?<div className="v3-preview n5-mixed-dark"><div className="v2"><Capabilities dark/></div></div>:<Capabilities/>}
    <Method/>
-   <Sectors/>
+   {mixed?<div className="v3-preview n5-mixed-dark"><div className="v2"><Sectors dark/></div></div>:<Sectors/>}
    <Research verified={config.verified}/>
    <Enquiry/>
   </main>
-  <Footer/>
-  <CommandPalette open={palette} onClose={()=>setPalette(false)}/>
+  <Footer boardPath={boardPath}/>
+  <CommandPalette boardPath={boardPath} open={palette} onClose={()=>setPalette(false)}/>
  </div>;
 }

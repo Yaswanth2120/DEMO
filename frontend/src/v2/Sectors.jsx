@@ -8,7 +8,7 @@ const notes=['Lightweight structures. Lasting performance.','A stronger link in 
 const icons=['car','link','battery','pulse','factory'];
 const subjects=['Engineering consultation','Corrosion testing and mitigation','Energy / BEV engineering','General inquiry','Manufacturing and tooling support'];
 
-export default function Sectors(){
+export default function Sectors({dark=false}){
  const [open,setOpen]=useState(0);
  useEffect(()=>{
   const onIndustry=event=>{if(Number.isInteger(event.detail))setOpen(event.detail)};
@@ -17,7 +17,7 @@ export default function Sectors(){
  },[]);
  const preview=index=>{if(window.matchMedia('(hover: hover) and (min-width: 961px)').matches)setOpen(index)};
 
- return <section id="industries" className="n5-sectors" data-tone="light">
+ return <section id="industries" className="n5-sectors" data-tone={dark?'dark':'light'}>
   <div className="n5-wrap">
    <header className="n5-head n5-head-row n5-r">
     <div><p className="n5-eyebrow">Industries</p><h2>Different industries.<br/><span>Shared fundamentals.</span></h2></div>

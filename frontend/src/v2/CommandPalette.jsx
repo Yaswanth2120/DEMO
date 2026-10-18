@@ -4,7 +4,7 @@ import Glyph from './Glyph.jsx';
 import {enquire} from './Enquiry.jsx';
 import {scrollToHash} from './motion.js';
 
-function buildItems(){
+function buildItems(boardPath){
  const go=hash=>()=>scrollToHash(hash);
  return [
   ...[['#hero','Home','Innovate beyond boundaries'],['#about','Five disciplines','Science · Engineering · Research · Material · Eco'],['#pillars','Capabilities','Five connected capabilities'],['#process','Method','Five-step engineering process'],['#solutions','Integrated solutions','Engineering, research and materials intelligence'],['#industries','Industries','Where we work'],['#partners','Research & collaboration','Universities and diagnostic methods'],['#faq','Questions','Good to know'],['#contact','Contact','Start a conversation']]
@@ -14,16 +14,16 @@ function buildItems(){
   {group:'Actions',icon:'arrow',title:'Start a project enquiry',detail:'Open the enquiry form',run:()=>{enquire();scrollToHash('#contact')}},
   {group:'Actions',icon:'mail',title:`Email ${company.email}`,detail:'Opens your mail app',run:()=>{window.location.href=`mailto:${company.email}`}},
   {group:'Actions',icon:'phone',title:`Call ${company.phoneDisplay}`,detail:company.location,run:()=>{window.location.href=`tel:${company.phone}`}},
-  {group:'Go to',icon:'arrow',title:'Board Members',detail:'NexaFive Global governance and leadership',run:()=>{window.location.href='/boardmembers'}},
+  {group:'Go to',icon:'arrow',title:'Board Members',detail:'NexaFive Global governance and leadership',run:()=>{window.location.href=boardPath}},
   {group:'Actions',icon:'up',title:'View the classic site',detail:'Version 1 backup',run:()=>{window.location.href='/backup'}}
  ];
 }
 
-export default function CommandPalette({open,onClose}){
+export default function CommandPalette({open,onClose,boardPath='/boardmembers'}){
  const dialog=useRef(null),input=useRef(null),list=useRef(null);
  const [query,setQuery]=useState('');
  const [cursor,setCursor]=useState(0);
- const items=useMemo(buildItems,[]);
+ const items=useMemo(()=>buildItems(boardPath),[boardPath]);
  const results=useMemo(()=>{
   const terms=query.toLowerCase().split(/\s+/).filter(Boolean);
   return terms.length?items.filter(item=>{const text=`${item.title} ${item.detail} ${item.group}`.toLowerCase();return terms.every(term=>text.includes(term))}):items;

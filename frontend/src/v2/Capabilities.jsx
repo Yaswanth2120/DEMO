@@ -7,7 +7,7 @@ import {reducedMotion,useInView,pad,scrollToHash} from './motion.js';
 
 const subjectFor={'battery-engineering':'Energy / BEV engineering','lightweight-automotive':'Engineering consultation','tooling-manufacturing':'Manufacturing and tooling support','ai-optimization':'AI/ML platform inquiry','corrosion-mitigation':'Corrosion testing and mitigation'};
 
-export default function Capabilities(){
+export default function Capabilities({dark=false}){
  const [active,setActive]=useState(0);
  const [playing,setPlaying]=useState(false);
  const section=useRef(null),tabs=useRef([]);
@@ -35,7 +35,7 @@ export default function Capabilities(){
   event.preventDefault();choose(next,true);
  };
 
- return <section id="pillars" ref={section} className="n5-cap" data-tone="light" data-playing={playing&&inView}>
+ return <section id="pillars" ref={section} className="n5-cap" data-tone={dark?'dark':'light'} data-playing={playing&&inView}>
   <div className="n5-wrap">
    <header className="n5-head n5-head-row n5-r">
     <div><p className="n5-eyebrow">Capabilities</p><h2>Five capabilities.<br/><span>One connected system.</span></h2></div>

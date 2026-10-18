@@ -148,3 +148,12 @@ The five-discipline strip below the hero is now a compact, centered ticker cappe
 The engineering-focused design is the primary site at `/`. Version 1 is retained at `/backup` as a classic backup design. `/v2` redirects to `/`; Version 3 has been removed.
 
 The primary experience is built around the "5" in the N5 mark: an interactive five-discipline constellation, a focused capability stage with engineering illustrations, a five-step method track, expanding industry content, ⌘K / Ctrl K search, and contextual enquiry actions. It includes a Board Members route at `/boardmembers` plus a hover-paused industry collaboration reel within Research. The current board people, direct contacts, and industry collaborator names are clearly marked demonstration content in `frontend/src/content.js`; replace them with approved details before launch.
+
+### Current editions and section navigation
+
+- `/`: regular homepage.
+- `/v2`: the former dark `/v3` design.
+- `/v3`: mixed light/dark edition.
+- Each edition has a board page: `/boardmembers`, `/v2/boardmembers`, `/v3/boardmembers`.
+
+Board navigation returns to sections of the same edition. Section arrival is aligned after fonts and the loader settle. Scroll reveals reset when blocks leave view and replay on re-entry in either direction; reduced-motion users see content immediately.

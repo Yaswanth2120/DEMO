@@ -2,15 +2,16 @@ import {useEffect,useState} from 'react';
 
 export const reducedMotion=()=>typeof window!=='undefined'&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Content is fully visible without JavaScript; reveals are an enhancement added after hydration.
+// Re-arm only after a block leaves view, avoiding flicker near the reveal threshold.
 export function useReveal(){
  useEffect(()=>{
   if(!('IntersectionObserver' in window))return;
-  const root=document.documentElement;
-  root.classList.add('n5-motion');
-  const observer=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){entry.target.classList.add('is-in');observer.unobserve(entry.target)}},{rootMargin:'0px 0px -6% 0px',threshold:.08});
-  document.querySelectorAll('.n5-r').forEach(element=>observer.observe(element));
-  return()=>{observer.disconnect();root.classList.remove('n5-motion')};
+  const root=document.documentElement,query=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const targets=[...document.querySelectorAll('.n5-r')];
+  const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting&&entry.intersectionRatio>=.08)entry.target.classList.add('is-in');else if(!entry.isIntersecting)entry.target.classList.remove('is-in')}},{rootMargin:'0px 0px -6% 0px',threshold:[0,.08]});
+  const configure=()=>{observer.disconnect();root.classList.toggle('n5-motion',!query.matches);for(const target of targets){target.classList.remove('is-in');if(!query.matches)observer.observe(target)}};
+  configure();query.addEventListener('change',configure);
+  return()=>{observer.disconnect();query.removeEventListener('change',configure);root.classList.remove('n5-motion')};
  },[]);
 }
 
