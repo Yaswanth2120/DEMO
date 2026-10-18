@@ -1,6 +1,7 @@
 import {useEffect,useRef,useState} from 'react';
 import {boardMembers,company} from '../content.js';
 import Glyph from './Glyph.jsx';
+import {ThemeControl} from '../v3/Theme.jsx';
 import {useReveal} from './motion.js';
 import './v2.css';
 
@@ -19,7 +20,7 @@ function BoardHeader({basePath}){
   <div className="n5-island-bar">
    <a className="n5-logo" href={`${basePath||'/'}#hero`} aria-label="NexaFive Global home"><img src="/assets/nexafive-logo.png" alt="NexaFive Global — Innovate Beyond Boundaries" width="163" height="45"/></a>
    <nav id="board-navigation" className="n5-nav" aria-label="Main navigation">{links.map(([href,label])=><a key={href} href={destination(href)} aria-current={href==='/boardmembers'?'page':undefined} onClick={()=>setOpen(false)}>{label}</a>)}<a className="n5-nav-contact" href={`${basePath||'/'}#contact`} onClick={()=>setOpen(false)}>Start a project<Glyph name="arrow"/></a></nav>
-   <div className="n5-island-tools"><a className="n5-btn n5-btn-sm n5-island-cta" href={`${basePath||'/'}#contact`}>Let’s talk</a><button ref={toggle} className="n5-burger" type="button" aria-expanded={open} aria-controls="board-navigation" aria-label={open?'Close menu':'Open menu'} onClick={()=>setOpen(value=>!value)}><span/><span/></button></div>
+   <div className="n5-island-tools"><ThemeControl/><a className="n5-btn n5-btn-sm n5-island-cta" href={`${basePath||'/'}#contact`}>Let’s talk</a><button ref={toggle} className="n5-burger" type="button" aria-expanded={open} aria-controls="board-navigation" aria-label={open?'Close menu':'Open menu'} onClick={()=>setOpen(value=>!value)}><span/><span/></button></div>
   </div>
  </header>;
 }

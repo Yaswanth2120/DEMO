@@ -9,6 +9,7 @@ import PageContent from './pages/PageContent.jsx';
 import VersionTwo from './v2/VersionTwo.jsx';
 import BoardMembers from './v2/BoardMembers.jsx';
 import VersionThree,{DarkVersion} from './v3/VersionThree.jsx';
+import {ThemeShell} from './v3/Theme.jsx';
 import {useSectionArrival} from './utils/section-arrival.js';
 export default function App({path='/',config={}}){
  useEffect(revealWhenReady,[]);
@@ -22,7 +23,7 @@ export default function App({path='/',config={}}){
  if(path==='/')return <><VersionTwo config={config}/><WhatsApp number={config.whatsapp}/></>;
  if(path==='/v2')return <><DarkVersion config={config}/><WhatsApp number={config.whatsapp}/></>;
  if(path==='/v2/boardmembers')return <div className="v3-preview"><BoardMembers basePath="/v2"/><WhatsApp number={config.whatsapp}/></div>;
- if(path==='/v3/boardmembers')return <div className="n5-mixed"><BoardMembers basePath="/v3"/><WhatsApp number={config.whatsapp}/></div>;
+ if(path==='/v3/boardmembers')return <ThemeShell><BoardMembers basePath="/v3"/><WhatsApp number={config.whatsapp}/></ThemeShell>;
  if(path==='/v3')return <><VersionThree config={config}/><WhatsApp number={config.whatsapp}/></>;
  if(path==='/boardmembers')return <><BoardMembers/><WhatsApp number={config.whatsapp}/></>;
  return <><ScrollProgress/><a className="skip-link" href="#main">Skip to content</a><Header path={path}/><main id="main"><PageContent path={path} config={config}/></main><Footer/><WhatsApp number={config.whatsapp}/></>;

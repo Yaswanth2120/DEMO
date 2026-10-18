@@ -1,6 +1,7 @@
 import {useEffect,useRef,useState} from 'react';
 import {company,claims,demoIndustryCollaborators} from '../content.js';
 import Glyph from './Glyph.jsx';
+import {ThemeControl} from '../v3/Theme.jsx';
 import Constellation from './Constellation.jsx';
 import Capabilities from './Capabilities.jsx';
 import Method from './Method.jsx';
@@ -44,7 +45,7 @@ function Island({onSearch,shortcut,boardPath}){
     {links.map(([href,label])=><a key={href} href={href==='/boardmembers'?boardPath:href} onClick={close}>{label}</a>)}
     <a className="n5-nav-contact" href="#contact" onClick={close}>Start a project<Glyph name="arrow"/></a>
    </nav>
-   <div className="n5-island-tools">
+   <div className="n5-island-tools"><ThemeControl/>
     <button type="button" className="n5-search" onClick={onSearch} aria-label={`Search the site (${shortcut})`}><Glyph name="search"/><kbd>{shortcut}</kbd></button>
     <a className="n5-btn n5-btn-sm n5-island-cta" href="#contact">Let’s talk</a>
     <button type="button" ref={toggle} className="n5-burger" aria-expanded={open} aria-controls="n5-nav" aria-label={open?'Close menu':'Open menu'} onClick={()=>setOpen(value=>!value)}><span/><span/></button>
@@ -153,7 +154,7 @@ function Footer({boardPath}){
  </footer>;
 }
 
-export default function VersionTwo({config={},basePath='',mixed=false}){
+export default function VersionTwo({config={},basePath=''}){
  const boardPath=`${basePath}/boardmembers`;
  const [palette,setPalette]=useState(false);
  const [shortcut,setShortcut]=useState('⌘K');
@@ -175,9 +176,9 @@ export default function VersionTwo({config={},basePath='',mixed=false}){
   <Rail/>
   <main id="main">
    <Hero/>
-   {mixed?<div className="v3-preview n5-mixed-dark"><div className="v2"><Capabilities dark/></div></div>:<Capabilities/>}
+   <Capabilities/>
    <Method/>
-   {mixed?<div className="v3-preview n5-mixed-dark"><div className="v2"><Sectors dark/></div></div>:<Sectors/>}
+   <Sectors/>
    <Research verified={config.verified}/>
    <Enquiry/>
   </main>

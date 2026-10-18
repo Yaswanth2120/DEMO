@@ -1,0 +1,26 @@
+html.n5-motion .v2 .n5-r:focus-within { opacity:1;transform:none; }
+.v3-preview .n5-board-hero { background:radial-gradient(ellipse at 80% 30%,#17436599,transparent 70%),#07121e; }
+.v3-preview .n5-board-hero-note,.v3-preview .n5-board-card { background:#102439;border-color:#dceefc22; }
+.v3-preview .n5-board-cta { background:#07121e; }
+.v3-preview .n5-cap-tab[aria-selected="true"] .n5-cap-name,.v3-preview .n5-cap-tab[aria-selected="true"] .n5-cap-num {color:#fff;}
+.n5-theme-shell { background:#fff;color-scheme:light; }
+.n5-theme-shell.v3-preview {color-scheme:dark;}
+.n5-theme-control {display:flex;align-items:center;gap:4px;min-height:40px;padding:0 8px;border:1px solid #dce6ee;border-radius:12px;background:#fff;color:#102e4c;flex-shrink:0;}
+.n5-theme-control select {min-height:40px;max-width:86px;border:0;background:transparent;color:inherit;font:600 12px Jakarta,Arial,sans-serif;cursor:pointer;}
+.v3-preview .n5-theme-control {background:#102439;border-color:#b4dbf729;color:#eaf5ff;}
+.n5-theme-shell:not(.v3-preview) .n5-research {background:#f2f7fb;color:#536982;}
+.n5-theme-shell:not(.v3-preview) .v2 .n5-research :is(h2,h3,h4,strong) {color:#102e4c;}
+.n5-theme-shell:not(.v3-preview) .v2 .n5-research h2 span {color:#0e579e;}
+.n5-theme-shell:not(.v3-preview) .n5-research :is(.n5-eyebrow,.n5-link) {color:#0e579e;}
+.n5-theme-shell:not(.v3-preview) .n5-research :is(.n5-fine,.n5-partner p,.n5-subsection-heading > p:last-child,.n5-industry-card span) {color:#536982;}
+.n5-theme-shell:not(.v3-preview) :is(.n5-partner,.n5-industry-card,.n5-lab) {background:#fff;border-color:#cddde9;}
+.n5-theme-shell:not(.v3-preview) :is(.n5-chips li,.n5-standards span) {color:#0e579e;background:#edf4fa;border-color:#cddde9;}
+.n5-theme-shell:not(.v3-preview) .n5-industry-marquee::before {background:linear-gradient(90deg,#f2f7fb,transparent);}
+.n5-theme-shell:not(.v3-preview) .n5-industry-marquee::after {background:linear-gradient(-90deg,#f2f7fb,transparent);}
+.n5-theme-shell:not(.v3-preview) .n5-board-cta {background:#edf4fa;color:#536982;}
+.n5-theme-shell:not(.v3-preview) .n5-board-cta h2 {color:#102e4c;}
+.n5-theme-shell:not(.v3-preview) .n5-board-cta h2 span {color:#0e579e;}
+@media(max-width:1200px){.n5-theme-shell .n5-search kbd{display:none;}.n5-theme-shell .n5-island-cta{display:none;}}
+@media(max-width:600px){.n5-theme-shell .n5-island-tools .n5-search{display:none;}.n5-theme-shell .n5-logo img{width:128px;}.n5-theme-shell .n5-island-tools{gap:6px;}.n5-theme-shell .n5-island-bar{gap:8px;padding-left:10px;}.n5-theme-control{padding-inline:5px;gap:2px;}.n5-theme-control select{font-size:11px;max-width:72px;}}
+.v2 .n5-theme-control {display:flex;align-items:center;height:42px;margin:0;}
+.v2 .n5-theme-control select {width:auto;min-height:40px;margin:0;padding:0 3px;border-radius:0;box-shadow:none;}

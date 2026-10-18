@@ -153,7 +153,9 @@ The primary experience is built around the "5" in the N5 mark: an interactive fi
 
 - `/`: regular homepage.
 - `/v2`: the former dark `/v3` design.
-- `/v3`: mixed light/dark edition.
+- `/v3`: whole-site Light, Dark, and Device theme selector.
 - Each edition has a board page: `/boardmembers`, `/v2/boardmembers`, `/v3/boardmembers`.
 
 Board navigation returns to sections of the same edition. Section arrival is aligned after fonts and the loader settle. Scroll reveals reset when blocks leave view and replay on re-entry in either direction; reduced-motion users see content immediately.
+
+V3 theme selection is available in the navigation on both the homepage and board page. It is saved in local storage; Device follows system appearance changes automatically. V1 and the standalone dark V2 remain unchanged.
