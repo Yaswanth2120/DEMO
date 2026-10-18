@@ -143,12 +143,8 @@ Browser verification covers scroll progress in both directions across all seven 
 
 The five-discipline strip below the hero is now a compact, centered ticker capped at 600px, rather than a full-width row with large gaps. It scrolls continuously without pause/resume controls. With reduced motion enabled it becomes a manually scrollable row. Duplicate visual groups are hidden from assistive technology, which reads the five disciplines only once. All seven responsive widths were checked without horizontal page overflow.
 
-## Second design
+## Primary design and routes
 
-Version 1 remains at `/`. The independent engineering-focused Version 2 is at `/v2`. Run `npm run dev` and open http://localhost:5173/v2, or build and start production at http://localhost:3001/v2. Both use the same React frontend and Node/Express backend. The original logo is unchanged. See [Version 2 design and business review](docs/version-two.md).
+The engineering-focused design is the primary site at `/`. Version 1 is retained at `/backup` as a classic backup design. `/v2` redirects to `/`; Version 3 has been removed.
 
-Version 2 is a separate creative design built only from the logo colours, around the "5" in the N5 mark. It has an interactive five-discipline constellation, a single-screen capabilities stage with animated engineering illustrations, an animated five-step method track, an expanding industries accordion, ⌘K / Ctrl K spotlight search, a chapter rail, and an enquiry form that pre-selects the subject from any "Discuss" button. Each chapter is about one screen: roughly 6 screens of scrolling on desktop instead of 10. Reduced-motion preferences are respected and all content is server-rendered.
-
-## Third design
-
-Version 3 is at `/v3`: a single-screen, WebGL journey built with Three.js. Tens of thousands of particles reshape into each part of the business: the five disciplines, a battery pack, a lightweight car, a forming press, a neural network, a coating stack, the method, the industries, a crystal lattice and contact. Labels anchored to the 3D models stay in sync with glass content panels. Travel with the wheel, a swipe, the arrow keys, the side rail or the `M` index. The page works without WebGL or JavaScript and respects reduced motion. See [Version 3 notes](docs/version-three.md).
+The primary experience is built around the "5" in the N5 mark: an interactive five-discipline constellation, a focused capability stage with engineering illustrations, a five-step method track, expanding industry content, ⌘K / Ctrl K search, and contextual enquiry actions. It includes a Board Members route at `/boardmembers` plus a hover-paused industry collaboration reel within Research. The current board people, direct contacts, and industry collaborator names are clearly marked demonstration content in `frontend/src/content.js`; replace them with approved details before launch.

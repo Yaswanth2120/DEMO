@@ -3,6 +3,5 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
  plugins:[react()],
  server:{port:5173,strictPort:true,proxy:{'/api':'http://127.0.0.1:3001'}},
- // The Three.js engine is a lazy chunk loaded only by /v3.
  build:{target:'es2020',sourcemap:false,chunkSizeWarningLimit:600}
 });

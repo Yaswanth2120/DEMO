@@ -20,6 +20,6 @@ export default function Header({path}){
   return()=>{window.removeEventListener('scroll',onScroll);if(frame)window.cancelAnimationFrame(frame)};
  },[]);
  useEffect(()=>{const observer=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting)setActive('#'+entry.target.id)},{rootMargin:'-15% 0px -65% 0px'});for(const [hash] of links){const section=document.querySelector(hash);if(section)observer.observe(section)}return()=>observer.disconnect()},[]);
- const prefix=path==='/'?'':'/';
+ const prefix=path==='/backup'?'':'/';
  return <header ref={header}><div className="header-inner container"><Logo/><button ref={toggle} className="menu-toggle" type="button" onClick={()=>setOpen(!open)} aria-expanded={open} aria-controls="navigation" aria-label={open?'Close navigation':'Open navigation'}><Icon name={open?'close':'menu'}/></button><nav id="navigation" ref={nav} className={open?'open':''} aria-label="Main navigation">{links.map(([url,text])=><a key={url} href={prefix+url} aria-current={active===url?'location':undefined} onClick={()=>{setOpen(false);setActive(url)}}>{text}</a>)}<a className="button" href={prefix+'#contact'} onClick={()=>{setOpen(false);setActive('#contact')}}>Start a Project<Icon name="arrow"/></a></nav></div></header>;
 }

@@ -49,6 +49,8 @@
  observer=new MutationObserver(prepare);
  observer.observe(documentRoot,{childList:true,subtree:true});
  prepare();
+ // A fully loaded document must remain usable even if a development refresh interrupts React.
+ window.addEventListener('load',()=>setTimeout(dismiss,reducedMotion?0:1200),{once:true});
  // Browser back/forward cache restores an already-ready page; never replay an intro.
  window.addEventListener('pageshow',event=>{if(event.persisted){dismiss();clearTimeout(hideTimer);documentRoot.classList.remove('site-revealing');const loader=document.getElementById('page-loader');if(loader)loader.hidden=true}});
 })();

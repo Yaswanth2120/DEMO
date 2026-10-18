@@ -1,5 +1,5 @@
 import {useEffect,useRef,useState} from 'react';
-import {company,claims} from '../content.js';
+import {company,claims,demoIndustryCollaborators} from '../content.js';
 import Glyph from './Glyph.jsx';
 import Constellation from './Constellation.jsx';
 import Capabilities from './Capabilities.jsx';
@@ -10,7 +10,7 @@ import CommandPalette from './CommandPalette.jsx';
 import {useReveal,usePointerGlow} from './motion.js';
 import './v2.css';
 
-const links=[['#pillars','Capabilities'],['#process','Method'],['#industries','Industries'],['#partners','Research']];
+const links=[['#pillars','Capabilities'],['#process','Method'],['#industries','Industries'],['#partners','Research'],['/boardmembers','Board Members']];
 const chapters=[['hero','Intro'],['pillars','Capabilities'],['process','Method'],['industries','Industries'],['partners','Research'],['contact','Contact']];
 
 function Logo({className=''}){
@@ -96,17 +96,27 @@ function Hero(){
 
 function Research({verified}){
  const methods=['SEM / EDX','EIS','Cross-section metallography','Galvanic testing','Accelerated corrosion testing'];
+ const industryCards=[...demoIndustryCollaborators,...demoIndustryCollaborators];
  return <section id="partners" className="n5-research n5-dark" data-tone="dark">
-  <div className="n5-wrap n5-research-grid">
+  <div className="n5-wrap">
    <div className="n5-research-intro n5-r">
     <p className="n5-eyebrow">Research &amp; collaboration</p>
     <h2>Curiosity,<br/><span>backed by evidence.</span></h2>
-    <p>Academic insight and diagnostic testing bring a different depth to industrial questions. Our published research network identifies Missouri S&amp;T and Kansas State University.</p>
+    <p>Academic insight, industrial perspective, and diagnostic testing bring a different depth to complex questions.</p>
     <p className="n5-fine">{verified?claims.partnerships:'Ask our team about the current collaboration scope for your program.'}</p>
    </div>
-   <div className="n5-partners n5-r">
-    <article className="n5-partner"><div className="n5-partner-logo"><img src="/assets/missouri-st-logo.png" alt="Missouri S&T university logo" width="2315" height="1880" loading="lazy"/></div><div><h3>Missouri S&amp;T</h3><p>Missouri University of Science and Technology</p></div></article>
-    <article className="n5-partner"><div className="n5-partner-logo"><img src="/assets/university-1.jpg" alt="Kansas State University wordmark" width="300" height="158" loading="lazy"/></div><div><h3>Kansas State University</h3><p>College of Engineering</p></div></article>
+   <div className="n5-research-subsections">
+    <section className="n5-universities n5-r" aria-labelledby="universities-title">
+     <div className="n5-subsection-heading"><p className="n5-eyebrow">Universities</p><h3 id="universities-title">Academic collaboration</h3></div>
+     <div className="n5-partners">
+      <article className="n5-partner"><div className="n5-partner-logo"><img src="/assets/missouri-st-logo.png" alt="Missouri S&T university logo" width="2315" height="1880" loading="lazy"/></div><div><h4>Missouri S&amp;T</h4><p>Missouri University of Science and Technology</p></div></article>
+      <article className="n5-partner"><div className="n5-partner-logo"><img src="/assets/university-1.jpg" alt="Kansas State University wordmark" width="300" height="158" loading="lazy"/></div><div><h4>Kansas State University</h4><p>College of Engineering</p></div></article>
+     </div>
+    </section>
+    <section className="n5-industrial-network n5-r" aria-labelledby="industries-title">
+     <div className="n5-subsection-heading"><p className="n5-eyebrow">Industries</p><h3 id="industries-title">Industry network</h3><p>Illustrative collaborators shown for design review. Confirmed partners will replace these examples.</p></div>
+     <div className="n5-industry-marquee" tabIndex="0" aria-label="Scrolling illustrative industry collaborator cards; animation pauses on hover or focus"><div className="n5-industry-track">{industryCards.map((industry,index)=><article className="n5-industry-card" key={`${industry.name}-${index}`} aria-hidden={index>=demoIndustryCollaborators.length?'true':undefined}><img src={industry.image} alt="" loading={index<demoIndustryCollaborators.length?'lazy':undefined}/><div><strong>{industry.name}</strong><span>{industry.focus}</span></div></article>)}</div></div>
+    </section>
    </div>
    <div className="n5-lab n5-glow n5-r">
     <p className="n5-eyebrow">Diagnostic methods</p>
@@ -138,7 +148,7 @@ function Footer(){
    </details>
    <div className="n5-foot-bottom">
     <span>© {new Date().getFullYear()} NexaFive Global. {company.tagline}</span>
-    <a href="/">View the original design<Glyph name="up"/></a>
+    <a href="/backup">View the classic site<Glyph name="up"/></a>
    </div>
   </div>
  </footer>;

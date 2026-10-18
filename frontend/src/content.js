@@ -1,4 +1,20 @@
 export const company={name:'NexaFive Global',email:'info@nexafiveglobal.com',phone:'+16514167950',phoneDisplay:'(651) 416-7950',location:'Minneapolis, MN · USA',tagline:'Innovate Beyond Boundaries.',overview:'We bridge advanced materials science, manufacturing innovation, and engineering solutions — delivering end-to-end support for the most demanding challenges in mobility and industry.'};
+// Demonstration content only — replace every entry with approved public biographies,
+// portraits and direct contact details before publishing.
+export const boardMembers=[
+ {name:'Elena Martin',role:'Board Chair · Technology Strategy',bio:'Brings a long-view perspective on technology strategy, commercialization, and responsible growth for technical organizations.',email:'elena.martin@example.com',phone:'+1 555 010 0141',image:'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=900&q=85',demo:true},
+ {name:'Marcus Chen',role:'Board Member · Manufacturing & Operations',bio:'Advises on translating engineering intent into scalable operations, disciplined quality systems, and durable customer value.',email:'marcus.chen@example.com',phone:'+1 555 010 0142',image:'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=900&q=85',demo:true},
+ {name:'Priya Nair',role:'Board Member · Materials & Research',bio:'Offers experience connecting research programs, materials innovation, and evidence-led decisions across complex technical work.',email:'priya.nair@example.com',phone:'+1 555 010 0143',image:'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=900&q=85',demo:true},
+ {name:'David Brooks',role:'Board Member · Market Development',bio:'Supports market focus, partnership development, and practical pathways from a promising capability to measurable impact.',email:'david.brooks@example.com',phone:'+1 555 010 0144',image:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&q=85',demo:true}
+];
+// Illustrative names only — use approved collaborator names before presenting as partnerships.
+export const demoIndustryCollaborators=[
+ {name:'Apex Mobility Systems',focus:'Mobility & electrification',image:'/assets/proposal-photo-3.jpg'},
+ {name:'Northstar Energy Storage',focus:'Energy systems',image:'/assets/proposal-photo-2.jpg'},
+ {name:'Forgeworks Manufacturing',focus:'Advanced manufacturing',image:'/assets/proposal-photo-0.jpg'},
+ {name:'MedAxis Technologies',focus:'Healthcare technology',image:'/assets/proposal-photo-1.jpg'},
+ {name:'Atlas Materials Group',focus:'Materials innovation',image:'/assets/proposal-photo-6.jpg'}
+];
 export const services=[
 {slug:'battery-engineering',icon:'battery',category:'Energy / BEV',title:'Battery Module & Pack Engineering',short:'Engineering the next generation of electric mobility.',description:'Design, simulation & consulting for BEV battery cells, modules, and packs. Thermal management, structural integrity, corrosion prevention.',applications:['Battery cells, modules and packs','Thermal management and structural integrity','BEV corrosion prevention'],detail:'Bring materials, thermal performance, and structural requirements into one engineering conversation. NexaFive Global supports battery systems from design and simulation through consulting on durability and manufacturability.'},
 {slug:'lightweight-automotive',icon:'car',category:'Automotive',title:'Lightweight Automotive Solutions',short:'Less weight. More possibility.',description:'Composites, dissimilar metal joining, corrosion-resistant coatings, stamping optimization for OEMs and suppliers.',applications:['Multi-material body structures','Composites and dissimilar metal joining','Stamping and corrosion-resistant coatings'],detail:'Explore material and process decisions together. Our work connects composite mechanics, dissimilar material interfaces, coatings, and forming processes for automotive OEM and supplier programs.'},

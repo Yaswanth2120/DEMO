@@ -9,7 +9,7 @@ const subjectFor={'battery-engineering':'Energy / BEV engineering','lightweight-
 
 export default function Capabilities(){
  const [active,setActive]=useState(0);
- const [playing,setPlaying]=useState(true);
+ const [playing,setPlaying]=useState(false);
  const section=useRef(null),tabs=useRef([]);
  const inView=useInView(section,.35);
 
@@ -40,7 +40,7 @@ export default function Capabilities(){
    <header className="n5-head n5-head-row n5-r">
     <div><p className="n5-eyebrow">Capabilities</p><h2>Five capabilities.<br/><span>One connected system.</span></h2></div>
     <div className="n5-head-side"><p>A shared understanding of how materials, processes, and performance depend on each other — from a single cell to a full production line.</p>
-     <button type="button" className="n5-play" onClick={()=>setPlaying(value=>!value)} aria-pressed={!playing} aria-label={playing?'Pause automatic tour':'Resume automatic tour'}><Glyph name={playing?'pause':'play'}/><span>{playing?'Pause tour':'Play tour'}</span></button>
+     <button type="button" className="n5-play" onClick={()=>setPlaying(value=>!value)} aria-pressed={!playing} aria-label={playing?'Pause automatic tour':'Start automatic tour'}><Glyph name={playing?'pause':'play'}/><span>{playing?'Pause tour':'Play tour'}</span></button>
     </div>
    </header>
    <div className="n5-cap-stage n5-r">

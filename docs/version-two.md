@@ -4,10 +4,11 @@
 
 Run `npm install` once, then `npm run dev` from the repository root.
 
-- Version 1: http://localhost:5173/
-- Version 2: http://localhost:5173/v2
+- Primary site: http://localhost:5173/
+- Classic backup: http://localhost:5173/backup
+- Board Members: http://localhost:5173/boardmembers
 
-Production: `npm run build`, then `npm start`. The same two paths are available at http://localhost:3001. No AI credentials are required. This change does not deploy either version.
+Production: `npm run build`, then `npm start`. The same routes are available at http://localhost:3001. No AI credentials are required. This change does not deploy the site.
 
 ## Business understanding
 
@@ -36,7 +37,7 @@ Other features:
 - **Chapter rail**: shows the current chapter on wide screens and adapts to light or dark sections.
 - **Context-aware enquiry**: a "Discuss this capability" or "Discuss your program" button pre-selects the matching form subject and focuses the form.
 - Pointer-following light on cards, scroll reveals, and scroll-linked depth where the browser supports scroll-driven animations.
-- Deep links such as `/v2#battery-engineering` open the matching capability.
+- Deep links such as `/#battery-engineering` open the matching capability.
 
 ## Accessibility and robustness
 
@@ -52,7 +53,7 @@ Other features:
 - `Constellation.jsx`, `Capabilities.jsx`, `Illustrations.jsx`, `Method.jsx`, `Sectors.jsx`, `Enquiry.jsx`, `CommandPalette.jsx`: the chapters and features.
 - `Glyph.jsx` (icons), `motion.js` (reveal, in-view and pointer helpers), `v2.css` (scoped styles).
 - `frontend/src/components/enquiry.js`: shared FormSubmit integration used by both versions, with unchanged field names.
-- `/v2` stays out of the production sitemap while it is an alternate design.
+- `/` is the primary public route. `/backup` preserves the original design, while `/v2` redirects to the primary site.
 
 ## Verification
 
