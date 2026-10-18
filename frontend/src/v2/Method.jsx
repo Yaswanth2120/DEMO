@@ -1,6 +1,7 @@
 import {useEffect,useRef,useState} from 'react';
 import {process} from '../content.js';
 import Glyph from './Glyph.jsx';
+import MobileFold from '../v3/MobileFold.jsx';
 import {reducedMotion,useInView,pad} from './motion.js';
 
 const solutions=[
@@ -9,7 +10,7 @@ const solutions=[
  ['nodes','Materials intelligence','Make informed trade-offs.','AI/ML guidance for material selection, stamping, structural integrity, corrosion risk, and part performance.']
 ];
 
-export default function Method(){
+export default function Method({mobileCompact=false}){
  const [step,setStep]=useState(0);
  const [auto,setAuto]=useState(true);
  const section=useRef(null),stations=useRef([]);
@@ -48,12 +49,12 @@ export default function Method(){
      <div><h3>{title}</h3><p>{text}</p></div>
     </div>)}
    </div>
-   <div id="solutions" className="n5-solutions">
+   <MobileFold enabled={mobileCompact} kind="solutions" label="Explore integrated solutions"><div id="solutions" className="n5-solutions">
     <p className="n5-eyebrow n5-r">Integrated solutions — think beyond a single discipline</p>
     <div className="n5-solution-grid">
      {solutions.map(([icon,label,title,text])=><article key={label} className="n5-solution n5-glow n5-r"><span className="n5-solution-icon"><Glyph name={icon}/></span><small>{label}</small><h3>{title}</h3><p>{text}</p></article>)}
     </div>
-   </div>
+   </div></MobileFold>
   </div>
  </section>;
 }

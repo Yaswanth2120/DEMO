@@ -1,13 +1,14 @@
 import {useEffect,useRef,useState} from 'react';
 import {services} from '../content.js';
 import Glyph from './Glyph.jsx';
+import MobileFold from '../v3/MobileFold.jsx';
 import Illustration from './Illustrations.jsx';
 import {enquire} from './Enquiry.jsx';
 import {reducedMotion,useInView,pad,scrollToHash} from './motion.js';
 
 const subjectFor={'battery-engineering':'Energy / BEV engineering','lightweight-automotive':'Engineering consultation','tooling-manufacturing':'Manufacturing and tooling support','ai-optimization':'AI/ML platform inquiry','corrosion-mitigation':'Corrosion testing and mitigation'};
 
-export default function Capabilities({dark=false}){
+export default function Capabilities({dark=false,mobileCompact=false}){
  const [active,setActive]=useState(0);
  const [playing,setPlaying]=useState(false);
  const section=useRef(null),tabs=useRef([]);
@@ -58,7 +59,7 @@ export default function Capabilities({dark=false}){
        <h3>{service.title}</h3>
        <p className="n5-cap-short">{service.short}</p>
        <p>{service.description}</p>
-       <ul>{service.applications.map(item=><li key={item}>{item}</li>)}</ul>
+       <MobileFold enabled={mobileCompact} kind="applications" label="Applications & capabilities"><ul>{service.applications.map(item=><li key={item}>{item}</li>)}</ul></MobileFold>
        <a className="n5-link" href="#contact" onClick={()=>enquire(subjectFor[service.slug])}>Discuss this capability<Glyph name="arrow"/></a>
       </div>
      </article>)}

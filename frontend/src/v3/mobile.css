@@ -1,0 +1,77 @@
+/* Disclosure wrappers have no layout boxes on desktop. Only V3 opts in. */
+.n5-mobile-compact .n5-mobile-fold,.n5-mobile-compact .n5-mobile-fold-body {display:contents;}
+.n5-mobile-compact .n5-mobile-fold-toggle {display:none;}
+@media(max-width:700px){
+ .v2.n5-mobile-compact {--pad:36px;--gutter:20px;font-size:15px;}
+ .n5-mobile-compact .n5-mobile-fold {display:block;min-width:0;}
+ .n5-mobile-compact .n5-mobile-fold-body {display:block;}
+ .n5-mobile-compact .n5-mobile-fold[data-ready="true"][data-open="false"] > .n5-mobile-fold-body {display:none;}
+ .n5-mobile-compact .n5-mobile-fold[data-ready="true"] > .n5-mobile-fold-toggle {display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;min-height:48px;padding:12px 14px;margin:0;border:1px solid var(--line-strong);border-radius:14px;background:var(--mist);color:var(--ink);font:600 13px/1.4 Jakarta,Arial,sans-serif;text-align:left;}
+ .n5-mobile-compact .n5-mobile-fold-toggle > span {font:400 22px/1 Outfit,sans-serif;color:var(--blue);}
+ .n5-mobile-compact .n5-mobile-fold[data-open="true"] > .n5-mobile-fold-body {padding-top:14px;}
+ .n5-mobile-compact .n5-hero {padding-top:100px;padding-bottom:25px;}
+ .n5-mobile-compact .n5-hero-grid {gap:20px;}
+ .n5-mobile-compact .n5-kicker {font-size:10px;margin-bottom:16px;}
+ .n5-mobile-compact .n5-title {font-size:clamp(42px,12.2vw,60px);margin-bottom:16px;}
+ .n5-mobile-compact .n5-lede {font-size:15px;line-height:1.55;margin-bottom:20px;}
+ .n5-mobile-compact .n5-actions {gap:8px;margin-bottom:18px;}
+ .n5-mobile-compact .n5-actions .n5-btn {flex:1 1 0;min-width:0;padding:10px 12px;min-height:44px;font-size:12px;}
+ .n5-mobile-compact .n5-actions .n5-btn svg {width:15px;}
+ .n5-mobile-compact .n5-facts {padding-top:14px;gap:24px;}
+ .n5-mobile-compact .n5-facts dt {font-size:21px;}
+ .n5-mobile-compact .n5-facts dd {font-size:11px;}
+ .n5-mobile-compact .n5-const {max-width:340px;margin-inline:auto;}
+ .n5-mobile-compact .n5-head {margin-bottom:22px;}
+ .n5-mobile-compact h2 {font-size:clamp(28px,8vw,36px);}
+ .n5-mobile-compact .n5-eyebrow {font-size:10px;margin-bottom:12px;}
+ .n5-mobile-compact .n5-head-row {gap:12px;}
+ .n5-mobile-compact .n5-head-row > p,.n5-mobile-compact .n5-head-side > p {font-size:13px;line-height:1.55;}
+ .n5-mobile-compact .n5-cap-tabs {gap:7px;}
+ .n5-mobile-compact .n5-cap-tab {width:205px;padding:11px 13px 15px;gap:10px;}
+ .n5-mobile-compact .n5-cap-name {font-size:14px;}
+ .n5-mobile-compact .n5-cap-name small {font-size:10px;}
+ .n5-mobile-compact .n5-cap-panel:not([data-active="true"]) {display:none;}
+ .n5-mobile-compact .n5-cap-panel {padding:14px;gap:14px;}
+ .n5-mobile-compact .n5-cap-art {height:105px;aspect-ratio:auto;}
+ .n5-mobile-compact .n5-cap-art-tag {font-size:8px;bottom:8px;left:10px;}
+ .n5-mobile-compact .n5-cap-copy h3 {font-size:13px;margin-bottom:8px;}
+ .n5-mobile-compact .n5-cap-short {font-size:21px;line-height:1.2;}
+ .n5-mobile-compact .n5-cap-copy > p:not(.n5-cap-short) {font-size:14px;line-height:1.55;}
+ .n5-mobile-compact .n5-mobile-applications {margin:14px 0;}
+ .n5-mobile-compact .n5-cap-copy .n5-link {font-size:13px;min-height:44px;}
+ .n5-mobile-compact .n5-steps > .n5-step:not([data-active="true"]) {display:none;}
+ .n5-mobile-compact .n5-step {padding:20px;gap:16px;}
+ .n5-mobile-compact .n5-step h3 {font-size:22px;}
+ .n5-mobile-compact .n5-step p {font-size:14px;line-height:1.5;}
+ .n5-mobile-compact .n5-mobile-solutions {margin-top:22px;}
+ .n5-mobile-compact .n5-solutions {margin-top:0;}
+ .n5-mobile-compact .n5-acc-heading button {min-height:56px;padding:11px 14px;gap:10px;}
+ .n5-mobile-compact .n5-acc-icon {width:32px;height:32px;}
+ .n5-mobile-compact .n5-acc-title {font-size:15px;}
+ .n5-mobile-compact .n5-acc-inner {padding-inline:16px;}
+ .n5-mobile-compact .n5-acc-inner p {font-size:13px;line-height:1.5;}
+ .n5-mobile-compact .n5-acc-note {font-size:21px!important;}
+ .n5-mobile-compact .n5-research-intro > p:not(.n5-eyebrow) {font-size:14px;margin-top:16px;}
+ .n5-mobile-compact .n5-research-subsections {gap:14px;margin-top:22px;}
+ .n5-mobile-compact .n5-partner {gap:12px;padding:12px;}
+ .n5-mobile-compact .n5-partner-logo {width:66px;height:54px;padding:6px;}
+ .n5-mobile-compact .n5-partner h4 {font-size:16px;}
+ .n5-mobile-compact .n5-partner p {font-size:12px;line-height:1.4;}
+ .n5-mobile-compact .n5-subsection-heading h3 {font-size:22px;}
+ .n5-mobile-compact .n5-mobile-testing {margin-top:14px;}
+ .n5-mobile-compact .n5-research .n5-lab {margin-top:0;padding:16px;}
+ .n5-mobile-compact .n5-contact-grid {gap:16px;}
+ .n5-mobile-compact .n5-contact-lede {font-size:14px;line-height:1.55;}
+ .n5-mobile-compact .n5-contact-list :is(a,div) {padding-block:8px;font-size:14px;}
+ .n5-mobile-compact .n5-mobile-faq {margin-top:18px;}
+ .n5-mobile-compact .n5-faq {margin-top:0;}
+ .n5-mobile-compact .n5-mobile-form > .n5-mobile-fold-toggle {background:var(--blue);color:#fff;min-height:50px;}
+ .n5-mobile-compact .n5-mobile-form > .n5-mobile-fold-toggle > span {color:#fff;}
+ .n5-mobile-compact form.n5-form {padding:20px;}
+ .n5-mobile-compact footer.n5-foot {padding-top:22px;padding-bottom:72px;}
+ .n5-mobile-compact .n5-foot-tag {font-size:16px;}
+ .n5-mobile-compact .n5-foot-nav {gap:0 12px;}
+ .n5-mobile-compact .n5-foot-nav > a {font-size:12px;min-height:36px;}
+ .n5-mobile-compact .n5-foot-bottom {font-size:11px;}
+}
+@media(max-width:700px){.n5-mobile-compact .n5-foot-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;gap:0 8px;}.n5-mobile-compact .n5-foot-nav > a{white-space:normal;}}

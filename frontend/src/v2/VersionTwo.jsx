@@ -10,6 +10,7 @@ import Enquiry from './Enquiry.jsx';
 import CommandPalette from './CommandPalette.jsx';
 import {useReveal,usePointerGlow} from './motion.js';
 import './v2.css';
+import MobileFold from '../v3/MobileFold.jsx';
 
 const links=[['#pillars','Capabilities'],['#process','Method'],['#industries','Industries'],['#partners','Research'],['/boardmembers','Board Members']];
 const chapters=[['hero','Intro'],['pillars','Capabilities'],['process','Method'],['industries','Industries'],['partners','Research'],['contact','Contact']];
@@ -67,7 +68,7 @@ function Rail(){
  </nav>;
 }
 
-function Hero(){
+function Hero({mobileCompact}){
  return <section id="hero" className="n5-hero" data-tone="light">
   <div className="n5-hero-sky" aria-hidden="true"><span/><span/><span/></div>
   <div className="n5-wrap n5-hero-grid">
@@ -89,12 +90,12 @@ function Hero(){
      <div><dt>E2E</dt><dd>Concept to production</dd></div>
     </dl>
    </div>
-   <Constellation/>
+   <MobileFold enabled={mobileCompact} kind="disciplines" label="Explore our five disciplines"><Constellation/></MobileFold>
   </div>
  </section>;
 }
 
-function Research({verified}){
+function Research({verified,mobileCompact}){
  const methods=['SEM / EDX','EIS','Cross-section metallography','Galvanic testing','Accelerated corrosion testing'];
  const industryCards=[...demoIndustryCollaborators,...demoIndustryCollaborators];
  return <section id="partners" className="n5-research n5-dark" data-tone="dark">
@@ -113,17 +114,17 @@ function Research({verified}){
       <article className="n5-partner"><div className="n5-partner-logo"><img src="/assets/university-1.jpg" alt="Kansas State University wordmark" width="300" height="158" loading="lazy"/></div><div><h4>Kansas State University</h4><p>College of Engineering</p></div></article>
      </div>
     </section>
-    <section className="n5-industrial-network n5-r" aria-labelledby="industries-title">
+    <MobileFold enabled={mobileCompact} kind="network" label="Explore the industry network"><section className="n5-industrial-network n5-r" aria-labelledby="industries-title">
      <div className="n5-subsection-heading"><p className="n5-eyebrow">Industries</p><h3 id="industries-title">Industry network</h3><p>Illustrative collaborators shown for design review. Confirmed partners will replace these examples.</p></div>
      <div className="n5-industry-marquee" tabIndex="0" aria-label="Scrolling illustrative industry collaborator cards; animation pauses on hover or focus"><div className="n5-industry-track">{industryCards.map((industry,index)=><article className="n5-industry-card" key={`${industry.name}-${index}`} aria-hidden={index>=demoIndustryCollaborators.length?'true':undefined}><img src={industry.image} alt="" loading={index<demoIndustryCollaborators.length?'lazy':undefined}/><div><strong>{industry.name}</strong><span>{industry.focus}</span></div></article>)}</div></div>
-    </section>
+    </section></MobileFold>
    </div>
-   <div className="n5-lab n5-glow n5-r">
+   <MobileFold enabled={mobileCompact} kind="testing" label="Testing methods & standards"><div className="n5-lab n5-glow n5-r">
     <p className="n5-eyebrow">Diagnostic methods</p>
     <ul className="n5-chips">{methods.map(method=><li key={method}>{method}</li>)}</ul>
     <div className="n5-standards" aria-label="Standards"><span>ASTM</span><span>SAE</span><span>ISO</span></div>
     <p className="n5-fine">{verified?claims.testing:'Confirm applicable standards, laboratory accreditation, and OEM procedures for your test program.'}</p>
-   </div>
+   </div></MobileFold>
   </div>
  </section>;
 }
@@ -154,7 +155,7 @@ function Footer({boardPath}){
  </footer>;
 }
 
-export default function VersionTwo({config={},basePath=''}){
+export default function VersionTwo({config={},basePath='',mobileCompact=false}){
  const boardPath=`${basePath}/boardmembers`;
  const [palette,setPalette]=useState(false);
  const [shortcut,setShortcut]=useState('⌘K');
@@ -170,17 +171,17 @@ export default function VersionTwo({config={},basePath=''}){
   document.addEventListener('keydown',onKey);
   return()=>document.removeEventListener('keydown',onKey);
  },[]);
- return <div className="v2">
+ return <div className={`v2${mobileCompact?' n5-mobile-compact':''}`}>
   <a className="n5-skip" href="#main">Skip to content</a>
   <Island boardPath={boardPath} onSearch={()=>setPalette(true)} shortcut={shortcut}/>
   <Rail/>
   <main id="main">
-   <Hero/>
-   <Capabilities/>
-   <Method/>
+   <Hero mobileCompact={mobileCompact}/>
+   <Capabilities mobileCompact={mobileCompact}/>
+   <Method mobileCompact={mobileCompact}/>
    <Sectors/>
-   <Research verified={config.verified}/>
-   <Enquiry/>
+   <Research verified={config.verified} mobileCompact={mobileCompact}/>
+   <Enquiry mobileCompact={mobileCompact}/>
   </main>
   <Footer boardPath={boardPath}/>
   <CommandPalette boardPath={boardPath} open={palette} onClose={()=>setPalette(false)}/>

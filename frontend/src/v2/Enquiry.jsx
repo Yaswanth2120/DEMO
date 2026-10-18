@@ -2,6 +2,7 @@ import {useEffect,useRef,useState} from 'react';
 import {company} from '../content.js';
 import {FORM_ENDPOINT,subjects,sendEnquiry} from '../components/enquiry.js';
 import Glyph from './Glyph.jsx';
+import MobileFold from '../v3/MobileFold.jsx';
 
 // Any "discuss" link can pre-select the matching enquiry subject.
 export function enquire(subject){window.dispatchEvent(new CustomEvent('n5:enquire',{detail:{subject}}))}
@@ -18,7 +19,7 @@ function Field({id,label,as='input',...props}){
  return <div className={`n5-field${as==='textarea'?' n5-field-area':''}`}><Control id={id} placeholder=" " {...props}/><label htmlFor={id}>{label}</label></div>;
 }
 
-export default function Enquiry(){
+export default function Enquiry({mobileCompact=false}){
  const form=useRef(null),subject=useRef(null),firstField=useRef(null);
  const [state,setState]=useState({loading:false,kind:'',message:''});
 
@@ -54,11 +55,11 @@ export default function Enquiry(){
      <li><a href={`tel:${company.phone}`}><Glyph name="phone"/><span><small>Call</small>{company.phoneDisplay}</span></a></li>
      <li><div><Glyph name="pin"/><span><small>Based in</small>{company.location}</span></div></li>
     </ul>
-    <div id="faq" className="n5-faq">
+    <MobileFold enabled={mobileCompact} kind="faq" label="Frequently asked questions"><div id="faq" className="n5-faq">
      {questions.map(([question,answer])=><details key={question}><summary>{question}<span className="n5-faq-icon" aria-hidden="true"/></summary><p>{answer}</p></details>)}
-    </div>
+    </div></MobileFold>
    </div>
-   <form ref={form} id="contact-form" className="n5-form n5-glow n5-r" action={FORM_ENDPOINT} method="POST" onSubmit={submit} aria-busy={state.loading}>
+   <MobileFold enabled={mobileCompact} kind="form" label="Send a project enquiry"><form ref={form} id="contact-form" className="n5-form n5-glow n5-r" action={FORM_ENDPOINT} method="POST" onSubmit={submit} aria-busy={state.loading}>
     <div className="n5-form-head"><h3>Tell us what you’re working on.</h3><span>Fields marked * are required</span></div>
     <div className="n5-form-row">
      <Field id="n5-first" label="First name *" name="firstName" autoComplete="given-name" required maxLength={80} ref={firstField}/>
@@ -77,7 +78,7 @@ export default function Enquiry(){
     <button className="n5-btn n5-btn-block" type="submit" disabled={state.loading}>{state.loading?'Sending enquiry…':'Send enquiry'}<Glyph name="arrow"/></button>
     <p className="n5-form-status" role="status" aria-live="polite" data-kind={state.kind||undefined}>{state.message}</p>
     <p className="n5-fine">By submitting, you agree to our <a href="#privacy">privacy notice</a>. Please do not include confidential technical data.</p>
-   </form>
+   </form></MobileFold>
   </div>
  </section>;
 }
