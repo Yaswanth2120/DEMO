@@ -44,7 +44,7 @@ header { position: sticky; top: 0; z-index: 30; background: #fffffff5; backdrop-
 .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 26px; min-height: 80px; }
 .logo { display: inline-flex; align-items: center; flex-shrink: 0; }
 /* Keep the official bitmap at its actual dimensions; never stretch or redraw the N5. */
-.logo img { width: 163px; height: 45px; object-fit: contain; }
+.logo > img { width: 163px; height: 45px; object-fit: contain; }
 nav { display: flex; align-items: center; gap: 18px; }
 nav > a { display: flex; align-items: center; min-height: 44px; font-size: 12px; font-weight: 650; white-space: nowrap; position: relative; }
 nav > a:not(.button)::after { position: absolute; bottom: 6px; height: 2px; left: 0; right: 0; background: var(--primary); content: ''; transform: scaleX(0); transition: transform .2s; }
@@ -299,7 +299,7 @@ footer .plus { color: #c4dcef; }
  html { scroll-padding-top: 84px; }
  section[id], article[id], details[id] { scroll-margin-top: 0; }
  .header-inner { min-height: 70px; }
- .logo img { width: 163px; height: 45px; }
+ .logo > img { width: 163px; height: 45px; }
  nav { max-height: calc(100dvh - 80px); }
  .hero { padding-top: 28px; padding-bottom: 30px; gap: 30px; }
  .hero .eyebrow { font-size: 10px; letter-spacing: .09em; padding-inline: 12px; }
