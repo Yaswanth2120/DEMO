@@ -99,7 +99,7 @@ function Hero({mobileCompact}){
      <div><dt>E2E</dt><dd>Concept to production</dd></div>
     </dl>
    </div>
-   <MobileFold enabled={mobileCompact} kind="disciplines" label="Explore our five disciplines"><Constellation onSelect={setSelected}/></MobileFold>
+   <MobileFold enabled={mobileCompact} kind="disciplines" label="Explore our five disciplines"><Constellation onSelect={index=>setSelected(current=>current===index?null:index)}/></MobileFold>
   </div>
  </section>;
 }

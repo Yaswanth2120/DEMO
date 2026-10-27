@@ -1,4 +1,5 @@
-import {useState} from 'react';
+import {useRef} from 'react';
+import {useInView} from './motion.js';
 import {claims,demoIndustryCollaborators} from '../content.js';
 import Glyph from './Glyph.jsx';
 import MobileFold from '../v3/MobileFold.jsx';
@@ -11,17 +12,15 @@ const universities=[
 ];
 
 export default function Research({verified,mobileCompact}){
- const [layout,setLayout]=useState('split');
- return <section id="partners" className="n5-research-review" data-layout={layout} data-tone={layout==='lab'?'dark':'light'}>
+ const marquee=useRef(null),inView=useInView(marquee,.1);
+ return <section id="partners" className="n5-research-review" data-tone="light">
   <div className="n5-wrap">
-   <div className="n5-rc-switch"><span>Research &amp; collaboration</span><div role="group" aria-label="Research layout">{[['split','01','Split canvas'],['journal','02','Research journal'],['lab','03','Lab dashboard']].map(([value,num,label])=><button key={value} type="button" aria-pressed={layout===value} onClick={()=>setLayout(value)}><small>{num}</small>{label}</button>)}</div></div>
    <div className="n5-rc-layout">
     <header className="n5-rc-intro">
      <p className="n5-rc-eyebrow"><span/>Research &amp; collaboration</p>
      <h2>Curiosity,<br/><span>backed by evidence.</span></h2>
      <p>Academic insight, industrial perspective, and diagnostic testing bring a different depth to complex questions.</p>
      <p className="n5-rc-note">{verified?claims.partnerships:'Ask our team about the current collaboration scope for your program.'}</p>
-     <div className="n5-rc-signature" aria-hidden="true"><Glyph name="flask"/><span>Observe.<br/>Understand. Apply.</span></div>
     </header>
     <section className="n5-rc-academic" aria-labelledby="rc-academic-title">
      <div className="n5-rc-heading"><span>01 / Academic insight</span><h3 id="rc-academic-title">Knowledge, connected.</h3></div>
@@ -29,7 +28,9 @@ export default function Research({verified,mobileCompact}){
     </section>
     <section className="n5-rc-network" aria-labelledby="rc-network-title">
      <div className="n5-rc-heading"><div><span>02 / Industrial perspective</span><h3 id="rc-network-title">Ideas meet application.</h3></div><p>Illustrative collaborators for design review.<br/>Confirmed partners will replace these examples.</p></div>
-     <div className="n5-rc-collaborators">{demoIndustryCollaborators.map((industry,i)=><article className="n5-rc-collaborator" key={industry.name}><img src={industry.image} alt="" loading="lazy"/><div><span className="n5-rc-collab-number">0{i+1}</span><h4>{industry.name}</h4><p>{industry.focus}</p></div></article>)}</div>
+     <div ref={marquee} className="n5-rc-marquee" data-in-view={inView} role="region" tabIndex="0" aria-label="Industry network — horizontally scrolling illustrative collaborators">
+      <div className="n5-rc-track">{[0,1].map(copy=><div className="n5-rc-collaborators" key={copy} aria-hidden={copy===1?true:undefined}>{demoIndustryCollaborators.map((industry,i)=><article className="n5-rc-collaborator" key={industry.name}><img src={industry.image} alt="" loading="lazy"/><div><span className="n5-rc-collab-number">0{i+1}</span><h4>{industry.name}</h4><p>{industry.focus}</p></div></article>)}</div>)}</div>
+     </div>
     </section>
     <div className="n5-rc-methods"><MobileFold enabled={mobileCompact} kind="testing" label="Testing methods & standards"><section className="n5-rc-methods-inner" aria-labelledby="rc-methods-title">
      <div className="n5-rc-heading"><span>03 / Diagnostic methods</span><h3 id="rc-methods-title">Evidence before answers.</h3></div>
