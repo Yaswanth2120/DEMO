@@ -1,3 +1,4 @@
+import BrandMark from '../components/BrandMark.jsx';
 import {useEffect,useRef,useState} from 'react';
 import {company,claims,demoIndustryCollaborators} from '../content.js';
 import Glyph from './Glyph.jsx';
@@ -16,7 +17,7 @@ const links=[['#pillars','Capabilities'],['#process','Method'],['#industries','I
 const chapters=[['hero','Intro'],['pillars','Capabilities'],['process','Method'],['industries','Industries'],['partners','Research'],['contact','Contact']];
 
 function Logo({className=''}){
- return <a className={`n5-logo ${className}`} href="#hero" aria-label="NexaFive Global home"><img src="/assets/nexafive-logo.png" alt="NexaFive Global — Innovate Beyond Boundaries" width="163" height="45"/></a>;
+ return <a className={`n5-logo ${className}`} href="#hero" aria-label="NexaFive Global home"><BrandMark/></a>;
 }
 
 function Island({onSearch,shortcut,boardPath}){
