@@ -5,7 +5,7 @@ This branch adds the login gate using the project-owner credentials. `main` reta
 ## Current editions (October 27, 2026)
 
 - `/v1`: light-only site and `/v1/boardmembers`.
-- `/v2`: Light / Dark / Device site with the compact mobile layout and `/v2/boardmembers`.
+- `/v2`: Light / Dark site (light by default) with the compact mobile layout and `/v2/boardmembers`.
 - `/` opens `/v1`; previous `/v3` links redirect to `/v2`.
 - The standalone dark edition has been removed.
 

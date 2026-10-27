@@ -21,7 +21,7 @@ test('light and theme-selectable editions preserve section navigation through bo
   if(prefix==='/v1')assert(!html.includes('aria-label="Color theme"'));
   if(prefix==='/v2')assert.match(html,/n5-theme-shell/);
   const board=await fetch(base+prefix+'/boardmembers');assert.equal(board.status,200);const boardHtml=await board.text();
-  if(prefix==='/v2'){for(const value of ['light','dark','device'])assert(html.includes(`value="${value}"`));assert.match(boardHtml,/aria-label="Color theme"/)}
+  if(prefix==='/v2'){for(const value of ['light','dark'])assert(html.includes(`value="${value}"`));assert(!html.includes('value="device"'));assert(html.includes('data-theme="light"'));assert.match(boardHtml,/aria-label="Color theme"/)}
   for(const hash of ['pillars','process','industries','partners','contact'])assert(boardHtml.includes(`href="${prefix||'/'}#${hash}"`),`${prefix} board link to ${hash}`);
  }
  const {legacyRedirects,routes}=await import('../../frontend/dist/server/entry-server.js');
