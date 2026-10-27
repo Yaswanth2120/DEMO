@@ -402,7 +402,7 @@ footer .plus { color: #c4dcef; }
 }
 
 /* Fixed reading progress follows the actual scrollable document in both directions. */
-.scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 70; background: #0e579e0a; pointer-events: none; }
+.scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 4px; z-index: 100; background: #0e579e0a; pointer-events: none; }
 .scroll-progress-fill { width: 100%; height: 100%; transform: scaleX(0); transform-origin: left center; background: linear-gradient(90deg, var(--primary), #82b7e3); border-radius: 0 2px 2px 0; will-change: transform; }
 
 @media (prefers-reduced-motion: reduce) { .discipline-group[aria-hidden="true"] { display:none; } }

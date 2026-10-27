@@ -1,3 +1,4 @@
+import ScrollProgress from '../components/ScrollProgress.jsx';
 import {createContext,useContext,useEffect,useState} from 'react';
 const ThemeContext=createContext(null);
 const key='nexafive-theme';
@@ -14,7 +15,7 @@ export function ThemeShell({children,fixed}){
  },[fixed]);
  const choose=value=>{if(!valid(value))return;setPreference(value);try{localStorage.setItem(key,value)}catch{/* Keep the selection for this page. */}};
  const dark=preference==='dark';
- return <ThemeContext.Provider value={fixed?null:{preference,choose}}><div className={`n5-theme-shell${dark?' v3-preview':''}`} data-theme={dark?'dark':'light'} data-theme-preference={preference}>{children}</div></ThemeContext.Provider>;
+ return <><ScrollProgress/><ThemeContext.Provider value={fixed?null:{preference,choose}}><div className={`n5-theme-shell${dark?' v3-preview':''}`} data-theme={dark?'dark':'light'} data-theme-preference={preference}>{children}</div></ThemeContext.Provider></>;
 }
 
 export function ThemeControl(){
