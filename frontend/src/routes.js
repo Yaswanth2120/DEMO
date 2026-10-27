@@ -5,5 +5,5 @@ export const legacyRedirects={
  '/about':'/v1#about','/services':'/v1#pillars','/solutions':'/v1#solutions','/industries':'/v1#industries','/research':'/v1#partners','/contact':'/v1#contact','/privacy':'/v1#privacy',
  ...Object.fromEntries(services.map(service=>[`/services/${service.slug}`,`/v1#${service.slug}`]))
 };
-const titles={'/v1':'NexaFive Global — Light Edition','/v2':'NexaFive Global — Light, Dark & Device Theme','/v1/boardmembers':'Our Board | NexaFive Global — Light Edition','/v2/boardmembers':'Our Board | NexaFive Global — Light, Dark & Device Theme'};
+const titles={'/v1':'NexaFive Global — Light Edition','/v2':'NexaFive Global — Light & Dark Theme','/v1/boardmembers':'Our Board | NexaFive Global — Light Edition','/v2/boardmembers':'Our Board | NexaFive Global — Light & Dark Theme'};
 export function getPageMeta(path){return {title:titles[path]||'Page Not Found | NexaFive Global',description:company.overview,notFound:!titles[path]}}
