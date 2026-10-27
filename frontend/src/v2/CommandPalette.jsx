@@ -5,7 +5,7 @@ import {enquire} from './Enquiry.jsx';
 import {scrollToHash} from './motion.js';
 
 function buildItems(boardPath){
- const go=hash=>()=>{if(window.location.pathname.endsWith('/boardmembers'))window.location.href=boardPath.replace(/\/boardmembers$/,'')+hash;else scrollToHash(hash)};
+ const go=hash=>()=>{if(window.location.pathname.endsWith('/boardmembers'))window.location.href=(boardPath.replace(/\/boardmembers$/,'')||'/')+hash;else scrollToHash(hash)};
  return [
   {group:'Account',icon:'arrow',title:'Sign out',detail:'End your preview session',run:()=>{const form=document.createElement('form');form.method='post';form.action='/auth/logout';document.body.append(form);form.submit()}},
   ...[['#hero','Home','Innovate beyond boundaries'],['#about','Five disciplines','Science · Engineering · Research · Material · Eco'],['#pillars','Capabilities','Five connected capabilities'],['#process','Method','Five-step engineering process'],['#solutions','Integrated solutions','Engineering, research and materials intelligence'],['#industries','Industries','Where we work'],['#partners','Research & collaboration','Universities and diagnostic methods'],['#faq','Questions','Good to know'],['#contact','Contact','Start a conversation']]
@@ -15,8 +15,7 @@ function buildItems(boardPath){
   {group:'Actions',icon:'arrow',title:'Start a project enquiry',detail:'Open the enquiry form',run:()=>{enquire();scrollToHash('#contact')}},
   {group:'Actions',icon:'mail',title:`Email ${company.email}`,detail:'Opens your mail app',run:()=>{window.location.href=`mailto:${company.email}`}},
   {group:'Actions',icon:'phone',title:`Call ${company.phoneDisplay}`,detail:company.location,run:()=>{window.location.href=`tel:${company.phone}`}},
-  {group:'Go to',icon:'arrow',title:'Our Board',detail:'NexaFive Global governance and leadership',run:()=>{window.location.href=boardPath}},
-  {group:'Actions',icon:'up',title:'View the light edition',detail:'Version 1',run:()=>{window.location.href='/v1'}}
+  {group:'Go to',icon:'arrow',title:'Our Board',detail:'NexaFive Global governance and leadership',run:()=>{window.location.href=boardPath}}
  ];
 }
 

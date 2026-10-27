@@ -36,11 +36,11 @@ The original `npm run dev` remains available at **http://localhost:5173** and us
 
 ## Check after deployment
 
-- An anonymous `/v1` or `/v2` request opens login.
+- An anonymous `/` or `/boardmembers` request opens login.
 - Sign in with the existing review credentials, reload, and open the board page.
 - Search for **Sign out** and select it; the site returns to login.
 - In a private window, `/assets/engineering.png` returns `401`.
-- `/v1` stays light-only; `/v2` defaults to light and supports dark.
+- The single site at `/` defaults to light and supports dark; previous version URLs redirect home.
 
 If login returns `500`, inspect **Functions → site → Logs**, and confirm Netlify Blobs is available for the project. Authentication deliberately fails closed if its storage is unavailable. If a previous static deployment is cached, redeploy from `main` using this root configuration.
 

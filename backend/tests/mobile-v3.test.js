@@ -2,15 +2,15 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createApp} from '../src/app.js';
 
-test('compact content is limited to theme-selectable V2 and remains present for server rendering',async()=>{
+test('single homepage keeps compact mobile content and accessible server rendering',async()=>{
  const app=await createApp({requireLogin:false}),server=app.listen(0,'127.0.0.1');
  await new Promise(resolve=>server.on('listening',resolve));
  try{
   const base='http://127.0.0.1:'+server.address().port;
-  for(const route of ['/v1','/v1/boardmembers','/v2/boardmembers']){
+  for(const route of ['/boardmembers']){
    const html=await(await fetch(base+route)).text();assert(!html.includes('n5-mobile-compact'),route);
   }
-  const html=await(await fetch(base+'/v2')).text();assert.match(html,/n5-mobile-compact/);
+  const html=await(await fetch(base+'/')).text();assert.match(html,/n5-mobile-compact/);
   for(const id of ['contact-form','faq','about','solutions','battery-engineering','corrosion-mitigation'])assert.match(html,new RegExp(`id="${id}"`));
   assert.match(html,/Send a project enquiry/);assert.match(html,/Testing methods &amp; standards/);
   assert.match(html,/data-ready="false"/,'server content remains accessible before enhancement');

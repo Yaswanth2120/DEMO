@@ -6,14 +6,12 @@ Ready for Netlify: import `main`, keep the base/package directories empty, and u
 
 Both `main` and `dev` include the login gate using the project-owner credentials. Run `npm run dev` and open http://localhost:5173; the Node backend must be running. See [login behavior and checks](docs/dev-login.md). Rebuild when switching branches.
 
-## Current editions (October 27, 2026)
+## Current site
 
-- `/v1`: light-only site and `/v1/boardmembers`.
-- `/v2`: Light / Dark site (light by default) with the compact mobile layout and `/v2/boardmembers`.
-- `/` opens `/v1`; previous `/v3` links redirect to `/v2`.
-- The standalone dark edition has been removed.
-
-Sign out is available inside the site search menu.
+- One Light/Dark site at `/`, with light as the default.
+- Board members at `/boardmembers`.
+- Previous `/v1`, `/v2`, and `/v3` URLs redirect to the single site.
+- Login is required; sign out is inside the search menu.
 
 # NexaFive Global — React + Node.js
 

@@ -4,4 +4,4 @@ import './theme.css';
 import './mobile.css';
 import {ThemeShell} from './Theme.jsx';
 
-export default function VersionThree({config={}}){return <ThemeShell><VersionTwo config={config} basePath="/v2" mobileCompact/></ThemeShell>}
+export default function VersionThree({config={}}){return <ThemeShell><VersionTwo config={config} mobileCompact/></ThemeShell>}

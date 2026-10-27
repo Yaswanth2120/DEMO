@@ -11,7 +11,7 @@ async function withAccess(callback,options={}){
  const app=await createApp({authOptions:{verifyCredentials:async(name,password)=>name===testUser&&password===testPassword,...options}});
  const server=app.listen(0,'127.0.0.1');await new Promise(resolve=>server.on('listening',resolve));
  const base='http://127.0.0.1:'+server.address().port;
- const login=(extra={})=>fetch(base+'/auth/login',{method:'POST',body:new URLSearchParams({username:testUser,password:testPassword,next:'/v2',...extra}),redirect:'manual'});
+ const login=(extra={})=>fetch(base+'/auth/login',{method:'POST',body:new URLSearchParams({username:testUser,password:testPassword,next:'/',...extra}),redirect:'manual'});
  try{await callback({base,login})}finally{await new Promise(resolve=>server.close(resolve))}
 }
 
@@ -27,10 +27,10 @@ test('anonymous visitors cannot read pages, API data, or the application bundle'
 
 test('wrong credentials fail and valid credentials create a protected session',()=>withAccess(async({base,login})=>{
  const invalid=await login({password:'wrong'});assert.equal(invalid.status,401);assert.equal(invalid.headers.get('set-cookie'),null);assert.match(await invalid.text(),/Username or password is incorrect/);
- const response=await login();assert.equal(response.status,303);assert.equal(response.headers.get('location'),'/v2');
+ const response=await login();assert.equal(response.status,303);assert.equal(response.headers.get('location'),'/');
  const setCookie=response.headers.get('set-cookie');assert.match(setCookie,/HttpOnly/);assert.match(setCookie,/SameSite=Lax/);assert.match(setCookie,/Max-Age=28800/);
  const cookie=setCookie.split(';')[0];
- const page=await fetch(base+'/v2',{headers:{cookie}});assert.equal(page.status,200);assert.match(await page.text(),/n5-mobile-compact/);
+ const page=await fetch(base+'/',{headers:{cookie}});assert.equal(page.status,200);assert.match(await page.text(),/n5-mobile-compact/);
  assert.equal((await fetch(base+'/api/config',{headers:{cookie}})).status,200);
  assert.equal((await fetch(base+'/auth/session',{headers:{cookie}})).status,200);
  const tampered=cookie.slice(0,-1)+(cookie.endsWith('a')?'b':'a');assert.equal((await fetch(base+'/auth/session',{headers:{cookie:tampered}})).status,401);
@@ -45,8 +45,8 @@ test('sessions expire after eight hours',async()=>{let time=Date.now();await wit
 
 test('login rejects foreign origins and external return destinations',()=>withAccess(async({base,login})=>{
  const response=await fetch(base+'/auth/login',{method:'POST',headers:{Origin:'https://foreign.example'},body:new URLSearchParams({username:testUser,password:testPassword}),redirect:'manual'});assert.equal(response.status,403);
- const redirect=await login({next:'https://foreign.example'});assert.equal(redirect.headers.get('location'),'/v1');
- for(const next of ['//foreign.example','/\\foreign.example','/auth/logout','/login','/v1\r\nLocation: https://foreign.example'])assert.equal(safeNext(next),'/v1');
+ const redirect=await login({next:'https://foreign.example'});assert.equal(redirect.headers.get('location'),'/');
+ for(const next of ['//foreign.example','/\\foreign.example','/auth/logout','/login','/v1\r\nLocation: https://foreign.example'])assert.equal(safeNext(next),'/');
  assert.equal(safeNext('/v2/boardmembers#board-content'),'/v2/boardmembers#board-content');
 }));
 
