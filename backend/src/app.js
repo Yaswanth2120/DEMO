@@ -4,13 +4,14 @@ import {fileURLToPath} from 'node:url';
 import {resolve} from 'node:path';
 import {getConfig} from './config.js';
 import api from './routes/api.js';
+import {installAccess} from './auth/access.js';
 import {securityHeaders} from './middleware/security.js';
 const clientDirectory=fileURLToPath(new URL('../../frontend/dist/client',import.meta.url));
 const serverEntry=new URL('../../frontend/dist/server/entry-server.js',import.meta.url);
 const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const safeJson=value=>JSON.stringify(value).replace(/</g,'\\u003c').replace(/>/g,'\\u003e').replace(/&/g,'\\u0026');
-export async function createApp(){
- const app=express();app.disable('x-powered-by');app.use(securityHeaders);app.use('/api',api);
+export async function createApp({requireLogin=true,authOptions={}}={}){
+ const app=express();app.disable('x-powered-by');app.use(securityHeaders);if(requireLogin)installAccess(app,authOptions);app.use('/api',api);
  let template,renderer;try{await access(resolve(clientDirectory,'index.html'));template=await readFile(resolve(clientDirectory,'index.html'),'utf8');renderer=await import(serverEntry.href)}catch{/* Dev API runs independently of the frontend build. */}
  if(template){
   app.get('/robots.txt',(_req,res)=>res.type('text/plain').send(`User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${getConfig().siteUrl}/sitemap.xml\n`));
@@ -31,6 +32,6 @@ export async function createApp(){
    res.status(meta.notFound?404:200).type('html').send(html);
   });
  }else app.use((_req,res)=>res.status(503).type('text/plain').send('Frontend build not found. Run npm run dev and open http://localhost:5173, or run npm run build before npm start.'));
- app.use((error,_req,res,_next)=>{console.error('Request failed:',error.name);res.status(500).json({error:'Something went wrong. Please try again later.'})});
+ app.use((error,_req,res,_next)=>{if(error.status===413)return res.status(413).json({error:'Request is too large'});console.error('Request failed:',error.name);res.status(500).json({error:'Something went wrong. Please try again later.'})});
  return app;
 }

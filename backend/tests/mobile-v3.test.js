@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {createApp} from '../src/app.js';
 
 test('compact content is limited to theme-selectable V2 and remains present for server rendering',async()=>{
- const app=await createApp(),server=app.listen(0,'127.0.0.1');
+ const app=await createApp({requireLogin:false}),server=app.listen(0,'127.0.0.1');
  await new Promise(resolve=>server.on('listening',resolve));
  try{
   const base='http://127.0.0.1:'+server.address().port;

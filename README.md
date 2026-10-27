@@ -1,3 +1,7 @@
+## Credential-protected preview
+
+Both `main` and `dev` include the login gate using the project-owner credentials. Run `npm run dev` and open http://localhost:5173; the Node backend must be running. See [login behavior and checks](docs/dev-login.md). Rebuild when switching branches.
+
 ## Current editions (October 27, 2026)
 
 - `/v1`: light-only site and `/v1/boardmembers`.
@@ -5,7 +9,7 @@
 - `/` opens `/v1`; previous `/v3` links redirect to `/v2`.
 - The standalone dark edition has been removed.
 
-This `main` checkpoint contains the version changes only. Authentication work belongs on `dev`.
+Sign out is available inside the site search menu.
 
 # NexaFive Global — React + Node.js
 
