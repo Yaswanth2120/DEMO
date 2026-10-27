@@ -3,9 +3,10 @@ const ThemeContext=createContext(null);
 const key='nexafive-theme';
 const valid=value=>['light','dark','device'].includes(value);
 
-export function ThemeShell({children}){
- const [preference,setPreference]=useState('device'),[deviceDark,setDeviceDark]=useState(false);
+export function ThemeShell({children,fixed}){
+ const [preference,setPreference]=useState(fixed||'device'),[deviceDark,setDeviceDark]=useState(false);
  useEffect(()=>{
+  if(fixed)return;
   const media=window.matchMedia('(prefers-color-scheme: dark)');
   const update=()=>setDeviceDark(media.matches);
   update();media.addEventListener('change',update);
@@ -13,10 +14,10 @@ export function ThemeShell({children}){
   const sync=event=>{if(event.key===key||event.key===null)setPreference(valid(event.newValue)?event.newValue:'device')};
   window.addEventListener('storage',sync);
   return()=>{media.removeEventListener('change',update);window.removeEventListener('storage',sync)};
- },[]);
+ },[fixed]);
  const choose=value=>{if(!valid(value))return;setPreference(value);try{localStorage.setItem(key,value)}catch{/* Keep the selection for this page. */}};
  const dark=preference==='dark'||(preference==='device'&&deviceDark);
- return <ThemeContext.Provider value={{preference,choose}}><div className={`n5-theme-shell${dark?' v3-preview':''}`} data-theme={dark?'dark':'light'} data-theme-preference={preference}>{children}</div></ThemeContext.Provider>;
+ return <ThemeContext.Provider value={fixed?null:{preference,choose}}><div className={`n5-theme-shell${dark?' v3-preview':''}`} data-theme={dark?'dark':'light'} data-theme-preference={preference}>{children}</div></ThemeContext.Provider>;
 }
 
 export function ThemeControl(){

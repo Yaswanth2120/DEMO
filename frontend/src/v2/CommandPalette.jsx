@@ -15,7 +15,7 @@ function buildItems(boardPath){
   {group:'Actions',icon:'mail',title:`Email ${company.email}`,detail:'Opens your mail app',run:()=>{window.location.href=`mailto:${company.email}`}},
   {group:'Actions',icon:'phone',title:`Call ${company.phoneDisplay}`,detail:company.location,run:()=>{window.location.href=`tel:${company.phone}`}},
   {group:'Go to',icon:'arrow',title:'Our Board',detail:'NexaFive Global governance and leadership',run:()=>{window.location.href=boardPath}},
-  {group:'Actions',icon:'up',title:'View the classic site',detail:'Version 1 backup',run:()=>{window.location.href='/backup'}}
+  {group:'Actions',icon:'up',title:'View the light edition',detail:'Version 1',run:()=>{window.location.href='/v1'}}
  ];
 }
 

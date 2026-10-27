@@ -10,18 +10,18 @@ test('WhatsApp stays unset unless configured with valid international digits',()
 
 test('health and public configuration work without AI credentials',()=>withServer(async base=>{assert.equal((await fetch(base+'/api/health')).status,200);const config=await(await fetch(base+'/api/config')).json();assert.deepEqual(Object.keys(config).sort(),['siteUrl','verified','whatsapp']);assert(!JSON.stringify(config).includes('OPENAI'));assert.equal((await fetch(base+'/api/chat',{method:'POST'})).status,404);assert.equal((await fetch(base+'/api/chat/status')).status,404)}));
 
-test('primary homepage serves the selected Version 2 experience',()=>withServer(async base=>{const response=await fetch(base+'/');assert.equal(response.status,200);const html=await response.text();assert.equal((html.match(/<h1/g)||[]).length,1);assert.match(html,/aria-label="Innovate beyond boundaries\."/);assert.match(html,/class="v2"/);assert.match(html,/role="tablist" aria-label="NexaFive capabilities"/);assert.match(html,/Our Board/);assert.match(html,/href="\/boardmembers"/);assert.match(html,/rel="canonical"/);assert.match(html,/nexafive-logo\.png/);assert(!html.includes('OPENAI_API_KEY'));assert.equal((await fetch(base+'/missing')).status,404)}));
+test('homepage opens the light-only V1 experience',()=>withServer(async base=>{const response=await fetch(base+'/');assert.equal(response.status,200);const html=await response.text();assert.equal((html.match(/<h1/g)||[]).length,1);assert.match(html,/aria-label="Innovate beyond boundaries\."/);assert.match(html,/class="v2"/);assert.match(html,/role="tablist" aria-label="NexaFive capabilities"/);assert.match(html,/Our Board/);assert.match(html,/href="\/v1\/boardmembers"/);assert.match(html,/rel="canonical"/);assert.match(html,/nexafive-logo\.png/);assert(!html.includes('OPENAI_API_KEY'));assert.equal((await fetch(base+'/missing')).status,404)}));
 
-test('classic design is retained at backup and board route is available',()=>withServer(async base=>{const backup=await fetch(base+'/backup');assert.equal(backup.status,200);const backupHtml=await backup.text();assert.match(backupHtml,/Innovate Beyond/);assert(!backupHtml.includes('class="v2"'));const board=await fetch(base+'/boardmembers');assert.equal(board.status,200);const boardHtml=await board.text();assert.match(boardHtml,/class="v2 n5-board-page"/);assert.match(boardHtml,/Elena Martin/);assert.match(boardHtml,/Demo profile/);assert.match(boardHtml,/canonical" href="[^"]+\/boardmembers"/)}));
+test('former backup redirects to V1 and board route is available',()=>withServer(async base=>{const backup=await fetch(base+'/backup',{redirect:'manual'});assert.equal(backup.status,301);assert.equal(backup.headers.get('location'),'/v1');const board=await fetch(base+'/boardmembers');assert.equal(board.status,200);const boardHtml=await board.text();assert.match(boardHtml,/class="v2 n5-board-page"/);assert.match(boardHtml,/Elena Martin/);assert.match(boardHtml,/Demo profile/);assert.match(boardHtml,/canonical" href="[^"]+\/boardmembers"/)}));
 
-test('regular, dark and mixed editions preserve section navigation through board pages',()=>withServer(async base=>{
- for(const prefix of ['', '/v2','/v3']){
+test('light and theme-selectable editions preserve section navigation through board pages',()=>withServer(async base=>{
+ for(const prefix of ['/v1','/v2']){
   const response=await fetch(base+(prefix||'/'),{redirect:'manual'});assert.equal(response.status,200);
   const html=await response.text();assert.match(html,new RegExp(`href="${prefix}/boardmembers"`));
-  if(prefix==='/v2')assert.match(html,/Dark edition/);
-  if(prefix==='/v3')assert.match(html,/n5-theme-shell/);
+  if(prefix==='/v1')assert(!html.includes('aria-label="Color theme"'));
+  if(prefix==='/v2')assert.match(html,/n5-theme-shell/);
   const board=await fetch(base+prefix+'/boardmembers');assert.equal(board.status,200);const boardHtml=await board.text();
-  if(prefix==='/v3'){for(const value of ['light','dark','device'])assert(html.includes(`value="${value}"`));assert.match(boardHtml,/aria-label="Color theme"/)}
+  if(prefix==='/v2'){for(const value of ['light','dark','device'])assert(html.includes(`value="${value}"`));assert.match(boardHtml,/aria-label="Color theme"/)}
   for(const hash of ['pillars','process','industries','partners','contact'])assert(boardHtml.includes(`href="${prefix||'/'}#${hash}"`),`${prefix} board link to ${hash}`);
  }
  const {legacyRedirects,routes}=await import('../../frontend/dist/server/entry-server.js');

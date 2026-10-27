@@ -149,7 +149,7 @@ function Footer({boardPath}){
    </details>
    <div className="n5-foot-bottom">
     <span>© {new Date().getFullYear()} NexaFive Global. {company.tagline}</span>
-    <a href="/backup">View the classic site<Glyph name="up"/></a>
+    <a href="#hero">Back to top<Glyph name="up"/></a>
    </div>
   </div>
  </footer>;

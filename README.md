@@ -1,3 +1,12 @@
+## Current editions (October 27, 2026)
+
+- `/v1`: light-only site and `/v1/boardmembers`.
+- `/v2`: Light / Dark / Device site with the compact mobile layout and `/v2/boardmembers`.
+- `/` opens `/v1`; previous `/v3` links redirect to `/v2`.
+- The standalone dark edition has been removed.
+
+This `main` checkpoint contains the version changes only. Authentication work belongs on `dev`.
+
 # NexaFive Global — React + Node.js
 
 A responsive **single-page** engineering consultancy website. Frontend code lives in `frontend/`; Node/Express code lives in `backend/`. The latest revision corrects the original N5 logo and follows the actual Heshvitha Care reference more closely. See [the reference and logo audit](docs/design-audit.md).
