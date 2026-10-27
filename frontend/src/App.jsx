@@ -1,4 +1,6 @@
-import {useEffect} from 'react';
+import {disciplinePages} from './v2/discipline-content.js';
+import {getPageMeta} from './routes.js';
+import {useEffect,useState} from 'react';
 import ScrollProgress from './components/ScrollProgress.jsx';
 import {revealOnScroll} from './utils/reveal.js';
 import {revealWhenReady} from './utils/loading.js';
@@ -11,7 +13,7 @@ import VersionThree from './v3/VersionThree.jsx';
 import {ThemeShell} from './v3/Theme.jsx';
 import SignOut from './components/SignOut.jsx';
 import {useSectionArrival} from './utils/section-arrival.js';
-function Site({path='/',config={}}){
+function Site({path='/',config={},navigate}){
  useEffect(revealWhenReady,[]);
  useSectionArrival(path);
  useEffect(revealOnScroll,[]);
@@ -20,9 +22,16 @@ function Site({path='/',config={}}){
   const click=event=>{if(event.target.closest('a[href="#privacy"]')){const details=document.getElementById('privacy');if(details)details.open=true}};
   reveal();window.addEventListener('hashchange',reveal);document.addEventListener('click',click);return()=>{window.removeEventListener('hashchange',reveal);document.removeEventListener('click',click)};
  },[]);
- if(path==='/')return <><VersionThree config={config}/><WhatsApp number={config.whatsapp}/></>;
+ const discipline=disciplinePages.find(page=>path==='/'+page.slug);
+ if(path==='/'||discipline)return <><VersionThree config={config} discipline={discipline} onDisciplineSelect={index=>navigate(index===null||discipline===disciplinePages[index]?'/':'/'+disciplinePages[index].slug)}/><WhatsApp number={config.whatsapp}/></>;
  if(path==='/boardmembers')return <ThemeShell><BoardMembers/><WhatsApp number={config.whatsapp}/></ThemeShell>;
  return <><ScrollProgress/><a className="skip-link" href="#main">Skip to content</a><Header path={path}/><main id="main"><PageContent path={path} config={config}/></main><Footer/><WhatsApp number={config.whatsapp}/></>;
 }
 
-export default function App(props){return <><Site {...props}/><SignOut/></>}
+export default function App({path='/',...props}){
+ const [currentPath,setCurrentPath]=useState(path);
+ useEffect(()=>{const back=()=>setCurrentPath(location.pathname.replace(/\/$/,'')||'/');window.addEventListener('popstate',back);return()=>window.removeEventListener('popstate',back)},[]);
+ useEffect(()=>{document.title=getPageMeta(currentPath).title},[currentPath]);
+ const navigate=destination=>{if(destination===currentPath)return;history.pushState(null,'',destination);setCurrentPath(destination);requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'instant'}))};
+ return <><Site {...props} path={currentPath} navigate={navigate}/><SignOut/></>;
+}

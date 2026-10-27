@@ -3,7 +3,7 @@ import {useEffect,useState} from 'react';
 export const reducedMotion=()=>typeof window!=='undefined'&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // Re-arm only after a block leaves view, avoiding flicker near the reveal threshold.
-export function useReveal(){
+export function useReveal(resetKey){
  useEffect(()=>{
   if(!('IntersectionObserver' in window))return;
   const root=document.documentElement,query=window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -12,7 +12,7 @@ export function useReveal(){
   const configure=()=>{observer.disconnect();root.classList.toggle('n5-motion',!query.matches);for(const target of targets){target.classList.remove('is-in');if(!query.matches)observer.observe(target)}};
   configure();query.addEventListener('change',configure);
   return()=>{observer.disconnect();query.removeEventListener('change',configure);root.classList.remove('n5-motion')};
- },[]);
+ },[resetKey]);
 }
 
 export function useInView(ref,threshold=.3){

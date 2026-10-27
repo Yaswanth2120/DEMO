@@ -4,4 +4,4 @@ import './theme.css';
 import './mobile.css';
 import {ThemeShell} from './Theme.jsx';
 
-export default function VersionThree({config={}}){return <ThemeShell><VersionTwo config={config} mobileCompact/></ThemeShell>}
+export default function VersionThree({config={},discipline,onDisciplineSelect}){return <ThemeShell><VersionTwo config={config} discipline={discipline} onDisciplineSelect={onDisciplineSelect} mobileCompact/></ThemeShell>}

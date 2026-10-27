@@ -10,6 +10,7 @@ Both `main` and `dev` include the login gate using the project-owner credentials
 
 - One Light/Dark site at `/`, with light as the default.
 - Board members at `/boardmembers`.
+- Hero disciplines open `/science`, `/engineering`, `/research`, `/material`, and `/eco`; selecting the active discipline again restores the full homepage. See [discipline pages](docs/discipline-pages.md).
 - Previous `/v1`, `/v2`, and `/v3` URLs redirect to the single site.
 - Login is required; sign out is inside the search menu.
 

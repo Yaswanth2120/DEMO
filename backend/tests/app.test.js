@@ -25,12 +25,24 @@ test('single site preserves themes, board section links, progress and legacy red
  }
  for(const hash of ['pillars','process','industries','partners','contact'])assert(boardHtml.includes(`href="/#${hash}"`));
  const {legacyRedirects,routes}=await import('../../frontend/dist/server/entry-server.js');
- assert.deepEqual(routes,['/','/boardmembers']);
+ assert.deepEqual(routes,['/','/boardmembers','/science','/engineering','/research','/material','/eco']);
  for(const [route,destination] of Object.entries(legacyRedirects)){const response=await fetch(base+route,{redirect:'manual'});assert.equal(response.status,301);assert.equal(response.headers.get('location'),destination)}
  assert.equal((await fetch(base+'/boardmembers/',{redirect:'manual'})).status,308);
- const sitemap=await(await fetch(base+'/sitemap.xml')).text();assert.equal((sitemap.match(/<url>/g)||[]).length,2);
+ const sitemap=await(await fetch(base+'/sitemap.xml')).text();assert.equal((sitemap.match(/<url>/g)||[]).length,7);
 }));
 
 test('served logo is the approved transparent N5 artwork',()=>withServer(async base=>{const response=await fetch(base+'/assets/nexafive-logo.png');assert.equal(response.status,200);const bytes=Buffer.from(await response.arrayBuffer());assert.equal(createHash('sha256').update(bytes).digest('hex'),'16cc0d6f5682c340dbb11c6def4ac62594d9bb804d11ee8316d74d975df54dad');assert.match(response.headers.get('content-type'),/image\/png/);assert.equal((await fetch(base+'/assets/nexafive-logo.svg')).status,404)}));
 
 test('security headers, self-hosted fonts and redirects',()=>withServer(async base=>{const response=await fetch(base+'/fonts/outfit-latin.woff2');assert.equal(response.status,200);assert.match(response.headers.get('content-security-policy'),/script-src 'self'/);assert.equal(response.headers.get('x-powered-by'),null);assert.equal((await fetch(base+'/fonts/jakarta-latin.woff2')).status,200);assert.equal((await fetch(base+'/assets/no-such-image.png')).status,404);const redirect=await fetch(base+'/index.html',{redirect:'manual'});assert.equal(redirect.status,301);assert.equal(redirect.headers.get('location'),'/')}));
+
+ test('discipline pages render focused content without homepage sections',()=>withServer(async base=>{
+ const {disciplinePages}=await import('../../frontend/src/v2/discipline-content.js');
+ for(const page of disciplinePages){
+  const response=await fetch(base+'/'+page.slug,{redirect:'manual'});assert.equal(response.status,200,page.slug);
+  const html=await response.text();assert(html.includes(page.lines.join(' ')));
+  for(const id of ['focus','approach','discipline-contact'])assert(html.includes('id="'+id+'"'));
+  for(const id of ['pillars','process','industries','partners'])assert(!html.includes('id="'+id+'"'),page.slug+' excludes '+id);
+  assert(html.includes(page.areas[0][0].replaceAll('&','&amp;')));
+  assert.match(html,/aria-label="Page scroll progress"/);
+ }
+}));

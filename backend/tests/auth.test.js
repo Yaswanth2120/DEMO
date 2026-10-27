@@ -16,7 +16,7 @@ async function withAccess(callback,options={}){
 }
 
 test('anonymous visitors cannot read pages, API data, or the application bundle',()=>withAccess(async({base})=>{
- for(const path of ['/','/v1','/v2','/v1/boardmembers','/v2/boardmembers','/v3','/backup']){
+ for(const path of ['/','/v1','/v2','/v1/boardmembers','/v2/boardmembers','/v3','/backup','/science','/engineering','/research','/material','/eco']){
   const response=await fetch(base+path,{redirect:'manual'});assert.equal(response.status,302,path);assert.match(response.headers.get('location'),/^\/login\?next=/);assert.match(response.headers.get('cache-control'),/no-store/);
  }
  const template=await readFile(new URL('../../frontend/dist/client/index.html',import.meta.url),'utf8');
@@ -86,3 +86,11 @@ test('shared storage retains failed attempts across app instances',async()=>{
   assert.equal((await first.login()).status,429);
  },{store}),{store});
 });
+
+test('discipline return URLs survive login and are protected',()=>withAccess(async({base,login})=>{
+ assert.equal(safeNext('/science#focus'),'/science#focus');
+ assert.equal(safeNext('/research'),'/research');
+ const response=await login({next:'/science#focus'});assert.equal(response.headers.get('location'),'/science#focus');
+ const cookie=response.headers.get('set-cookie').split(';')[0];
+ const page=await fetch(base+'/science',{headers:{cookie}});assert.equal(page.status,200);assert.match(await page.text(),/Science into solutions/);
+}));

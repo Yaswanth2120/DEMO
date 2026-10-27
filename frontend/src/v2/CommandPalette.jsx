@@ -1,3 +1,4 @@
+import {disciplinePages} from './discipline-content.js';
 import {useEffect,useMemo,useRef,useState} from 'react';
 import {company,services,industries} from '../content.js';
 import Glyph from './Glyph.jsx';
@@ -5,14 +6,15 @@ import {enquire} from './Enquiry.jsx';
 import {scrollToHash} from './motion.js';
 
 function buildItems(boardPath){
- const go=hash=>()=>{if(window.location.pathname.endsWith('/boardmembers'))window.location.href=(boardPath.replace(/\/boardmembers$/,'')||'/')+hash;else scrollToHash(hash)};
+ const go=hash=>()=>{if(!document.getElementById(hash.slice(1)))window.location.href=(boardPath.replace(/\/boardmembers$/,'')||'/')+hash;else scrollToHash(hash)};
  return [
   {group:'Account',icon:'arrow',title:'Sign out',detail:'End your preview session',run:()=>{const form=document.createElement('form');form.method='post';form.action='/auth/logout';document.body.append(form);form.submit()}},
   ...[['#hero','Home','Innovate beyond boundaries'],['#about','Five disciplines','Science · Engineering · Research · Material · Eco'],['#pillars','Capabilities','Five connected capabilities'],['#process','Method','Five-step engineering process'],['#solutions','Integrated solutions','Engineering, research and materials intelligence'],['#industries','Industries','Where we work'],['#partners','Research & collaboration','Universities and diagnostic methods'],['#faq','Questions','Good to know'],['#contact','Contact','Start a conversation']]
    .map(([hash,title,detail])=>({group:'Go to',icon:'arrow',title,detail,run:go(hash)})),
-  ...services.map(service=>({group:'Capabilities',icon:service.icon==='nodes'?'nodes':service.icon,title:service.title,detail:service.category,run:()=>window.dispatchEvent(new CustomEvent('n5:capability',{detail:service.slug}))})),
+  ...disciplinePages.map(page=>({group:'Disciplines',icon:page.icon,title:page.name,detail:'Explore '+page.name.toLowerCase(),run:()=>{window.location.href='/'+page.slug}})),
+  ...services.map(service=>({group:'Capabilities',icon:service.icon==='nodes'?'nodes':service.icon,title:service.title,detail:service.category,run:()=>{if(document.getElementById('pillars'))window.dispatchEvent(new CustomEvent('n5:capability',{detail:service.slug}));else window.location.href='/#'+service.slug}})),
   ...industries.map(([title],index)=>({group:'Industries',icon:['car','link','battery','pulse','factory'][index],title,detail:'Industry',run:go(`#industry-${index}`)})),
-  {group:'Actions',icon:'arrow',title:'Start a project enquiry',detail:'Open the enquiry form',run:()=>{enquire();scrollToHash('#contact')}},
+  {group:'Actions',icon:'arrow',title:'Start a project enquiry',detail:'Open the enquiry form',run:()=>{if(document.getElementById('discipline-contact'))scrollToHash('#discipline-contact');else if(document.getElementById('contact')){enquire();scrollToHash('#contact')}else window.location.href='/#contact'}},
   {group:'Actions',icon:'mail',title:`Email ${company.email}`,detail:'Opens your mail app',run:()=>{window.location.href=`mailto:${company.email}`}},
   {group:'Actions',icon:'phone',title:`Call ${company.phoneDisplay}`,detail:company.location,run:()=>{window.location.href=`tel:${company.phone}`}},
   {group:'Go to',icon:'arrow',title:'Our Board',detail:'NexaFive Global governance and leadership',run:()=>{window.location.href=boardPath}}
