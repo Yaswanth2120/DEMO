@@ -1,7 +1,7 @@
 import {useEffect,useRef} from 'react';
 
 export default function ScrollProgress(){
- const progress=useRef(null),fill=useRef(null);
+ const progress=useRef(null);
  useEffect(()=>{
   let frame=0;
   const update=()=>{
@@ -9,7 +9,8 @@ export default function ScrollProgress(){
    const range=document.documentElement.scrollHeight-window.innerHeight;
    const fraction=range>0?Math.max(0,Math.min(1,window.scrollY/range)):0;
    const percent=Math.round(fraction*100);
-   fill.current.style.transform=`scaleX(${fraction})`;
+   progress.current.style.setProperty('--reading-progress',String(fraction));
+   progress.current.dataset.started=String(fraction>0);
    progress.current.setAttribute('aria-valuenow',String(percent));
    progress.current.setAttribute('aria-valuetext',`${percent}% of page scrolled`);
   };
@@ -31,5 +32,5 @@ export default function ScrollProgress(){
    observer?.disconnect();
   };
  },[]);
- return <div ref={progress} className="scroll-progress" role="progressbar" aria-label="Page scroll progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={0} aria-valuetext="0% of page scrolled"><div ref={fill} className="scroll-progress-fill"/></div>;
+ return <div ref={progress} className="scroll-progress" role="progressbar" aria-label="Page scroll progress" aria-valuemin={0} aria-valuemax={100} aria-valuenow={0} aria-valuetext="0% of page scrolled"><div className="scroll-progress-fill"/><span className="scroll-progress-tip" aria-hidden="true"/></div>;
 }
