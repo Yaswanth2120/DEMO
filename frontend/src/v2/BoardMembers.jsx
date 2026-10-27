@@ -1,3 +1,4 @@
+import HeaderNavigation from './HeaderNavigation.jsx';
 import CommandPalette from './CommandPalette.jsx';
 import BrandMark from '../components/BrandMark.jsx';
 import {useEffect,useRef,useState} from 'react';
@@ -24,7 +25,7 @@ function BoardHeader({basePath}){
  return <><header className="n5-island n5-board-island" data-open={open}>
   <div className="n5-island-bar">
    <a className="n5-logo" href={`${basePath||'/'}#hero`} aria-label="NexaFive Global home"><BrandMark/></a>
-   <nav id="board-navigation" className="n5-nav" aria-label="Main navigation">{links.map(([href,label])=><a key={href} href={destination(href)} aria-current={href==='/boardmembers'?'page':undefined} onClick={()=>setOpen(false)}>{label}</a>)}<a className="n5-nav-contact" href={`${basePath||'/'}#contact`} onClick={()=>setOpen(false)}>Start a project<Glyph name="arrow"/></a></nav>
+   <HeaderNavigation id="board-navigation" boardPath={`${basePath}/boardmembers`} teamPage onNavigate={()=>setOpen(false)}/>
    <div className="n5-island-tools"><ThemeControl/><button type="button" className="n5-search" onClick={()=>setPalette(true)} aria-label="Search the site"><Glyph name="search"/></button><a className="n5-btn n5-btn-sm n5-island-cta" href={`${basePath||'/'}#contact`}>Let’s talk</a><button ref={toggle} className="n5-burger" type="button" aria-expanded={open} aria-controls="board-navigation" aria-label={open?'Close menu':'Open menu'} onClick={()=>setOpen(value=>!value)}><span/><span/></button></div>
   </div>
  </header><CommandPalette open={palette} onClose={()=>setPalette(false)} boardPath={`${basePath}/boardmembers`}/></>;

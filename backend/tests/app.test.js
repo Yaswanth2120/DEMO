@@ -46,3 +46,16 @@ test('security headers, self-hosted fonts and redirects',()=>withServer(async ba
   assert.match(html,/aria-label="Page scroll progress"/);
  }
 }));
+
+test('shared header has five main destinations and working expertise links on every page',()=>withServer(async base=>{
+ for(const path of ['/','/science','/boardmembers']){
+  const html=await(await fetch(base+path)).text();
+  const nav=html.match(/<nav id="(?:n5-nav|board-navigation)"[\s\S]*?<\/nav>/)?.[0];assert(nav,path);
+  for(const label of ['Home','About','Team','Contact'])assert(nav.includes('>'+label+'</a>'),path+' '+label);
+  assert.match(nav,/<summary>Expertise/);
+  const prefix=path==='/'?'':'/';
+  for(const hash of ['hero','about','pillars','industries','process','partners','contact'])assert(nav.includes(`href="${prefix}#${hash}"`),path+' '+hash);
+  assert(nav.includes('href="/boardmembers"'));
+  if(path==='/boardmembers')assert.match(nav,/aria-current="page">Team/);
+ }
+}));

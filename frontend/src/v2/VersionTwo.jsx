@@ -1,3 +1,4 @@
+import HeaderNavigation from './HeaderNavigation.jsx';
 import DisciplinePage from './DisciplinePage.jsx';
 import {disciplinePages} from './discipline-content.js';
 import Research from './Research.jsx';
@@ -48,10 +49,7 @@ function Island({onSearch,shortcut,boardPath,discipline}){
  return <header className="n5-island" data-compact={compact} data-open={open}>
   <div className="n5-island-bar">
    <Logo homePath={discipline?'/':'#hero'}/>
-   <nav id="n5-nav" className="n5-nav" aria-label="Main navigation">
-    {(discipline?disciplineLinks:links).map(([href,label])=><a key={href} href={href==='/boardmembers'?boardPath:href} onClick={close}>{label}</a>)}
-    <a className="n5-nav-contact" href={discipline?'#discipline-contact':'#contact'} onClick={close}>Start a project<Glyph name="arrow"/></a>
-   </nav>
+   <HeaderNavigation homepage={!discipline} boardPath={boardPath} onNavigate={close}/>
    <div className="n5-island-tools"><ThemeControl/>
     <button type="button" className="n5-search" onClick={onSearch} aria-label={`Search the site (${shortcut})`}><Glyph name="search"/><kbd>{shortcut}</kbd></button>
     <a className="n5-btn n5-btn-sm n5-island-cta" href={discipline?'#discipline-contact':'#contact'}>Let’s talk</a>

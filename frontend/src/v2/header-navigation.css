@@ -1,0 +1,20 @@
+/* Shared main navigation for the homepage, discipline pages, and team page. */
+.n5-expertise-nav{position:relative;flex:none;color:var(--ink)}
+.v2 .n5-expertise-nav>summary{display:flex;align-items:center;gap:9px;min-height:40px;padding:0 14px;list-style:none;border-radius:12px;cursor:pointer;font:500 15px/1.6 Jakarta,Arial,sans-serif;color:inherit;transition:background .2s,color .2s}
+.n5-expertise-nav>summary::-webkit-details-marker{display:none}
+.n5-expertise-nav>summary:hover,.n5-expertise-nav[open]>summary{background:#145e9d0b;color:var(--blue)}
+.n5-expertise-nav>summary:focus-visible,.n5-expertise-menu>a:focus-visible{outline:2px solid #4098df;outline-offset:3px}
+.n5-nav-chevron{width:6px;height:6px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .2s}
+.n5-expertise-nav[open] .n5-nav-chevron{transform:translateY(1px) rotate(225deg)}
+.n5-expertise-menu{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%);width:326px;padding:18px;border:1px solid var(--line-strong);border-radius:14px;background:#fff;box-shadow:0 22px 50px -25px #102e4c55;z-index:2}
+.n5-expertise-caption{display:block;margin:0 10px 10px;font:500 9px/1.4 Jakarta,Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6b7e90}
+.n5-expertise-menu>a{position:relative;display:flex;flex-direction:column;gap:4px;padding:12px 32px 12px 10px;border-radius:8px;color:#102e4c;text-decoration:none;transition:background .2s}
+.n5-expertise-menu>a:hover{background:#edf4fa}
+.n5-expertise-menu strong{font:500 15px/1.3 Outfit,Arial,sans-serif;letter-spacing:-.01em}
+.n5-expertise-menu>a>span:not(.n5-expertise-arrow){font:400 10px/1.5 Jakarta,Arial,sans-serif;color:#596e80}
+.n5-expertise-arrow{position:absolute;right:12px;top:12px;font-size:16px;color:#145e9d}
+.v3-preview .n5-expertise-nav{color:#eef6fc}.v3-preview .n5-expertise-nav>summary:hover,.v3-preview .n5-expertise-nav[open]>summary{background:#9ad2ff14;color:#9ad2ff}
+.v3-preview .n5-expertise-menu{background:#102439;border-color:#b4dbf729;box-shadow:0 22px 50px -25px #000}.v3-preview .n5-expertise-menu>a{color:#eef6fc}.v3-preview .n5-expertise-menu>a:hover{background:#17344f}.v3-preview .n5-expertise-menu>a>span:not(.n5-expertise-arrow),.v3-preview .n5-expertise-caption{color:#a8bacb}.v3-preview .n5-expertise-arrow{color:#9ad2ff}
+@media(max-width:1200px){.v2 .n5-expertise-nav>summary{padding-inline:10px;font-size:14px}}
+@media(max-width:960px){.n5-expertise-nav{width:100%}.v2 .n5-expertise-nav>summary{justify-content:space-between;min-height:54px;padding:0 16px;font-size:18px}.n5-expertise-menu{position:static;left:auto;top:auto;transform:none;width:auto;margin:0 8px 8px;padding:10px;border:0;border-radius:10px;background:#f2f7fb;box-shadow:none}.n5-expertise-menu>a{padding-block:12px}.v3-preview .n5-expertise-menu{background:#0b1927;box-shadow:none}}
+@media(prefers-reduced-motion:reduce){.n5-nav-chevron,.n5-expertise-nav>summary,.n5-expertise-menu>a{transition:none}}
