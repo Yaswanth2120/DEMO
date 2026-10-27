@@ -68,11 +68,6 @@
 .v3-preview .n5-solution { border-color: rgba(180, 219, 247, .12); background: #0c1b2a; box-shadow: none; }
 .v3-preview .n5-solution:hover { border-color: rgba(154, 210, 255, .38); box-shadow: 0 24px 50px -32px #000; }
 .v3-preview .n5-solution-icon { background: #12304a; color: var(--sky); }
-.v3-preview .n5-acc-item { border-color: rgba(180, 219, 247, .12); background: #102033; }
-.v3-preview .n5-acc-item:hover { border-color: rgba(154, 210, 255, .35); }
-.v3-preview .n5-acc-item::before { background: radial-gradient(600px 400px at 100% 0%, rgba(69, 156, 225, .35), transparent 60%), linear-gradient(160deg, #1b699f, #103a61 58%, #07121e); }
-.v3-preview .n5-acc-heading button { color: #eff7ff; }
-.v3-preview .n5-acc-icon { background: #17344f; color: var(--sky); }
 .v3-preview .n5-research { background: radial-gradient(900px 500px at 100% 0%, rgba(47, 134, 214, .32), transparent 60%), linear-gradient(160deg, #164e80 0%, #0e2a44 45%, #050b12 100%); }
 .v3-preview .n5-industry-marquee::before { background: linear-gradient(90deg, #164e80, transparent); }
 .v3-preview .n5-industry-marquee::after { background: linear-gradient(-90deg, #050b12, transparent); }
