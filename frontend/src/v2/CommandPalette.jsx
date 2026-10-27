@@ -5,8 +5,9 @@ import {enquire} from './Enquiry.jsx';
 import {scrollToHash} from './motion.js';
 
 function buildItems(boardPath){
- const go=hash=>()=>scrollToHash(hash);
+ const go=hash=>()=>{if(window.location.pathname.endsWith('/boardmembers'))window.location.href=boardPath.replace(/\/boardmembers$/,'')+hash;else scrollToHash(hash)};
  return [
+  {group:'Account',icon:'arrow',title:'Sign out',detail:'End your preview session',run:()=>{const form=document.createElement('form');form.method='post';form.action='/auth/logout';document.body.append(form);form.submit()}},
   ...[['#hero','Home','Innovate beyond boundaries'],['#about','Five disciplines','Science · Engineering · Research · Material · Eco'],['#pillars','Capabilities','Five connected capabilities'],['#process','Method','Five-step engineering process'],['#solutions','Integrated solutions','Engineering, research and materials intelligence'],['#industries','Industries','Where we work'],['#partners','Research & collaboration','Universities and diagnostic methods'],['#faq','Questions','Good to know'],['#contact','Contact','Start a conversation']]
    .map(([hash,title,detail])=>({group:'Go to',icon:'arrow',title,detail,run:go(hash)})),
   ...services.map(service=>({group:'Capabilities',icon:service.icon==='nodes'?'nodes':service.icon,title:service.title,detail:service.category,run:()=>window.dispatchEvent(new CustomEvent('n5:capability',{detail:service.slug}))})),
