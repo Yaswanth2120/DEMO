@@ -1,6 +1,7 @@
+import Research from './Research.jsx';
 import BrandMark from '../components/BrandMark.jsx';
 import {useEffect,useRef,useState} from 'react';
-import {company,claims,demoIndustryCollaborators} from '../content.js';
+import {company} from '../content.js';
 import Glyph from './Glyph.jsx';
 import {ThemeControl} from '../v3/Theme.jsx';
 import Constellation from './Constellation.jsx';
@@ -69,18 +70,25 @@ function Rail(){
  </nav>;
 }
 
+const heroMessages=[
+ {lines:['Science','into','solutions.'],text:'Understand how materials behave, from corrosion chemistry and surface interactions to composite mechanics. Connect scientific insight with the decisions your program needs.'},
+ {lines:['Engineer','beyond','limits.'],text:'Bring design, simulation, manufacturing, and validation together. We connect engineering disciplines to help move your idea from concept toward production.'},
+ {lines:['Questions.','Evidence.','Progress.'],text:'Investigate complex challenges through research, diagnostics, and testing. Turn a challenging question into evidence that informs the next engineering decision.'},
+ {lines:['Materials','built to','perform.'],text:'Explore metals, polymers, composites, and dissimilar-material interfaces. Match material behavior, durability, and manufacturing requirements to your application.'},
+ {lines:['Smarter','choices.','Less impact.'],text:'Consider efficiency, durability, and environmental impact together. Bring materials and process decisions into a more responsible engineering approach.'}
+];
 function Hero({mobileCompact}){
+ const [selected,setSelected]=useState(null);
+ const message=selected===null?{lines:['Innovate','beyond','boundaries.'],text:company.overview}:heroMessages[selected];
  return <section id="hero" className="n5-hero" data-tone="light">
   <div className="n5-hero-sky" aria-hidden="true"><span/><span/><span/></div>
   <div className="n5-wrap n5-hero-grid">
    <div className="n5-hero-copy">
     <p className="n5-kicker"><span className="n5-live" aria-hidden="true"/>Engineering &amp; technology consultancy · Minneapolis</p>
-    <h1 className="n5-title" aria-label="Innovate beyond boundaries.">
-     <span className="n5-line" aria-hidden="true"><span>Innovate</span></span>
-     <span className="n5-line" aria-hidden="true"><span>beyond</span></span>
-     <span className="n5-line" aria-hidden="true"><span className="n5-shine">boundaries.</span></span>
-    </h1>
-    <p className="n5-lede">{company.overview}</p>
+    <div className="n5-hero-message" aria-live="polite" aria-atomic="true">
+     <h1 className="n5-title" aria-label={message.lines.join(' ')}>{message.lines.map((line,i)=><span className="n5-line" aria-hidden="true" key={i}><span className={i===2?'n5-shine':undefined}>{line}</span></span>)}</h1>
+     <p className="n5-lede">{message.text}</p>
+    </div>
     <div className="n5-actions">
      <a className="n5-btn" href="#contact">Start a project<Glyph name="arrow"/></a>
      <a className="n5-btn n5-btn-quiet" href="#pillars">Explore capabilities</a>
@@ -91,41 +99,7 @@ function Hero({mobileCompact}){
      <div><dt>E2E</dt><dd>Concept to production</dd></div>
     </dl>
    </div>
-   <MobileFold enabled={mobileCompact} kind="disciplines" label="Explore our five disciplines"><Constellation/></MobileFold>
-  </div>
- </section>;
-}
-
-function Research({verified,mobileCompact}){
- const methods=['SEM / EDX','EIS','Cross-section metallography','Galvanic testing','Accelerated corrosion testing'];
- const industryCards=[...demoIndustryCollaborators,...demoIndustryCollaborators];
- return <section id="partners" className="n5-research n5-dark" data-tone="dark">
-  <div className="n5-wrap">
-   <div className="n5-research-intro n5-r">
-    <p className="n5-eyebrow">Research &amp; collaboration</p>
-    <h2>Curiosity,<br/><span>backed by evidence.</span></h2>
-    <p>Academic insight, industrial perspective, and diagnostic testing bring a different depth to complex questions.</p>
-    <p className="n5-fine">{verified?claims.partnerships:'Ask our team about the current collaboration scope for your program.'}</p>
-   </div>
-   <div className="n5-research-subsections">
-    <section className="n5-universities n5-r" aria-labelledby="universities-title">
-     <div className="n5-subsection-heading"><p className="n5-eyebrow">Universities</p><h3 id="universities-title">Academic collaboration</h3></div>
-     <div className="n5-partners">
-      <article className="n5-partner"><div className="n5-partner-logo"><img src="/assets/missouri-st-logo.png" alt="Missouri S&T university logo" width="2315" height="1880" loading="lazy"/></div><div><h4>Missouri S&amp;T</h4><p>Missouri University of Science and Technology</p></div></article>
-      <article className="n5-partner"><div className="n5-partner-logo"><img src="/assets/university-1.jpg" alt="Kansas State University wordmark" width="300" height="158" loading="lazy"/></div><div><h4>Kansas State University</h4><p>College of Engineering</p></div></article>
-     </div>
-    </section>
-    <MobileFold enabled={mobileCompact} kind="network" label="Explore the industry network"><section className="n5-industrial-network n5-r" aria-labelledby="industries-title">
-     <div className="n5-subsection-heading"><p className="n5-eyebrow">Industries</p><h3 id="industries-title">Industry network</h3><p>Illustrative collaborators shown for design review. Confirmed partners will replace these examples.</p></div>
-     <div className="n5-industry-marquee" tabIndex="0" aria-label="Scrolling illustrative industry collaborator cards; animation pauses on hover or focus"><div className="n5-industry-track">{industryCards.map((industry,index)=><article className="n5-industry-card" key={`${industry.name}-${index}`} aria-hidden={index>=demoIndustryCollaborators.length?'true':undefined}><img src={industry.image} alt="" loading={index<demoIndustryCollaborators.length?'lazy':undefined}/><div><strong>{industry.name}</strong><span>{industry.focus}</span></div></article>)}</div></div>
-    </section></MobileFold>
-   </div>
-   <MobileFold enabled={mobileCompact} kind="testing" label="Testing methods & standards"><div className="n5-lab n5-glow n5-r">
-    <p className="n5-eyebrow">Diagnostic methods</p>
-    <ul className="n5-chips">{methods.map(method=><li key={method}>{method}</li>)}</ul>
-    <div className="n5-standards" aria-label="Standards"><span>ASTM</span><span>SAE</span><span>ISO</span></div>
-    <p className="n5-fine">{verified?claims.testing:'Confirm applicable standards, laboratory accreditation, and OEM procedures for your test program.'}</p>
-   </div></MobileFold>
+   <MobileFold enabled={mobileCompact} kind="disciplines" label="Explore our five disciplines"><Constellation onSelect={setSelected}/></MobileFold>
   </div>
  </section>;
 }

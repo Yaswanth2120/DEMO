@@ -8,7 +8,7 @@ const points=[[260,70],[440.7,201.3],[371.7,413.7],[148.3,413.7],[79.3,201.3]];
 const glyphs=['atom','gear','flask','layers','leaf'];
 const star=`M${points[0]}L${points[2]}L${points[4]}L${points[1]}L${points[3]}Z`;
 
-export default function Constellation(){
+export default function Constellation({onSelect}){
  const [active,setActive]=useState(0);
  const [held,setHeld]=useState(false);
  const root=useRef(null);
@@ -59,7 +59,7 @@ export default function Constellation(){
     <circle className="n5-core-halo" cx="260" cy="260" r="122"/>
     <circle className="n5-core-disc" cx="260" cy="260" r="104" fill="url(#n5-core-fill)"/>
    </svg>
-   {disciplines.map(([discipline],i)=><button key={discipline} type="button" className={`n5-node n5-node-${i}`} aria-pressed={active===i} onClick={()=>setActive(i)}>
+   {disciplines.map(([discipline],i)=><button key={discipline} type="button" className={`n5-node n5-node-${i}`} aria-pressed={active===i} onClick={()=>{setActive(i);onSelect?.(i)}}>
     <span className="n5-node-ring"><Glyph name={glyphs[i]}/></span><span className="n5-node-label">{discipline}</span>
    </button>)}
    <div className="n5-core" aria-hidden="true"><span className="n5-core-index">{pad(active)}<i>/05</i></span><strong key={active}>{name}</strong></div>
