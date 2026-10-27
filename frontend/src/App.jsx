@@ -23,8 +23,8 @@ function Site({path='/',config={},navigate}){
   reveal();window.addEventListener('hashchange',reveal);document.addEventListener('click',click);return()=>{window.removeEventListener('hashchange',reveal);document.removeEventListener('click',click)};
  },[]);
  const discipline=disciplinePages.find(page=>path==='/'+page.slug);
- if(path==='/'||discipline)return <><VersionThree config={config} discipline={discipline} onDisciplineSelect={index=>navigate(index===null||discipline===disciplinePages[index]?'/':'/'+disciplinePages[index].slug)}/><WhatsApp number={config.whatsapp}/></>;
- if(path==='/boardmembers')return <ThemeShell><BoardMembers/><WhatsApp number={config.whatsapp}/></ThemeShell>;
+ if(['/','/about','/expertise','/contact'].includes(path)||discipline)return <><VersionThree config={config} page={path==='/'?'home':path.slice(1)} discipline={discipline} onDisciplineSelect={index=>navigate(index===null||discipline===disciplinePages[index]?'/':'/'+disciplinePages[index].slug)}/><WhatsApp number={config.whatsapp}/></>;
+ if(path==='/team')return <ThemeShell><BoardMembers/><WhatsApp number={config.whatsapp}/></ThemeShell>;
  return <><ScrollProgress/><a className="skip-link" href="#main">Skip to content</a><Header path={path}/><main id="main"><PageContent path={path} config={config}/></main><Footer/><WhatsApp number={config.whatsapp}/></>;
 }
 

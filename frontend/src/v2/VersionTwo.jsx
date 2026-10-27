@@ -1,4 +1,5 @@
-import HeaderNavigation from './HeaderNavigation.jsx';
+import {AboutPage,PageIntro,PageContact} from './SitePages.jsx';
+import HeaderNavigation,{primaryNavigation} from './HeaderNavigation.jsx';
 import DisciplinePage from './DisciplinePage.jsx';
 import {disciplinePages} from './discipline-content.js';
 import Research from './Research.jsx';
@@ -17,8 +18,6 @@ import {useReveal,usePointerGlow} from './motion.js';
 import './v2.css';
 import MobileFold from '../v3/MobileFold.jsx';
 
-const links=[['#pillars','Capabilities'],['#process','Method'],['#industries','Industries'],['#partners','Research'],['/boardmembers','Our Board']];
-const disciplineLinks=[['#hero','Overview'],['#focus','Focus areas'],['#approach','Approach'],['#discipline-contact','Discuss a project'],['/boardmembers','Our Board']];
 const disciplineChapters=[['hero','Intro'],['focus','Focus areas'],['approach','Approach'],['discipline-contact','Contact']];
 const chapters=[['hero','Intro'],['pillars','Capabilities'],['process','Method'],['industries','Industries'],['partners','Research'],['contact','Contact']];
 
@@ -26,7 +25,7 @@ function Logo({className='',homePath='#hero'}){
  return <a className={`n5-logo ${className}`} href={homePath} aria-label="NexaFive Global home"><BrandMark/></a>;
 }
 
-function Island({onSearch,shortcut,boardPath,discipline}){
+function Island({onSearch,shortcut,boardPath,discipline,page}){
  const [open,setOpen]=useState(false);
  const [compact,setCompact]=useState(false);
  const toggle=useRef(null);
@@ -48,11 +47,11 @@ function Island({onSearch,shortcut,boardPath,discipline}){
  const close=()=>setOpen(false);
  return <header className="n5-island" data-compact={compact} data-open={open}>
   <div className="n5-island-bar">
-   <Logo homePath={discipline?'/':'#hero'}/>
-   <HeaderNavigation homepage={!discipline} boardPath={boardPath} onNavigate={close}/>
+   <Logo homePath={discipline||page!=='home'?'/':'#hero'}/>
+   <HeaderNavigation currentPath={discipline?'/'+discipline.slug:page==='home'?'/':'/'+page} onNavigate={close}/>
    <div className="n5-island-tools"><ThemeControl/>
     <button type="button" className="n5-search" onClick={onSearch} aria-label={`Search the site (${shortcut})`}><Glyph name="search"/><kbd>{shortcut}</kbd></button>
-    <a className="n5-btn n5-btn-sm n5-island-cta" href={discipline?'#discipline-contact':'#contact'}>Let’s talk</a>
+    <a className="n5-btn n5-btn-sm n5-island-cta" href={discipline?'#discipline-contact':'/contact'}>Let’s talk</a>
     <button type="button" ref={toggle} className="n5-burger" aria-expanded={open} aria-controls="n5-nav" aria-label={open?'Close menu':'Open menu'} onClick={()=>setOpen(value=>!value)}><span/><span/></button>
    </div>
   </div>
@@ -86,7 +85,7 @@ function Hero({mobileCompact,discipline,onDisciplineSelect}){
      <p className="n5-lede">{message.text}</p>
     </div>
     <div className="n5-actions">
-     <a className="n5-btn" href={discipline?'#discipline-contact':'#contact'}>Start a project<Glyph name="arrow"/></a>
+     <a className="n5-btn" href={discipline?'#discipline-contact':'/contact'}>Start a project<Glyph name="arrow"/></a>
      <a className="n5-btn n5-btn-quiet" href={discipline?'#focus':'#pillars'}>{discipline?'Explore '+discipline.name:'Explore capabilities'}</a>
     </div>
     {discipline?<p className="n5-discipline-hint">Choose another discipline, or select {discipline.name} again to return to the full NexaFive site.</p>:<dl className="n5-facts">
@@ -104,9 +103,9 @@ function Footer({boardPath,discipline}){
  return <footer className="n5-foot">
   <div className="n5-wrap">
    <div className="n5-foot-top">
-    <Logo className="n5-logo-foot" homePath={discipline?'/':'#hero'}/>
+    <Logo className="n5-logo-foot" homePath="/"/>
     <p className="n5-foot-tag">Connected expertise.<br/><span>Boundless possibilities.</span></p>
-    <nav className="n5-foot-nav" aria-label="Footer">{(discipline?disciplineLinks:[...links,['#faq','Questions'],['#contact','Contact']]).map(([href,label])=><a key={href} href={href==='/boardmembers'?boardPath:href}>{label}</a>)}</nav>
+    <nav className="n5-foot-nav" aria-label="Footer">{primaryNavigation.map(([href,label])=><a key={href} href={href}>{label}</a>)}</nav>
    </div>
    <details id="privacy" className="n5-privacy">
     <summary>Privacy notice<span className="n5-faq-icon" aria-hidden="true"/></summary>
@@ -126,11 +125,11 @@ function Footer({boardPath,discipline}){
  </footer>;
 }
 
-export default function VersionTwo({config={},basePath='',mobileCompact=false,discipline,onDisciplineSelect}){
- const boardPath=`${basePath}/boardmembers`;
+export default function VersionTwo({config={},mobileCompact=false,discipline,onDisciplineSelect,page='home'}){
+ const boardPath='/team';
  const [palette,setPalette]=useState(false);
  const [shortcut,setShortcut]=useState('⌘K');
- useReveal(discipline?.slug);
+ useReveal(discipline?.slug||page);
  usePointerGlow();
  useEffect(()=>{
   if(!/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent))setShortcut('Ctrl K');
@@ -144,16 +143,21 @@ export default function VersionTwo({config={},basePath='',mobileCompact=false,di
  },[]);
  return <div className={`v2${mobileCompact?' n5-mobile-compact':''}`}>
   <a className="n5-skip" href="#main">Skip to content</a>
-  <Island boardPath={boardPath} onSearch={()=>setPalette(true)} shortcut={shortcut} discipline={discipline}/>
-  <Rail discipline={discipline}/>
+  <Island boardPath={boardPath} onSearch={()=>setPalette(true)} shortcut={shortcut} discipline={discipline} page={page}/>
+  {(discipline||page==='home')&&<Rail discipline={discipline}/>}
   <main id="main">
-   <Hero mobileCompact={mobileCompact} discipline={discipline} onDisciplineSelect={onDisciplineSelect}/>
-   {discipline?<DisciplinePage discipline={discipline} onHome={()=>onDisciplineSelect(null)}/>:<>
-   <Capabilities mobileCompact={mobileCompact}/>
-   <Method mobileCompact={mobileCompact}/>
-   <Sectors/>
-   <Research verified={config.verified} mobileCompact={mobileCompact}/>
-   <Enquiry mobileCompact={mobileCompact}/></>}
+   {(discipline||page==='home')&&<Hero mobileCompact={mobileCompact} discipline={discipline} onDisciplineSelect={onDisciplineSelect}/>}
+   {discipline?<DisciplinePage discipline={discipline} onHome={()=>onDisciplineSelect(null)}/>:page==='about'?<AboutPage/>:page==='contact'?<>
+    <PageIntro eyebrow="Contact NexaFive" title="A good conversation." accent="A clearer next step." text="Tell us about your application, the challenge you’re facing, and what you need to understand next."/>
+    <Enquiry mobileCompact={mobileCompact}/>
+   </>:<>
+    {page==='expertise'&&<PageIntro eyebrow="Services & industries" title="Connected expertise." accent="Practical applications." text="Explore our engineering services, the industries we work across, and how research and manufacturing insight come together in your program."/>}
+    <Capabilities mobileCompact={mobileCompact}/>
+    <Method mobileCompact={mobileCompact}/>
+    <Sectors/>
+    <Research verified={config.verified} mobileCompact={mobileCompact}/>
+    {page==='home'?<Enquiry mobileCompact={mobileCompact}/>:<PageContact/>}
+   </>}
   </main>
   <Footer boardPath={boardPath} discipline={discipline}/>
   <CommandPalette boardPath={boardPath} open={palette} onClose={()=>setPalette(false)}/>

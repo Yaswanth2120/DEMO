@@ -1,14 +1,18 @@
-# Header redesign — dev_2
+# Page navigation — dev_2
 
-`dev_2` starts from the saved `dev` checkpoint `82e5c1d`. The previous discipline-page work remains on `dev`; this branch isolates the next header iteration. Production is unchanged.
+This branch starts from the saved dev checkpoint 82e5c1d. Main and dev are unchanged by this navigation work.
 
-Main navigation is Home, About, Expertise, Team, Contact. Expertise groups Services, Industries, Our Method, and Research & Collaboration. Team uses the existing board page. About currently targets the five-discipline introduction at `/#about`.
+The header and footer use five direct page links: Home (/), About (/about), Expertise (/expertise), Team (/team), and Contact (/contact). There is no Expertise dropdown. The active page is marked in the header.
 
-The shared header component is used on the homepage, discipline pages, and board page. Homepage links stay in-page; other pages link back to the matching homepage anchor. Mobile uses the same five destinations and an expandable Expertise group. Native disclosure keyboard behavior, Escape, outside-click dismissal, theme selection, search/sign-out, and the existing project CTA are retained.
+About describes the company, its five disciplines, and working principles. Expertise brings together services, method, the bento industry grid, and Research Journal. Team shows the existing demonstration board profiles. Contact provides the enquiry form and contact information. The homepage and dedicated discipline pages are preserved. Selecting an active discipline again returns to the full homepage.
+
+Old board-member URLs redirect to /team. Service, industry, and collaboration shortcuts target the relevant Expertise section. Page routes are protected by login, work on refresh, and are included in server-rendered metadata and the sitemap.
+
+Run:
 
 ```sh
 git switch dev_2
 npm run dev
 ```
 
-Open http://localhost:5173/. To view the previous checkpoint, stop the server and switch back to `dev`.
+Open http://localhost:5173/.

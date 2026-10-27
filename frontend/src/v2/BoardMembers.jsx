@@ -1,4 +1,4 @@
-import HeaderNavigation from './HeaderNavigation.jsx';
+import HeaderNavigation,{primaryNavigation} from './HeaderNavigation.jsx';
 import CommandPalette from './CommandPalette.jsx';
 import BrandMark from '../components/BrandMark.jsx';
 import {useEffect,useRef,useState} from 'react';
@@ -9,10 +9,10 @@ import {ThemeControl} from '../v3/Theme.jsx';
 import {useReveal} from './motion.js';
 import './v2.css';
 
-const links=[['/#pillars','Capabilities'],['/#process','Method'],['/#industries','Industries'],['/#partners','Research'],['/boardmembers','Our Board']];
+const links=primaryNavigation;
 
 function BoardHeader({basePath}){
- const destination=href=>href==='/boardmembers'?`${basePath}/boardmembers`:`${basePath||'/'}${href.slice(1)}`;
+ const destination=href=>href;
  const [open,setOpen]=useState(false);
  const [palette,setPalette]=useState(false);
  useEffect(()=>{const search=event=>{if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==='k'){event.preventDefault();setPalette(value=>!value)}};window.addEventListener('keydown',search);return()=>window.removeEventListener('keydown',search)},[]);
@@ -25,10 +25,10 @@ function BoardHeader({basePath}){
  return <><header className="n5-island n5-board-island" data-open={open}>
   <div className="n5-island-bar">
    <a className="n5-logo" href={`${basePath||'/'}#hero`} aria-label="NexaFive Global home"><BrandMark/></a>
-   <HeaderNavigation id="board-navigation" boardPath={`${basePath}/boardmembers`} teamPage onNavigate={()=>setOpen(false)}/>
-   <div className="n5-island-tools"><ThemeControl/><button type="button" className="n5-search" onClick={()=>setPalette(true)} aria-label="Search the site"><Glyph name="search"/></button><a className="n5-btn n5-btn-sm n5-island-cta" href={`${basePath||'/'}#contact`}>Let’s talk</a><button ref={toggle} className="n5-burger" type="button" aria-expanded={open} aria-controls="board-navigation" aria-label={open?'Close menu':'Open menu'} onClick={()=>setOpen(value=>!value)}><span/><span/></button></div>
+   <HeaderNavigation id="board-navigation" boardPath="/team" teamPage onNavigate={()=>setOpen(false)}/>
+   <div className="n5-island-tools"><ThemeControl/><button type="button" className="n5-search" onClick={()=>setPalette(true)} aria-label="Search the site"><Glyph name="search"/></button><a className="n5-btn n5-btn-sm n5-island-cta" href="/contact">Let’s talk</a><button ref={toggle} className="n5-burger" type="button" aria-expanded={open} aria-controls="board-navigation" aria-label={open?'Close menu':'Open menu'} onClick={()=>setOpen(value=>!value)}><span/><span/></button></div>
   </div>
- </header><CommandPalette open={palette} onClose={()=>setPalette(false)} boardPath={`${basePath}/boardmembers`}/></>;
+ </header><CommandPalette open={palette} onClose={()=>setPalette(false)} boardPath="/team"/></>;
 }
 
 function BoardCard({member}){
@@ -41,7 +41,7 @@ function BoardCard({member}){
 
 export default function BoardMembers({basePath=''}){
  useReveal();
- const destination=href=>href==='/boardmembers'?`${basePath}/boardmembers`:`${basePath||'/'}${href.slice(1)}`;
+ const destination=href=>href;
  return <div className="v2 n5-board-page">
   <BoardIntro members={boardMembers}/>
   <a className="n5-skip" href="#board-content">Skip to our board</a>
@@ -49,8 +49,8 @@ export default function BoardMembers({basePath=''}){
   <main id="board-content">
    <section className="n5-board-hero"><div className="n5-wrap n5-board-hero-grid"><div><p className="n5-kicker"><span className="n5-live" aria-hidden="true"/>NexaFive Global · Governance</p><h1>Leadership for the work that matters next.</h1><p>Our board helps guide NexaFive Global with long-term perspective across science, engineering, manufacturing, and responsible growth.</p></div><aside className="n5-board-hero-note"><Glyph name="layers"/><p>Grounded in technical rigor. Focused on durable impact.</p></aside></div></section>
    <section className="n5-board-list"><div className="n5-wrap"><header className="n5-board-heading"><p className="n5-eyebrow">Our Board</p><h2>Guidance informed by<br/><span>experience and evidence.</span></h2><p>Meet the people who support the company’s long-term direction and governance.</p>{boardMembers.some(member=>member.demo)&&<p className="n5-demo-notice">Demo profiles and contact details are shown for layout review only. Replace them with approved board information before launch.</p>}</header>{boardMembers.length?<div className="n5-board-grid">{boardMembers.map(member=><BoardCard key={member.email||member.name} member={member}/>)}</div>:<section className="n5-board-pending" aria-labelledby="board-pending-title"><Glyph name="layers"/><div><p className="n5-eyebrow">Board profiles</p><h2 id="board-pending-title">Board member details are being confirmed.</h2><p>For board-related correspondence, please contact the NexaFive Global team directly.</p><a className="n5-link" href={`mailto:${company.email}`}><Glyph name="mail"/>{company.email}</a></div></section>}</div></section>
-   <section className="n5-board-cta"><div className="n5-wrap"><p className="n5-eyebrow">Work with NexaFive</p><h2>Bring a challenging question.<br/><span>We’ll help find a practical way forward.</span></h2><a className="n5-btn" href={`${basePath||'/'}#contact`}>Start a project<Glyph name="arrow"/></a></div></section>
+   <section className="n5-board-cta"><div className="n5-wrap"><p className="n5-eyebrow">Work with NexaFive</p><h2>Bring a challenging question.<br/><span>We’ll help find a practical way forward.</span></h2><a className="n5-btn" href="/contact">Start a project<Glyph name="arrow"/></a></div></section>
   </main>
-  <footer className="n5-foot"><div className="n5-wrap"><div className="n5-foot-top"><a className="n5-logo n5-logo-foot" href={`${basePath||'/'}#hero`} aria-label="NexaFive Global home"><BrandMark/></a><p className="n5-foot-tag">Connected expertise.<br/><span>Boundless possibilities.</span></p><nav className="n5-foot-nav" aria-label="Footer navigation">{links.map(([href,label])=><a key={href} href={destination(href)}>{label}</a>)}<a href={`${basePath||'/'}#contact`}>Contact</a></nav></div><div className="n5-foot-bottom"><span>© {new Date().getFullYear()} NexaFive Global. {company.tagline}</span><a href={`${basePath||'/'}#hero`}>Back to site<Glyph name="up"/></a></div></div></footer>
+  <footer className="n5-foot"><div className="n5-wrap"><div className="n5-foot-top"><a className="n5-logo n5-logo-foot" href={`${basePath||'/'}#hero`} aria-label="NexaFive Global home"><BrandMark/></a><p className="n5-foot-tag">Connected expertise.<br/><span>Boundless possibilities.</span></p><nav className="n5-foot-nav" aria-label="Footer navigation">{links.map(([href,label])=><a key={href} href={destination(href)}>{label}</a>)}<a href="/contact">Contact</a></nav></div><div className="n5-foot-bottom"><span>© {new Date().getFullYear()} NexaFive Global. {company.tagline}</span><a href={`${basePath||'/'}#hero`}>Back to site<Glyph name="up"/></a></div></div></footer>
  </div>;
 }
