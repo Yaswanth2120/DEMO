@@ -10,8 +10,9 @@ import VersionTwo from './v2/VersionTwo.jsx';
 import BoardMembers from './v2/BoardMembers.jsx';
 import VersionThree from './v3/VersionThree.jsx';
 import {ThemeShell} from './v3/Theme.jsx';
+import SignOut from './components/SignOut.jsx';
 import {useSectionArrival} from './utils/section-arrival.js';
-export default function App({path='/',config={}}){
+function Site({path='/',config={}}){
  useEffect(revealWhenReady,[]);
  useSectionArrival(path);
  useEffect(revealOnScroll,[]);
@@ -26,3 +27,5 @@ export default function App({path='/',config={}}){
  if(path==='/v2/boardmembers')return <ThemeShell><BoardMembers basePath="/v2"/><WhatsApp number={config.whatsapp}/></ThemeShell>;
  return <><ScrollProgress/><a className="skip-link" href="#main">Skip to content</a><Header path={path}/><main id="main"><PageContent path={path} config={config}/></main><Footer/><WhatsApp number={config.whatsapp}/></>;
 }
+
+export default function App(props){return <><Site {...props}/><SignOut/></>}
