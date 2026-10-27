@@ -11,7 +11,7 @@ function buildItems(boardPath){
   ...[['#hero','Home','Innovate beyond boundaries'],['#about','Five disciplines','Science · Engineering · Research · Material · Eco'],['#pillars','Capabilities','Five connected capabilities'],['#process','Method','Five-step engineering process'],['#solutions','Integrated solutions','Engineering, research and materials intelligence'],['#industries','Industries','Where we work'],['#partners','Research & collaboration','Universities and diagnostic methods'],['#faq','Questions','Good to know'],['#contact','Contact','Start a conversation']]
    .map(([hash,title,detail])=>({group:'Go to',icon:'arrow',title,detail,run:go(hash)})),
   ...services.map(service=>({group:'Capabilities',icon:service.icon==='nodes'?'nodes':service.icon,title:service.title,detail:service.category,run:()=>window.dispatchEvent(new CustomEvent('n5:capability',{detail:service.slug}))})),
-  ...industries.map(([title],index)=>({group:'Industries',icon:['car','link','battery','pulse','factory'][index],title,detail:'Industry',run:()=>{window.dispatchEvent(new CustomEvent('n5:industry',{detail:index}));scrollToHash('#industries')}})),
+  ...industries.map(([title],index)=>({group:'Industries',icon:['car','link','battery','pulse','factory'][index],title,detail:'Industry',run:go(`#industry-${index}`)})),
   {group:'Actions',icon:'arrow',title:'Start a project enquiry',detail:'Open the enquiry form',run:()=>{enquire();scrollToHash('#contact')}},
   {group:'Actions',icon:'mail',title:`Email ${company.email}`,detail:'Opens your mail app',run:()=>{window.location.href=`mailto:${company.email}`}},
   {group:'Actions',icon:'phone',title:`Call ${company.phoneDisplay}`,detail:company.location,run:()=>{window.location.href=`tel:${company.phone}`}},
