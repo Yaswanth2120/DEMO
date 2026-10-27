@@ -6,13 +6,13 @@ import {getConfig} from './config.js';
 import api from './routes/api.js';
 import {installAccess} from './auth/access.js';
 import {securityHeaders} from './middleware/security.js';
-const clientDirectory=fileURLToPath(new URL('../../frontend/dist/client',import.meta.url));
-const serverEntry=new URL('../../frontend/dist/server/entry-server.js',import.meta.url);
+const defaultClientDirectory=fileURLToPath(new URL('../../frontend/dist/client',import.meta.url));
+const defaultServerEntry=new URL('../../frontend/dist/server/entry-server.js',import.meta.url);
 const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const safeJson=value=>JSON.stringify(value).replace(/</g,'\\u003c').replace(/>/g,'\\u003e').replace(/&/g,'\\u0026');
-export async function createApp({requireLogin=true,authOptions={}}={}){
- const app=express();app.disable('x-powered-by');app.use(securityHeaders);if(requireLogin)installAccess(app,authOptions);app.use('/api',api);
- let template,renderer;try{await access(resolve(clientDirectory,'index.html'));template=await readFile(resolve(clientDirectory,'index.html'),'utf8');renderer=await import(serverEntry.href)}catch{/* Dev API runs independently of the frontend build. */}
+export async function createApp({requireLogin=true,authOptions={},clientDirectory=defaultClientDirectory,serverEntry=defaultServerEntry,renderer:providedRenderer,trustProxy=false}={}){
+ const app=express();if(trustProxy)app.set('trust proxy',trustProxy);app.disable('x-powered-by');app.use(securityHeaders);if(requireLogin)installAccess(app,authOptions);app.use('/api',api);
+ let template,renderer;try{await access(resolve(clientDirectory,'index.html'));template=await readFile(resolve(clientDirectory,'index.html'),'utf8');renderer=providedRenderer||await import(serverEntry.href)}catch{/* Dev API runs independently of the frontend build. */}
  if(template){
   app.get('/robots.txt',(_req,res)=>res.type('text/plain').send(`User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${getConfig().siteUrl}/sitemap.xml\n`));
   app.get('/sitemap.xml',(_req,res)=>{const {siteUrl}=getConfig();res.type('application/xml').send('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+renderer.routes.map(route=>`<url><loc>${escape(siteUrl+route)}</loc></url>`).join('')+'</urlset>')});

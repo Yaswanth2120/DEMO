@@ -1,3 +1,7 @@
+## Netlify deployment
+
+Ready for Netlify: import `main`, keep the base/package directories empty, and use the root `netlify.toml`. Build: `npm run build:netlify`; publish: `netlify/publish`. Login and persistent sessions are included. See [step-by-step deployment](docs/netlify-deployment.md).
+
 ## Credential-protected preview
 
 Both `main` and `dev` include the login gate using the project-owner credentials. Run `npm run dev` and open http://localhost:5173; the Node backend must be running. See [login behavior and checks](docs/dev-login.md). Rebuild when switching branches.

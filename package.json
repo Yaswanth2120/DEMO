@@ -16,7 +16,17 @@
     "dev:backend": "npm run dev --workspace backend",
     "build": "npm run build --workspace frontend",
     "start": "npm run start --workspace backend",
-    "test": "npm run test --workspace backend"
+    "test": "npm run test --workspace backend",
+    "build:netlify": "npm run build",
+    "preview:netlify": "npm run build:netlify && netlify dev --filter @nexafive/frontend",
+    "check:netlify": "netlify build --offline --filter @nexafive/frontend"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@netlify/blobs": "^11.1.6",
+    "serverless-http": "^4.0.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^27.14.3"
+  },
+  "packageManager": "npm@10.9.8"
 }

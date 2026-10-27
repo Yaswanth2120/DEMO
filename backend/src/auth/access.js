@@ -1,3 +1,4 @@
+import {memoryAuthStore} from './store.js';
 import express from 'express';
 import {createHash,randomBytes} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
@@ -10,32 +11,29 @@ const digest=value=>createHash('sha256').update(value).digest('hex');
 function tokenFrom(req){const value=(req.headers.cookie||'').split(';').map(part=>part.trim()).find(part=>part.startsWith(cookieName+'='))?.slice(cookieName.length+1);return /^[a-f0-9]{64}$/.test(value||'')?value:null}
 function sameOrigin(req){try{return !req.headers.origin||new URL(req.headers.origin).host===req.headers.host}catch{return false}}
 
-export function installAccess(app,{verifyCredentials=verifySiteCredentials,now=Date.now}={}){
- const sessions=new Map(),failures=new Map();
- const prune=()=>{const time=now();for(const [key,value] of sessions)if(value<=time)sessions.delete(key);for(const [key,value] of failures)if(value.until<=time)failures.delete(key)};
- const authenticated=req=>{const token=tokenFrom(req);if(!token)return false;const expiry=sessions.get(digest(token));if(!expiry)return false;if(expiry<=now()){sessions.delete(digest(token));return false}return true};
+export function installAccess(app,{verifyCredentials=verifySiteCredentials,now=Date.now,store=memoryAuthStore(now),assetDirectory}={}){
+ const authenticated=async req=>{const token=tokenFrom(req);return token?Boolean(await store.get('session:'+digest(token))):false};
  const cookie=(req,value,age)=>`${cookieName}=${value}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${age}${req.secure||process.env.NODE_ENV==='production'?'; Secure':''}`;
  app.use((req,res,next)=>{res.setHeader('Cache-Control','private, no-store');res.setHeader('X-Robots-Tag','noindex, nofollow');next()});
- app.get('/auth/login.css',(_req,res)=>res.sendFile(fileURLToPath(new URL('../../../frontend/public/auth/login.css',import.meta.url))));
- app.get('/auth/login.js',(_req,res)=>res.type('text/javascript').sendFile(fileURLToPath(new URL('../../../frontend/public/auth/login.js',import.meta.url))));
- app.get('/auth/session',(req,res)=>res.status(authenticated(req)?200:401).json({authenticated:authenticated(req)}));
- app.get('/login',(req,res)=>{if(authenticated(req))return res.redirect(303,safeNext(req.query.next));res.type('html').send(loginPage({next:safeNext(req.query.next)}))});
+ app.get('/auth/login.css',(_req,res)=>res.sendFile(assetDirectory?assetDirectory+'/login.css':fileURLToPath(new URL('../../../frontend/public/auth/login.css',import.meta.url))));
+ app.get('/auth/login.js',(_req,res)=>res.type('text/javascript').sendFile(assetDirectory?assetDirectory+'/login.js':fileURLToPath(new URL('../../../frontend/public/auth/login.js',import.meta.url))));
+ app.get('/auth/session',async(req,res)=>{const valid=await authenticated(req);res.status(valid?200:401).json({authenticated:valid})});
+ app.get('/login',async(req,res)=>{if(await authenticated(req))return res.redirect(303,safeNext(req.query.next));res.type('html').send(loginPage({next:safeNext(req.query.next)}))});
  app.post('/auth/login',express.urlencoded({extended:false,limit:'4kb'}),async(req,res,next)=>{
   try{
    if(!sameOrigin(req))return res.status(403).type('html').send(loginPage({error:'Please sign in from this website.'}));
-   prune();const address=req.ip||'unknown',attempt=failures.get(address);
+   const address=digest(req.ip||'unknown'),attempt=await store.get('failure:'+address);
    if(attempt?.count>=10){res.setHeader('Retry-After',String(Math.ceil((attempt.until-now())/1000)));return res.status(429).type('html').send(loginPage({next:safeNext(req.body?.next),error:'Too many attempts. Please try again in 15 minutes.'}))}
    const valid=await verifyCredentials(req.body?.username,req.body?.password);
-   if(!valid){if(failures.size>=1000&&!failures.has(address))failures.delete(failures.keys().next().value);failures.set(address,{count:(attempt?.count||0)+1,until:attempt?.until||now()+15*60*1000});return res.status(401).type('html').send(loginPage({next:safeNext(req.body?.next),error:'Username or password is incorrect.'}))}
-   failures.delete(address);const previous=tokenFrom(req);if(previous)sessions.delete(digest(previous));
-   if(sessions.size>=1000)sessions.delete(sessions.keys().next().value);
-   const token=randomBytes(32).toString('hex');sessions.set(digest(token),now()+lifetime);
+   if(!valid){const until=attempt?.until||now()+15*60*1000;await store.set('failure:'+address,{count:(attempt?.count||0)+1,until},until-now());return res.status(401).type('html').send(loginPage({next:safeNext(req.body?.next),error:'Username or password is incorrect.'}))}
+   await store.delete('failure:'+address);const previous=tokenFrom(req);if(previous)await store.delete('session:'+digest(previous));
+   const token=randomBytes(32).toString('hex');await store.set('session:'+digest(token),true,lifetime);
    res.setHeader('Set-Cookie',cookie(req,token,lifetime/1000));res.redirect(303,safeNext(req.body?.next));
   }catch(error){next(error)}
  });
- app.post('/auth/logout',(req,res)=>{if(!sameOrigin(req))return res.status(403).send('Invalid request');const token=tokenFrom(req);if(token)sessions.delete(digest(token));res.setHeader('Set-Cookie',cookie(req,'',0));res.redirect(303,'/login')});
- app.use((req,res,next)=>{
-  if(publicFiles.has(req.path)||authenticated(req))return next();
+ app.post('/auth/logout',async(req,res)=>{if(!sameOrigin(req))return res.status(403).send('Invalid request');const token=tokenFrom(req);if(token)await store.delete('session:'+digest(token));res.setHeader('Set-Cookie',cookie(req,'',0));res.redirect(303,'/login')});
+ app.use(async(req,res,next)=>{
+  if(publicFiles.has(req.path)||await authenticated(req))return next();
   if(req.path.startsWith('/api/')||req.path.startsWith('/assets/')||req.path.startsWith('/src/')||req.path.startsWith('/fonts/'))return res.status(401).json({error:'Authentication required'});
   if(!['GET','HEAD'].includes(req.method))return res.status(401).json({error:'Authentication required'});
   res.redirect(302,'/login?next='+encodeURIComponent(safeNext(req.originalUrl)));

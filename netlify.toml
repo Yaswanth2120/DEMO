@@ -1,0 +1,24 @@
+[build]
+  command = "npm run build:netlify"
+  publish = "netlify/publish"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[functions]
+  node_bundler = "esbuild"
+  included_files = ["frontend/dist/client/**"]
+
+# All files, including JS and images, pass through the login gate.
+# The publish folder intentionally contains no protected frontend files.
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/site/:splat"
+  status = 200
+  force = true
+
+[dev]
+  framework = "#static"
+  publish = "netlify/publish"
+  port = 8888

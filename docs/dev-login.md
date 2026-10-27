@@ -42,3 +42,7 @@ Open http://localhost:3001. Rebuild after switching branches so generated output
 Build and fifteen tests pass. Authentication tests use an injected test account so the real review password is not committed in test fixtures. The actual project-owner credentials were verified through both Vite and the production server in a browser. Checks covered wrong credentials, cookie flags, sign-out, expiry, tampering, throttling, origin/redirect restrictions, protected bundles/API/source, and oversized input. Login has no horizontal overflow at 320, 390, 768 and 1440px. Original logo checksum is unchanged.
 
 Screenshots: login-desktop.png and login-mobile.png.
+
+## Netlify hosting
+
+Netlify uses a persistent Blobs adapter for shared sessions and login attempt counters. See [Netlify deployment](netlify-deployment.md). Local `npm run dev` keeps its in-memory store.

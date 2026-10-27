@@ -10,3 +10,5 @@ dist/
 !**/.env.example
 .playwright-mcp/
 .DS_Store
+
+.netlify/

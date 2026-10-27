@@ -66,3 +66,23 @@ test('oversized login requests are rejected',()=>withAccess(async({base})=>{
  const response=await fetch(base+'/auth/login',{method:'POST',body:new URLSearchParams({username:'a'.repeat(5000),password:'test'}),redirect:'manual'});
  assert.equal(response.status,413);
 }));
+
+test('shared sessions survive separate app instances and logout revokes both',async()=>{
+ const {memoryAuthStore}=await import('../src/auth/store.js');
+ const store=memoryAuthStore();
+ await withAccess(async first=>withAccess(async second=>{
+  const response=await first.login(),cookie=response.headers.get('set-cookie').split(';')[0];
+  assert.equal((await fetch(second.base+'/auth/session',{headers:{cookie}})).status,200);
+  await fetch(second.base+'/auth/logout',{method:'POST',headers:{cookie},redirect:'manual'});
+  assert.equal((await fetch(first.base+'/auth/session',{headers:{cookie}})).status,401);
+ },{store}),{store});
+});
+
+test('shared storage retains failed attempts across app instances',async()=>{
+ const {memoryAuthStore}=await import('../src/auth/store.js');const store=memoryAuthStore();
+ await withAccess(async first=>withAccess(async second=>{
+  for(let i=0;i<5;i++)assert.equal((await first.login({password:'wrong'})).status,401);
+  for(let i=0;i<5;i++)assert.equal((await second.login({password:'wrong'})).status,401);
+  assert.equal((await first.login()).status,429);
+ },{store}),{store});
+});
