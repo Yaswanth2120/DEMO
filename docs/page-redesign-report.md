@@ -8,7 +8,7 @@ The homepage render was captured before implementation and compared again afterw
 
 ## About — engineering in depth
 
-Replaced the crossed-line N5 graphic with an animated, layered isometric tooling illustration in the logo’s blue, black, and silver palette. The company narrative remains. Restored all five original method stages, with their original descriptions: Problem Intake & Triage, Diagnostic Testing, Solution Engineering, Prototype & Validate, and Implementation Support. The method cycles while visible until a visitor makes a selection, supports keyboard navigation, and respects reduced motion. Mobile keeps every stage visible in a compact selector.
+Replaced the crossed-line N5 graphic with an animated, layered isometric tooling illustration in the logo’s blue, black, and silver palette. The company narrative remains. Restored all five original method stages, with their original descriptions: Problem Intake & Triage, Diagnostic Testing, Solution Engineering, Prototype & Validate, and Implementation Support. The method now uses five selectable stage cards and a split blueprint/detail panel. Every stage includes an explanation, three work areas, a practical outcome, and a next-stage link. Selection remains fixed while reading. The blue geometric panel has subtle animation, supports reduced motion, and the selector supports keyboard navigation. Mobile keeps all five stages visible.
 
 ## Services — illustrated engineering gallery
 
@@ -47,3 +47,5 @@ Desktop and mobile screenshots are saved alongside this report as `redesign-abou
 - About and Services checked at 320, 390, 768, and 1440 px in light and dark themes with no horizontal overflow.
 - Homepage render hash remains unchanged from the baseline above.
 - Latest previews: `about-visual-revision.png`, `about-five-stage-method.png`, `services-visual-revision.png`, and `*-visual-mobile.png` / `*-visual-dark.png`.
+
+Expanded method preview: `about-five-stage-expanded.png`. All five detail panels, keyboard selection, reduced motion, and both themes at 320–1440px were checked.
