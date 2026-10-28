@@ -20,29 +20,31 @@
 .n5-bento-description{position:relative;margin-top:auto;padding-top:40px;font:400 13px/1.65 Jakarta,Arial,sans-serif;opacity:.75}
 .n5-bento-link{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:22px;padding-top:14px;border-top:1px solid currentColor;color:inherit;font:500 11px/1.5 Jakarta,Arial,sans-serif}
 .n5-bento-link>svg{width:16px;height:16px;transition:transform .25s}.n5-bento-link:hover>svg{transform:translateX(4px)}
-.n5-bento-card-0{grid-row:span 2;background:linear-gradient(155deg,#1b69a6,#10324f 70%,#101214);border-color:transparent;color:#fff}
+.n5-bento-card-0{grid-row:span 2}
 .n5-bento-card-0>.n5-industry-art{position:relative;right:auto;top:auto;width:100%;margin-block:24px;opacity:1;z-index:0;color:#aadfff}
 .n5-bento-card-0 .n5-bento-description{margin-top:0;padding-top:18px}
 .n5-bento-statement{font:500 29px/1.12 Outfit,Arial,sans-serif;letter-spacing:-.025em;color:#fff}
 .n5-bento-card-2{background:#101214;color:#fff;border-color:transparent}.n5-bento-card-2>.n5-industry-art{color:#aadfff}
 .n5-bento-card-4{background:#e8f1f8}
-.v3-preview .n5-bento-card:not(.n5-bento-card-0):not(.n5-bento-card-2){background:#102439;color:#ecf6ff}
-.v3-preview .n5-bento-card>.n5-industry-art{color:#aadfff}
 
 .n5-bento-card{scroll-margin-top:100px}.n5-bento-card:target{outline:2px solid #4098df;outline-offset:4px}.n5-bento-link:focus-visible{outline:2px solid #4098df;outline-offset:4px}
 @media(max-width:960px){.n5-industry-bento{grid-template-columns:repeat(2,minmax(0,1fr))}.n5-bento-card-0{grid-row:span 2}.n5-bento-card{padding:24px}}
 @media(max-width:600px){.n5-industry-bento{gap:12px}.n5-bento-card{grid-column:1/-1;min-height:235px;padding:24px}.n5-bento-card-0{grid-row:auto;min-height:0}.n5-bento-card-0>.n5-industry-art{position:absolute;right:-15px;top:55px;width:180px;margin:0;opacity:.3;z-index:-1}.n5-bento-card-0 .n5-bento-statement{font-size:26px;max-width:230px;margin-top:25px}.n5-bento-card-0 .n5-bento-description{padding-top:16px}.v2 .n5-bento-card h3{font-size:25px}.n5-bento-description{padding-top:32px}}
 @media(prefers-reduced-motion:reduce){.n5-industry-art *{animation:none!important}.n5-bento-link>svg{transition:none}}
 .n5-industry-art [data-step="1"]{animation-delay:.4s}.n5-industry-art [data-step="2"]{animation-delay:.8s}.n5-industry-art [data-step="3"]{animation-delay:1.2s}.n5-industry-art [data-step="4"]{animation-delay:1.6s}
-/* Equal cards, three per desktop row, sharing the automotive surface. */
+/* Match the collaboration card palette, with a compact illustration layout. */
 .n5-industry-bento{gap:18px;align-items:stretch}
-.v2 .n5-sectors[data-standalone="true"]{padding-top:36px}
-.v2 .n5-bento-card{grid-row:auto;min-height:0;padding:28px;border-radius:14px;background:linear-gradient(155deg,#1b69a6,#10324f 70%,#101214);border-color:transparent;color:#fff}
-.v2 .n5-bento-card>.n5-industry-art{position:relative;right:auto;top:auto;display:flex;align-items:center;justify-content:center;width:100%;max-width:none;height:116px;aspect-ratio:auto;margin:0 0 20px;border:1px solid #aadfff16;border-radius:10px;background:radial-gradient(ellipse at center,#70c4ff0f,transparent 75%);opacity:1;z-index:0;color:#bce7ff}
-.v2 .n5-bento-card>.n5-industry-art>svg{width:155px;height:106px;overflow:visible}
-.v2 .n5-bento-card .n5-bento-description{margin:0 0 24px;padding-top:0;font-size:13px;line-height:1.8}
-.v2 .n5-bento-card h3{font-size:27px;line-height:1.1;margin-bottom:14px;max-width:none}
-.n5-bento-top{margin-bottom:28px}
+.v2 .n5-sectors[data-standalone="true"]{padding-top:36px;background:transparent}
+.v2 .n5-bento-card{grid-row:auto;min-height:0;padding:24px;border-radius:14px;background:var(--mist);border-color:var(--line);color:var(--muted);box-shadow:0 6px 18px -12px #0e579e26;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s,border-color .3s}
+.v2 .n5-bento-card>.n5-industry-art{position:relative;right:auto;top:auto;display:flex;align-items:center;justify-content:center;width:100%;max-width:none;height:104px;aspect-ratio:auto;margin:0 0 16px;border:0;border-radius:50%;background:radial-gradient(ellipse at center,#6fb3ea20 0%,transparent 72%);opacity:1;z-index:0;color:var(--blue)}
+.v2 .n5-bento-card>.n5-industry-art>svg{width:151px;height:104px;stroke-width:2.6;overflow:visible;transform-origin:center;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.n5-bento-card .n5-art-node rect{fill:var(--ice)}
+.v2 .n5-bento-card .n5-bento-description{margin:0;padding:14px 0 0;border-top:1px solid var(--line);font-size:14px;line-height:1.75;color:var(--muted);opacity:1}
+.v2 .n5-bento-card h3{font-size:24px;line-height:1.18;margin-bottom:10px;min-height:2.36em;max-width:none;color:var(--ink)}
+.n5-bento-top{color:var(--muted);opacity:1;min-height:32px}.n5-bento-top>svg{width:32px;height:32px;padding:7px;border:1px solid var(--line);border-radius:10px;background:var(--ice);color:var(--blue);transition:transform .3s}
+@media(hover:hover) and (pointer:fine){.v2 .n5-bento-card:hover{transform:translateY(-5px);border-color:#76afd9;box-shadow:0 18px 36px -18px #0e579e44}.v2 .n5-bento-card:hover>.n5-industry-art>svg{transform:translateY(-2px) scale(1.06)}.n5-bento-card:hover .n5-bento-top>svg{transform:translateY(-2px)}}
+@media(prefers-reduced-motion:reduce){.v2 .n5-bento-card,.n5-bento-card .n5-industry-art,.n5-bento-card .n5-industry-art>svg,.n5-bento-top>svg{transition:none!important;transform:none!important}}
+.n5-bento-top{margin-bottom:12px}
 .n5-bento-link{margin-top:auto;padding-top:18px}
 .n5-bento-statement{font-size:26px}
 @media(min-width:701px){.n5-industry-bento{grid-template-columns:repeat(3,minmax(0,1fr))}}

@@ -6,7 +6,7 @@ import {enquire} from './Enquiry.jsx';
 import {scrollToHash} from './motion.js';
 
 function buildItems(boardPath){
- const go=hash=>()=>{if(!document.getElementById(hash.slice(1)))window.location.href=(['#pillars','#process','#solutions'].includes(hash)?'/services':['#industries'].includes(hash)||hash.startsWith('#industry-')?'/industries':hash==='#contact'||hash==='#faq'?'/contact':'/')+hash;else scrollToHash(hash)};
+ const go=hash=>()=>{if(!document.getElementById(hash.slice(1)))window.location.href=(hash==='#pillars'?'/services':['#process','#solutions'].includes(hash)?'/about':['#industries'].includes(hash)||hash.startsWith('#industry-')?'/industries':hash==='#contact'||hash==='#faq'?'/contact':'/')+hash;else scrollToHash(hash)};
  return [
   {group:'Account',icon:'arrow',title:'Sign out',detail:'End your preview session',run:()=>{const form=document.createElement('form');form.method='post';form.action='/auth/logout';document.body.append(form);form.submit()}},
   ...[['#hero','Home','Innovate beyond boundaries'],['#about','Five disciplines','Science · Engineering · Research · Material · Eco'],['#pillars','Services','Five connected services'],['#industries','Industries','Where we work'],['#faq','Questions','Good to know'],['#contact','Contact','Start a conversation']]

@@ -1,7 +1,7 @@
 html.n5-motion .v2 .n5-r:focus-within { opacity:1;transform:none; }
 .v3-preview .n5-board-hero { background:radial-gradient(ellipse at 80% 30%,#17436599,transparent 70%),#07121e; }
 .v3-preview .n5-board-hero-note,.v3-preview .n5-board-card { background:#102439;border-color:#dceefc22; }
-.v3-preview .n5-board-cta { background:#07121e; }
+.v3-preview .n5-board-cta { background:transparent; }
 .v3-preview .n5-cap-tab[aria-selected="true"] .n5-cap-name,.v3-preview .n5-cap-tab[aria-selected="true"] .n5-cap-num {color:#fff;}
 .n5-theme-shell { background:#fff;color-scheme:light; }
 .n5-theme-shell.v3-preview {color-scheme:dark;}
@@ -17,7 +17,7 @@ html.n5-motion .v2 .n5-r:focus-within { opacity:1;transform:none; }
 .n5-theme-shell:not(.v3-preview) :is(.n5-chips li,.n5-standards span) {color:#0e579e;background:#edf4fa;border-color:#cddde9;}
 .n5-theme-shell:not(.v3-preview) .n5-industry-marquee::before {background:linear-gradient(90deg,#f2f7fb,transparent);}
 .n5-theme-shell:not(.v3-preview) .n5-industry-marquee::after {background:linear-gradient(-90deg,#f2f7fb,transparent);}
-.n5-theme-shell:not(.v3-preview) .n5-board-cta {background:#edf4fa;color:#536982;}
+.n5-theme-shell:not(.v3-preview) .n5-board-cta {background:transparent;color:#536982;}
 .n5-theme-shell:not(.v3-preview) .n5-board-cta h2 {color:#102e4c;}
 .n5-theme-shell:not(.v3-preview) .n5-board-cta h2 span {color:#0e579e;}
 @media(max-width:1200px){.n5-theme-shell .n5-search kbd{display:none;}.n5-theme-shell .n5-island-cta{display:none;}}

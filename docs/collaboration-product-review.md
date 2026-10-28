@@ -66,7 +66,7 @@ Each card has a small technical icon, title, two or three lines of description, 
 
 If the owner prefers a partner directory, retain the partner-card model only after receiving approved names, logos, relationship descriptions, and permission to show them. Do not quietly turn the present demonstration companies into apparent real partners.
 
-### 3. 02 / Academic research & collaboration
+### 3. 02 / Academic research collaboration
 
 Section heading: **Bring a research question into application.**
 

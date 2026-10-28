@@ -156,6 +156,8 @@
 .n5-board-card-copy { padding: 24px; }
 .n5-board-page #team-content>.n5-board-list{padding-block:36px 60px}
 .n5-board-page .n5-leadership-intro{padding-block:44px}
+.n5-board-page #team-content>.n5-leadership-intro,.n5-board-page #team-content>.n5-board-cta{width:min(1240px,calc(100% - var(--gutter) * 2));margin-inline:auto}
+.n5-board-page #team-content>.n5-leadership-intro>.n5-wrap,.n5-board-page #team-content>.n5-board-cta>.n5-wrap{width:100%}
 .v2 .n5-team-title{font:600 clamp(36px,4.5vw,60px)/1.1 Outfit,Arial,sans-serif;letter-spacing:-.035em;color:var(--ink);margin:0}
 .n5-team-tagline{max-width:660px;margin:18px 0 0;color:var(--muted);font-size:clamp(15px,1.4vw,18px);line-height:1.7}
 .v2 .n5-team-group-title{font:500 30px/1.2 Outfit,Arial,sans-serif;color:var(--ink);margin:0 0 26px;padding-bottom:20px;border-bottom:1px solid var(--line)}
