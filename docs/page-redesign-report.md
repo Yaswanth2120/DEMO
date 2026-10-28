@@ -1,6 +1,6 @@
 # About, Services, and Industries redesign
 
-Branch: `page_redesign`, created from `dev_2` at `f6213ad`. No changes are merged into `dev_2`, `dev`, or `main`.
+Branch: `dev_2`. The redesign is now included on `dev_2`; `dev` and `main` are unchanged.
 
 ## Homepage preservation
 
@@ -31,7 +31,7 @@ Replaced the duplicated bento grid. A compact industry selector changes the appl
 ## Preview locally
 
 ```sh
-git switch page_redesign
+git switch dev_2
 npm install
 npm run dev
 ```
