@@ -2,16 +2,26 @@ import {useEffect,useState} from 'react';
 
 export const reducedMotion=()=>typeof window!=='undefined'&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// Re-arm only after a block leaves view, avoiding flicker near the reveal threshold.
+// Register content blocks on every page, including panels mounted after selection.
+// A reveal resets only once its block has completely left the viewport.
 export function useReveal(resetKey){
  useEffect(()=>{
   if(!('IntersectionObserver' in window))return;
   const root=document.documentElement,query=window.matchMedia('(prefers-reduced-motion: reduce)');
-  const targets=[...document.querySelectorAll('.n5-r')];
-  const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting&&entry.intersectionRatio>=.08)entry.target.classList.add('is-in');else if(!entry.isIntersecting)entry.target.classList.remove('is-in')}},{rootMargin:'0px 0px -6% 0px',threshold:[0,.08]});
-  const configure=()=>{observer.disconnect();root.classList.toggle('n5-motion',!query.matches);for(const target of targets){target.classList.remove('is-in');if(!query.matches)observer.observe(target)}};
-  configure();query.addEventListener('change',configure);
-  return()=>{observer.disconnect();query.removeEventListener('change',configure);root.classList.remove('n5-motion')};
+  const targets=new Set(),automatic=new Set();
+  let frame=0;
+  const observer=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting)entry.target.classList.add('is-in');else entry.target.classList.remove('is-in')}},{threshold:0});
+  const register=()=>{
+   const candidates=[...document.querySelectorAll('.v2 main section > .n5-wrap > *, .v2 main > .n5-wrap > *, .v2 .n5-member-layout > *')].filter(element=>!element.matches('script,style,[hidden]')&&!element.closest('[aria-hidden="true"]'));
+   // Animate one level of content, never a parent and its child together.
+   for(const element of candidates){if(element.matches('.n5-r')||element.closest('.n5-r')||element.querySelector('.n5-r')||candidates.some(child=>child!==element&&element.contains(child)))continue;element.classList.add('n5-r');automatic.add(element)}
+   for(const target of targets){if(!target.isConnected){observer.unobserve(target);targets.delete(target);automatic.delete(target)}}
+   for(const target of document.querySelectorAll('.v2 .n5-r')){if(targets.has(target))continue;targets.add(target);if(!query.matches)observer.observe(target)}
+  };
+  const configure=()=>{observer.disconnect();root.classList.toggle('n5-motion',!query.matches);register();for(const target of targets){target.classList.remove('is-in');if(!query.matches)observer.observe(target)}};
+  const mutations=new MutationObserver(()=>{if(!frame)frame=requestAnimationFrame(()=>{frame=0;register()})});
+  configure();mutations.observe(document.querySelector('.v2 main')||document.body,{childList:true,subtree:true});query.addEventListener('change',configure);
+  return()=>{cancelAnimationFrame(frame);mutations.disconnect();observer.disconnect();query.removeEventListener('change',configure);root.classList.remove('n5-motion');for(const target of targets)target.classList.remove('is-in');for(const target of automatic)target.classList.remove('n5-r')};
  },[resetKey]);
 }
 

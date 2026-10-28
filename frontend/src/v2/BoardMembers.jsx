@@ -45,6 +45,7 @@ function MemberPortrait({member}){
 }
 
 export function MemberProfile({member}){
+ useReveal(memberSlug(member));
  return <div className="v2 n5-board-page n5-member-page" data-profile={memberSlug(member)}><BoardHeader/><main className="n5-member-main"><div className="n5-wrap"><a className="n5-link" href="/team">← All leadership &amp; advisors</a><div className="n5-member-layout"><MemberPortrait member={member}/><div>{member.demo&&<span className="n5-demo-badge">Demo profile</span>}<p className="n5-eyebrow">{member.role}</p><h1>{member.name}</h1><p className="n5-member-summary">{member.bio}</p><h2>About {member.name.split(' ')[0]}</h2>{(member.details||[member.bio]).map(text=><p key={text}>{text}</p>)}{member.areas&&<><h2>Areas of focus</h2><ul>{member.areas.map(area=><li key={area}>{area}</li>)}</ul></>}<a className="n5-btn" href="/contact">Contact NexaFive<Glyph name="arrow"/></a></div></div></div></main></div>;
 }
 
