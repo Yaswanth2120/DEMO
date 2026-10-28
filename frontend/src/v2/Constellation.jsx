@@ -10,6 +10,8 @@ const star=`M${points[0]}L${points[2]}L${points[4]}L${points[1]}L${points[3]}Z`;
 
 export default function Constellation({onSelect,initialActive=null}){
  const [active,setActive]=useState(initialActive);
+ const [preview,setPreview]=useState(0);
+ useEffect(()=>{if(active!==null||reducedMotion())return;const timer=setInterval(()=>{if(!document.hidden)setPreview(i=>(i+1)%disciplines.length)},3000);return()=>clearInterval(timer)},[active]);
  useEffect(()=>{setActive(initialActive)},[initialActive]);
  const root=useRef(null);
 
@@ -32,8 +34,9 @@ export default function Constellation({onSelect,initialActive=null}){
  },[]);
 
  const selected=active!==null;
- const [name,text]=selected?disciplines[active]:['Five disciplines','Choose a discipline to explore its perspective.'];
- return <figure id="about" className="n5-const" ref={root} data-active={selected?active:'none'}>
+ const displayIndex=selected?active:preview;
+ const [name,text]=disciplines[displayIndex];
+ return <figure id="about" className="n5-const" ref={root} data-active={displayIndex}>
   <div className="n5-const-stage">
    <svg className="n5-const-svg" viewBox="0 0 520 520" aria-hidden="true" focusable="false">
     <defs>
@@ -45,15 +48,15 @@ export default function Constellation({onSelect,initialActive=null}){
     <polygon className="n5-penta" points={points.join(' ')}/>
     <path className="n5-star" d={star}/>
     <path className="n5-star-pulse" d={star} pathLength="1"/>
-    {points.map(([x,y],i)=><line key={i} className={`n5-spoke${i===active?' is-on':''}`} x1="260" y1="260" x2={x} y2={y}/>)}
+    {points.map(([x,y],i)=><line key={i} className={`n5-spoke${i===displayIndex?' is-on':''}`} x1="260" y1="260" x2={x} y2={y}/>)}
     <circle className="n5-core-halo" cx="260" cy="260" r="122"/>
     <circle className="n5-core-disc" cx="260" cy="260" r="104" fill="url(#n5-core-fill)"/>
    </svg>
    {disciplines.map(([discipline],i)=><button key={discipline} type="button" className={`n5-node n5-node-${i}`} aria-pressed={active===i} onClick={()=>{setActive(i);onSelect?.(i)}}>
     <span className="n5-node-ring"><Glyph name={glyphs[i]}/></span><span className="n5-node-label">{discipline}</span>
    </button>)}
-   <div className="n5-core" aria-hidden="true"><span className="n5-core-index">{selected?<>{pad(active)}<i>/05</i></>:'05'}</span><strong key={active}>{name}</strong></div>
+   <div className="n5-core" aria-hidden="true"><span className="n5-core-index">{pad(displayIndex)}<i>/05</i></span><strong key={displayIndex}>{name}</strong></div>
   </div>
-  <figcaption className="n5-const-caption" aria-live="polite"><span>{selected?`${pad(active)} · ${name}`:'One connected perspective'}</span><p key={active}>{text}</p></figcaption>
+  <figcaption className="n5-const-caption" aria-live="polite"><span>{selected?`${pad(active)} · ${name}`:'One connected perspective'}</span><p key={active}>{selected?text:'Choose a discipline to explore its perspective.'}</p></figcaption>
  </figure>;
 }
