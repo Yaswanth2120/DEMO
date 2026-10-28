@@ -54,8 +54,8 @@ test('primary navigation and distinct inner pages remain accessible',()=>withSer
   for(const [href,label] of [['/','Home'],['/about','About'],['/services','Services'],['/industries','Industries'],['/collaboration','Collaboration'],['/team','Team'],['/contact','Contact']]){assert(nav.includes('href="'+href+'"'));assert(nav.includes('>'+label+'</a>'));}
   assert(!nav.includes('<details'));assert.equal((html.match(/<h1/g)||[]).length,1,path);
  }
- const about=await(await fetch(base+'/about')).text();assert(about.includes('Our perspective'));assert(!about.includes('n5-about-discipline-grid'));assert(!about.includes('id="process"'));
- const servicePage=await(await fetch(base+'/services')).text();assert(servicePage.includes('Choose a service focus'));assert(!servicePage.includes('n5-cap-panel'));assert(servicePage.includes('corrosion-mitigation'));
+ const about=await(await fetch(base+'/about')).text();assert(about.includes('Five-step engineering process'));assert(!about.includes('rd-intersection'));assert(!about.includes('Our working perspective'));for(const name of ['Problem Intake &amp; Triage','Diagnostic Testing','Solution Engineering','Prototype &amp; Validate','Implementation Support'])assert(about.includes(name),name);assert(!about.includes('n5-about-discipline-grid'));assert(about.includes('id="process"'));
+ const servicePage=await(await fetch(base+'/services')).text();assert(servicePage.includes('Explore engineering services'));assert(!servicePage.includes('rd-service-question'));assert(!servicePage.includes('rd-service-index'));assert(!servicePage.includes('n5-cap-panel'));assert(servicePage.includes('corrosion-mitigation'));
  const industryPage=await(await fetch(base+'/industries')).text();assert(industryPage.includes('Choose an industry'));assert(!industryPage.includes('n5-industry-bento'));
  const contact=await(await fetch(base+'/contact')).text();assert(contact.includes('id="contact-form"'));
  assert.equal((await fetch(base+'/boardmembers',{redirect:'manual'})).headers.get('location'),'/team');
