@@ -53,3 +53,7 @@ Expanded method preview: `about-five-stage-expanded.png`. All five detail panels
 ## About imported from Dev3
 
 The active About page now uses the AboutOrbit, AboutScale, and AboutProfile content from origin/Dev3. Supporting components were extracted into Dev3AboutFeatures.jsx and styles scoped to .dev3-about. Services, Industries, auth, and routing behavior were retained from dev_2. The previous five-stage implementation remains in source but is no longer rendered on About. Production build and all 21 tests pass; scale selection and 320–1440px layouts were browser checked.
+
+## Industries visual rework
+
+Replaced the abstract application map with five illustrated sector selectors and an application brief showing engineering priorities and relevant service links. A Next industry control cycles through all sectors. Existing industry hash aliases and search event selection are retained. Healthcare remains focused on software and data integration. All 21 tests and production build pass; all sectors, next selection, and both themes at 320/390/768/1440px were checked. Homepage hash is unchanged. Previews: industries-rework-desktop.png and industries-rework-mobile-dark.png.
