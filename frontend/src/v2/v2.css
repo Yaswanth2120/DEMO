@@ -362,7 +362,7 @@ html.site-loading .v2 :is(.n5-line > span, .n5-lede, .n5-actions, .n5-facts, .n5
 .n5-solution p { font-size: 15px; line-height: 1.55; }
 
 /* ---------- Industries ---------- */
-.n5-sectors { padding-block: var(--pad); background: var(--mist); }
+.n5-sectors { padding-block: var(--pad); }
 
 /* ---------- Research ---------- */
 .n5-research { padding-block: var(--pad); background: radial-gradient(900px 500px at 100% 0%, rgba(47, 134, 214, .4), transparent 60%), linear-gradient(160deg, var(--blue) 0%, var(--blue-deep) 42%, var(--ink) 100%); }

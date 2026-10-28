@@ -2,7 +2,6 @@ import {AboutPage,CollaborationPage,PageIntro,PageContact,WhatToExpect} from './
 import HeaderNavigation,{primaryNavigation} from './HeaderNavigation.jsx';
 import DisciplinePage from './DisciplinePage.jsx';
 import {disciplinePages} from './discipline-content.js';
-import Research from './Research.jsx';
 import BrandMark from '../components/BrandMark.jsx';
 import {useEffect,useRef,useState} from 'react';
 import {company} from '../content.js';
@@ -18,8 +17,8 @@ import {useReveal,usePointerGlow} from './motion.js';
 import './v2.css';
 import MobileFold from '../v3/MobileFold.jsx';
 
-const disciplineChapters=[['hero','Intro'],['focus','Focus areas'],['approach','Approach'],['discipline-contact','Contact']];
-const chapters=[['hero','Intro'],['pillars','Capabilities'],['process','Method'],['industries','Industries'],['partners','Research'],['contact','Contact']];
+const disciplineChapters=[['hero','Intro'],['focus','Focus areas'],['approach','Approach']];
+const chapters=[['hero','Intro'],['pillars','Capabilities'],['process','Method'],['industries','Industries'],['contact','Contact']];
 
 function Logo({className='',homePath='#hero'}){
  return <a className={`n5-logo ${className}`} href={homePath} aria-label="NexaFive Global home"><BrandMark/></a>;
@@ -51,7 +50,7 @@ function Island({onSearch,shortcut,boardPath,discipline,page}){
    <HeaderNavigation currentPath={discipline?'/'+discipline.slug:page==='home'?'/':'/'+page} onNavigate={close}/>
    <div className="n5-island-tools"><ThemeControl/>
     <button type="button" className="n5-search" onClick={onSearch} aria-label={`Search the site (${shortcut})`}><Glyph name="search"/><kbd>{shortcut}</kbd></button>
-    <a className="n5-btn n5-btn-sm n5-island-cta" href={discipline?'#discipline-contact':'/contact'}>Let’s talk</a>
+    <a className="n5-btn n5-btn-sm n5-island-cta" href="/contact">Let’s talk</a>
     <button type="button" ref={toggle} className="n5-burger" aria-expanded={open} aria-controls="n5-nav" aria-label={open?'Close menu':'Open menu'} onClick={()=>setOpen(value=>!value)}><span/><span/></button>
    </div>
   </div>
@@ -85,7 +84,7 @@ function Hero({mobileCompact,discipline,onDisciplineSelect}){
      <p className="n5-lede">{message.text}</p>
     </div>
     <div className="n5-actions">
-     <a className="n5-btn" href={discipline?'#discipline-contact':'/contact'}>Start a project<Glyph name="arrow"/></a>
+     <a className="n5-btn" href="/contact">Start a project<Glyph name="arrow"/></a>
      <a className="n5-btn n5-btn-quiet" href={discipline?'#focus':'#pillars'}>{discipline?'Explore '+discipline.name:'Explore capabilities'}</a>
     </div>
     {discipline?<p className="n5-discipline-hint">Choose another discipline, or select {discipline.name} again to return to the full NexaFive site.</p>:<dl className="n5-facts">
@@ -147,7 +146,7 @@ export default function VersionTwo({config={},mobileCompact=false,discipline,onD
   {(discipline||page==='home')&&<Rail discipline={discipline}/>}
   <main id="main">
    {(discipline||page==='home')&&<Hero mobileCompact={mobileCompact} discipline={discipline} onDisciplineSelect={onDisciplineSelect}/>}
-   {discipline?<DisciplinePage discipline={discipline} onHome={()=>onDisciplineSelect(null)}/>:page==='about'?<AboutPage mobileCompact={mobileCompact}/>:page==='collaboration'?<CollaborationPage verified={config.verified}/>:page==='contact'?<>
+   {discipline?<DisciplinePage discipline={discipline}/>:page==='about'?<AboutPage mobileCompact={mobileCompact}/>:page==='collaboration'?<CollaborationPage verified={config.verified}/>:page==='contact'?<>
     <PageIntro eyebrow="Contact NexaFive" title="A good conversation." accent="A clearer next step." text="Tell us about your application, the challenge you’re facing, and what you need to understand next."/>
     <Enquiry mobileCompact={mobileCompact}/>
    </>:page==='services'?<>
@@ -161,7 +160,6 @@ export default function VersionTwo({config={},mobileCompact=false,discipline,onD
     <Capabilities mobileCompact={mobileCompact}/>
     <Method mobileCompact={mobileCompact}/>
     <Sectors/>
-    <Research verified={config.verified} mobileCompact={mobileCompact}/>
     {page==='home'?<Enquiry mobileCompact={mobileCompact}/>:<PageContact/>}
    </>}
   </main>

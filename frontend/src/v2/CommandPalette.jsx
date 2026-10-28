@@ -15,7 +15,7 @@ function buildItems(boardPath){
   ...disciplinePages.map(page=>({group:'Disciplines',icon:page.icon,title:page.name,detail:'Explore '+page.name.toLowerCase(),run:()=>{window.location.href='/'+page.slug}})),
   ...services.map(service=>({group:'Services',icon:service.icon==='nodes'?'nodes':service.icon,title:service.title,detail:service.category,run:()=>{if(document.getElementById('pillars'))window.dispatchEvent(new CustomEvent('n5:capability',{detail:service.slug}));else window.location.href='/services#'+service.slug}})),
   ...industries.map(([title],index)=>({group:'Industries',icon:['car','link','battery','pulse','factory'][index],title,detail:'Industry',run:go(`#industry-${index}`)})),
-  {group:'Actions',icon:'arrow',title:'Start a project enquiry',detail:'Open the enquiry form',run:()=>{if(document.getElementById('discipline-contact'))scrollToHash('#discipline-contact');else if(document.getElementById('contact')){enquire();scrollToHash('#contact')}else window.location.href='/contact#contact-form'}},
+  {group:'Actions',icon:'arrow',title:'Start a project enquiry',detail:'Open the enquiry form',run:()=>{if(document.getElementById('contact')){enquire();scrollToHash('#contact')}else window.location.href='/contact#contact-form'}},
   {group:'Actions',icon:'mail',title:`Email ${company.email}`,detail:'Opens your mail app',run:()=>{window.location.href=`mailto:${company.email}`}},
   {group:'Actions',icon:'phone',title:`Call ${company.phoneDisplay}`,detail:company.location,run:()=>{window.location.href=`tel:${company.phone}`}},
   {group:'Go to',icon:'arrow',title:'Team',detail:'NexaFive Global governance and leadership',run:()=>{window.location.href=boardPath}}

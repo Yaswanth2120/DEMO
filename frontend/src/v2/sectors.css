@@ -34,6 +34,7 @@
 .n5-industry-art [data-step="1"]{animation-delay:.4s}.n5-industry-art [data-step="2"]{animation-delay:.8s}.n5-industry-art [data-step="3"]{animation-delay:1.2s}.n5-industry-art [data-step="4"]{animation-delay:1.6s}
 /* Match the collaboration card palette, with a compact illustration layout. */
 .n5-industry-bento{gap:18px;align-items:stretch}
+.v2 .n5-sectors,.v3-preview .v2 .n5-sectors{background:transparent}
 .v2 .n5-sectors[data-standalone="true"]{padding-top:36px;background:transparent}
 .v2 .n5-bento-card{grid-row:auto;min-height:0;padding:24px;border-radius:14px;background:var(--mist);border-color:var(--line);color:var(--muted);box-shadow:0 6px 18px -12px #0e579e26;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s,border-color .3s}
 .v2 .n5-bento-card>.n5-industry-art{position:relative;right:auto;top:auto;display:flex;align-items:center;justify-content:center;width:100%;max-width:none;height:104px;aspect-ratio:auto;margin:0 0 16px;border:0;border-radius:50%;background:radial-gradient(ellipse at center,#6fb3ea20 0%,transparent 72%);opacity:1;z-index:0;color:var(--blue)}

@@ -58,7 +58,8 @@
 
 /* Remaining chapters use tonal layers instead of white backgrounds. */
 .v3-preview .n5-method { background: #07121e; }
-.v3-preview .n5-sectors { background: #0b1927; }
+/* Keep the Industries chapter on the shared page surface; its cards carry the tonal treatment. */
+.v3-preview .n5-sectors { background: transparent; }
 .v3-preview .n5-contact { background: #07121e; }
 .v3-preview .n5-station { color: #9fb1c0; }
 .v3-preview .n5-station-dot { border-color: rgba(180, 219, 247, .22); background: #102235; color: #c1d0dc; }
