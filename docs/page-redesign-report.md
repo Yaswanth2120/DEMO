@@ -49,3 +49,7 @@ Desktop and mobile screenshots are saved alongside this report as `redesign-abou
 - Latest previews: `about-visual-revision.png`, `about-five-stage-method.png`, `services-visual-revision.png`, and `*-visual-mobile.png` / `*-visual-dark.png`.
 
 Expanded method preview: `about-five-stage-expanded.png`. All five detail panels, keyboard selection, reduced motion, and both themes at 320–1440px were checked.
+
+## About imported from Dev3
+
+The active About page now uses the AboutOrbit, AboutScale, and AboutProfile content from origin/Dev3. Supporting components were extracted into Dev3AboutFeatures.jsx and styles scoped to .dev3-about. Services, Industries, auth, and routing behavior were retained from dev_2. The previous five-stage implementation remains in source but is no longer rendered on About. Production build and all 21 tests pass; scale selection and 320–1440px layouts were browser checked.

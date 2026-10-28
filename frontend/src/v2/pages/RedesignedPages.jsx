@@ -1,5 +1,3 @@
-import EngineeringScene from './EngineeringScene.jsx';
-import FiveStageMethod from './FiveStageMethod.jsx';
 import {useSelection} from './usePageSelection.js';
 export {ServiceGallery as ServiceWorkbench} from './ServiceGallery.jsx';
 import './visual-pages.css';
@@ -11,17 +9,7 @@ function Closing({eyebrow,title,text,subject}){
  return <section className="rd-closing"><div className="n5-wrap"><div><p className="n5-eyebrow">{eyebrow}</p><h2>{title}</h2><p>{text}</p></div><a className="n5-btn" href="/contact#contact-form">Start the conversation<Glyph name="arrow"/></a></div></section>;
 }
 
-export function AboutStudio(){
- return <div className="rd-pages rd-about vp-about">
-  <section id="hero" className="rd-about-hero"><div className="n5-wrap rd-about-hero-grid">
-   <div><p className="n5-eyebrow">About NexaFive</p><h1>See beyond<br/><em>the surface.</em></h1><p>Materials, design, and production influence each other. We bring those perspectives together to understand the whole engineering challenge.</p><a className="n5-link" href="#process">Explore our five-stage method<Glyph name="arrow"/></a></div>
-   <div className="vp-about-object"><div className="vp-object-meta"><span>Perspective / in depth</span><span>Materials · Engineering · Production</span></div><EngineeringScene kind={2}/><div className="vp-object-caption"><span className="vp-object-line"/><p>From a single interface<br/><strong>to the complete picture.</strong></p></div></div>
-  </div></section>
-  <section className="rd-story"><div className="n5-wrap"><p className="n5-eyebrow">An engineering &amp; technology consultancy · Minneapolis</p><div className="rd-story-columns"><h2>Look beyond<br/><span>the isolated problem.</span></h2><div><p>A component does not experience its material, geometry, and operating environment separately. Neither should the engineering conversation.</p><p>NexaFive brings materials science, technical investigation, and manufacturing insight into the same room. Our role is to help make the relationships clearer, so that the next decision can be better informed.</p><p className="rd-small-note">The application defines the scope. Your team’s question gives the work direction.</p></div></div></div></section>
-  <FiveStageMethod/>
-  <Closing eyebrow="A question worth connecting" title="Let’s look at it together." text="You do not need a finished brief to begin. Bring the context, and we can discuss where to start."/>
- </div>;
-}
+export {AboutPage as AboutStudio} from '../Dev3About.jsx';
 
 const serviceLabels=['Battery systems','Lightweight structures','Tooling & production','Materials intelligence','Corrosion & durability'];
 

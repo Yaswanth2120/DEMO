@@ -1,0 +1,202 @@
+/* About, Services and Industries page sections. Colours come from the shared theme variables
+   (logo blue, near-black ink, white and blue tints), so light and dark themes both follow. */
+
+.dev3-about .n5-feature { padding-block: var(--pad); }
+.dev3-about .n5-feature + .n5-feature { border-top: 1px solid var(--line); }
+.dev3-about .n5-feature .n5-page-section-head > p:last-child:not(.n5-eyebrow) { max-width: 620px; margin-top: 14px; font-size: 17px; line-height: 1.7; color: var(--muted); }
+
+/* ---------- Scale: surface to lifecycle ---------- */
+.dev3-about .n5-scale-track { position: relative; margin-bottom: 26px; }
+.dev3-about .n5-scale-ruler { position: absolute; left: 10%; right: 10%; top: 58px; height: 2px; background: repeating-linear-gradient(90deg, var(--line-strong) 0 2px, transparent 2px 14px); }
+.dev3-about .n5-scale-ruler span { position: absolute; inset: 0 auto 0 0; width: 0; height: 2px; background: var(--blue); transition: width .7s cubic-bezier(.2, .8, .2, 1); }
+.dev3-about .n5-scale-track[data-active="1"] .n5-scale-ruler span { width: 25%; } .dev3-about .n5-scale-track[data-active="2"] .n5-scale-ruler span { width: 50%; }
+.dev3-about .n5-scale-track[data-active="3"] .n5-scale-ruler span { width: 75%; } .dev3-about .n5-scale-track[data-active="4"] .n5-scale-ruler span { width: 100%; }
+.dev3-about .n5-scale-stops { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); align-items: start; }
+.dev3-about .n5-scale-stop { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 0 4px; border: 0; background: none; color: var(--muted); cursor: pointer; }
+.dev3-about .n5-scale-lens { display: grid; place-items: center; width: 116px; height: 116px; border: 1.5px solid var(--line-strong); border-radius: 50%; background: var(--ice); color: var(--blue); transform: scale(.62); transition: transform .6s cubic-bezier(.34, 1.4, .64, 1), border-color .3s, background .3s, box-shadow .3s; }
+.dev3-about .n5-scale-stop-1 .n5-scale-lens { transform: scale(.7); } .dev3-about .n5-scale-stop-2 .n5-scale-lens { transform: scale(.78); }
+.dev3-about .n5-scale-stop-3 .n5-scale-lens { transform: scale(.86); } .dev3-about .n5-scale-stop-4 .n5-scale-lens { transform: scale(.94); }
+.dev3-about .n5-scale-stop[aria-pressed="true"] .n5-scale-lens { transform: scale(1); border-color: var(--blue); background: var(--blue); color: #fff; box-shadow: 0 0 0 10px rgba(14, 87, 158, .1), 0 20px 40px -18px rgba(14, 87, 158, .7); }
+.dev3-about .n5-scale-lens svg { width: 56%; height: 56%; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.dev3-about .n5-scale-lens circle { fill: currentColor; stroke: none; }
+.dev3-about .n5-scale-lens .n5-art-accent { stroke: var(--sky, #8cc4f2); }
+.dev3-about .n5-scale-stop[aria-pressed="true"] .n5-scale-lens .n5-art-accent { stroke: #fff; fill: #fff; }
+.dev3-about .n5-scale-label { color: var(--ink); font: 600 17px Outfit, Arial, sans-serif; }
+.dev3-about .n5-scale-unit { font: 600 12px Jakarta, Arial, sans-serif; letter-spacing: .06em; }
+.dev3-about .n5-scale-stop[aria-pressed="true"] .n5-scale-unit { color: var(--blue); }
+.dev3-about .n5-scale-detail { display: grid; grid-template-columns: 1.2fr .8fr; gap: 28px; padding: clamp(22px, 3vw, 36px); border: 1px solid var(--line); border-radius: 26px; background: var(--mist); animation: n5-pf-swap .45s ease; }
+.dev3-about .n5-scale-kicker { margin: 0 0 8px; color: var(--blue); font: 600 13px Jakarta, Arial, sans-serif; letter-spacing: .04em; }
+.v2 .dev3-about .n5-scale-detail h3 { margin-bottom: 10px; font: 600 clamp(24px, 2.4vw, 32px)/1.1 Outfit, Arial, sans-serif; letter-spacing: -.03em; color: var(--ink); }
+.dev3-about .n5-scale-detail p { color: var(--muted); font-size: 16px; line-height: 1.65; }
+.dev3-about .n5-scale-services { display: grid; align-content: start; gap: 8px; }
+.dev3-about .n5-scale-services > p { margin: 0 0 2px; color: var(--soft); font: 600 12px Jakarta, Arial, sans-serif; letter-spacing: .08em; text-transform: uppercase; }
+.dev3-about .n5-scale-services a { display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--ice); color: var(--ink); font-weight: 600; font-size: 15px; transition: border-color .3s, transform .4s; }
+.dev3-about .n5-scale-services a:hover { border-color: var(--blue); transform: translateX(4px); }
+.dev3-about .n5-scale-services a svg { flex: none; width: 18px; height: 18px; color: var(--blue); }
+.dev3-about .n5-scale-services a svg:last-child { margin-left: auto; }
+
+/* ---------- Company profile title block ---------- */
+.dev3-about .n5-titleblock { position: relative; padding: clamp(18px, 2.4vw, 28px); border: 1.5px solid var(--ink); border-radius: 6px; background: repeating-linear-gradient(0deg, transparent 0 27px, var(--line) 27px 28px), repeating-linear-gradient(90deg, transparent 0 27px, var(--line) 27px 28px), var(--ice); }
+.dev3-about .n5-titleblock-mark { position: absolute; width: 18px; height: 18px; border-color: var(--blue); border-style: solid; border-width: 0; }
+.dev3-about .n5-titleblock-mark-tl { top: -9px; left: -9px; border-top-width: 2px; border-left-width: 2px; } .dev3-about .n5-titleblock-mark-tr { top: -9px; right: -9px; border-top-width: 2px; border-right-width: 2px; }
+.dev3-about .n5-titleblock-mark-bl { bottom: -9px; left: -9px; border-bottom-width: 2px; border-left-width: 2px; } .dev3-about .n5-titleblock-mark-br { bottom: -9px; right: -9px; border-bottom-width: 2px; border-right-width: 2px; }
+.dev3-about .n5-titleblock-head, .dev3-about .n5-titleblock-foot { display: flex; flex-wrap: wrap; gap: 0; margin: 0; border: 1px solid var(--ink); background: var(--ink); color: #fff; font: 600 12px Jakarta, Arial, sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+.v3-preview .dev3-about .n5-titleblock-head { color: var(--v3-ground, #050b12); }
+.dev3-about .n5-titleblock-head span, .dev3-about .n5-titleblock-foot span { padding: 10px 14px; border-right: 1px solid rgba(255, 255, 255, .25); }
+.dev3-about .n5-titleblock-head span:first-child { flex: 1; }
+.dev3-about .n5-titleblock-foot { margin-top: -1px; justify-content: space-between; background: transparent; color: var(--muted); }
+.dev3-about .n5-titleblock-foot span { border: 0; }
+.dev3-about .n5-titleblock-grid { display: grid; grid-template-columns: repeat(4, 1fr); margin: -1px 0 0; border-left: 1px solid var(--ink); }
+.dev3-about .n5-titleblock-grid > div { min-height: 112px; padding: 14px 16px; border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); background: var(--mist); }
+.dev3-about .n5-titleblock-grid dt { margin-bottom: 8px; color: var(--blue); font: 600 11px Jakarta, Arial, sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+.dev3-about .n5-titleblock-grid dd { margin: 0; color: var(--ink); font: 600 17px/1.35 Outfit, Arial, sans-serif; letter-spacing: -.01em; overflow-wrap: anywhere; }
+.dev3-about .n5-titleblock-grid dd a { display: inline-flex; align-items: center; gap: 6px; color: var(--ink); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 4px; }
+.dev3-about .n5-titleblock-grid dd a:hover { color: var(--blue); }
+.dev3-about .n5-titleblock-grid dd svg { width: 16px; height: 16px; color: var(--blue); }
+
+/* ---------- Services: one panel, five services ---------- */
+.dev3-about .n5-catalog { background: linear-gradient(180deg, var(--mist), transparent 80%); }
+.dev3-about .n5-svc { border: 1px solid var(--line); border-radius: 28px; background: var(--ice); overflow: hidden; }
+.dev3-about .n5-svc-tabs { display: grid; grid-template-columns: repeat(5, 1fr); border-bottom: 1px solid var(--line); }
+.dev3-about .n5-svc-tabs button { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 3px; min-height: 112px; padding: 16px 18px 18px; border: 0; border-right: 1px solid var(--line); background: transparent; color: var(--muted); text-align: left; cursor: pointer; transition: background .3s, color .3s; }
+.dev3-about .n5-svc-tabs button:last-child { border-right: 0; }
+.dev3-about .n5-svc-tabs button::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 3px; background: var(--blue); transform: scaleX(0); transform-origin: left; transition: transform .5s cubic-bezier(.2, .8, .2, 1); }
+.dev3-about .n5-svc-tabs button:hover { background: var(--mist); color: var(--ink); }
+.dev3-about .n5-svc-tabs button[aria-selected="true"] { background: var(--mist); color: var(--ink); }
+.dev3-about .n5-svc-tabs button[aria-selected="true"]::after { transform: scaleX(1); }
+.dev3-about .n5-svc-tab-top { display: flex; align-items: center; justify-content: space-between; width: 100%; margin-bottom: 6px; color: var(--blue); font: 600 13px Jakarta, Arial, sans-serif; }
+.dev3-about .n5-svc-tab-top svg { width: 20px; height: 20px; }
+.dev3-about .n5-svc-tabs small { color: var(--blue); font: 600 11px Jakarta, Arial, sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+.dev3-about .n5-svc-tabs strong { font: 600 16px/1.25 Outfit, Arial, sans-serif; letter-spacing: -.01em; }
+.dev3-about .n5-svc-panels { display: grid; }
+.dev3-about .n5-svc-panel { grid-area: 1 / 1; display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(24px, 4vw, 56px); padding: clamp(24px, 3.4vw, 44px); background: var(--mist); opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity .45s ease, transform .6s cubic-bezier(.2, .8, .2, 1), visibility 0s .45s; scroll-margin-top: 240px; }
+.dev3-about .n5-svc-panel[data-active="true"] { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+.dev3-about .n5-svc-kicker { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; color: var(--blue); font: 600 12px Jakarta, Arial, sans-serif; letter-spacing: .08em; text-transform: uppercase; }
+.dev3-about .n5-svc-kicker svg { width: 18px; height: 18px; }
+.v2 .dev3-about .n5-svc-lead h3 { margin-bottom: 8px; font: 600 clamp(26px, 2.6vw, 36px)/1.08 Outfit, Arial, sans-serif; letter-spacing: -.035em; color: var(--ink); }
+.dev3-about .n5-svc-short { margin: 0 0 14px; color: var(--blue); font: 600 18px/1.35 Outfit, Arial, sans-serif; }
+.dev3-about .n5-svc-lead > p:not([class]) { margin: 0 0 22px; color: var(--muted); font-size: 16px; line-height: 1.7; }
+.dev3-about .n5-svc-spec { padding-left: clamp(0px, 3vw, 40px); border-left: 1px dashed var(--line-strong); }
+.dev3-about .n5-svc-label { margin: 0 0 10px; color: var(--soft); font: 600 11px Jakarta, Arial, sans-serif; letter-spacing: .12em; text-transform: uppercase; }
+.dev3-about .n5-svc-spec ul { display: grid; gap: 8px; margin: 0 0 16px; padding: 0; list-style: none; }
+.dev3-about .n5-svc-spec li { position: relative; padding-left: 26px; color: var(--ink); font-weight: 500; }
+.dev3-about .n5-svc-spec li::before { content: ''; position: absolute; left: 0; top: .45em; width: 14px; height: 8px; border-left: 2px solid var(--blue); border-bottom: 2px solid var(--blue); transform: rotate(-45deg); }
+.dev3-about .n5-svc-detail { margin: 0 0 18px; color: var(--muted); font-size: 14px; line-height: 1.65; }
+.dev3-about .n5-svc-draws { display: flex; flex-wrap: wrap; gap: 8px; }
+.dev3-about .n5-svc-draws a { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--ice); color: var(--blue); font-size: 13px; font-weight: 600; transition: background .3s, color .3s; }
+.dev3-about .n5-svc-draws a:hover { background: var(--blue); color: #fff; }
+.dev3-about .n5-svc-draws svg { width: 15px; height: 15px; }
+
+/* ---------- Industries: five equal tiles over one constant panel ---------- */
+.dev3-about .n5-sector { border: 1px solid var(--line); border-radius: 28px; background: var(--ice); overflow: hidden; }
+.dev3-about .n5-sector-tabs { display: grid; grid-template-columns: repeat(5, 1fr); border-bottom: 1px solid var(--line); }
+.dev3-about .n5-sector-tabs button { position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 14px; min-height: 108px; padding: 16px 18px 18px; border: 0; border-right: 1px solid var(--line); background: transparent; color: var(--muted); text-align: left; cursor: pointer; transition: background .3s, color .3s; }
+.dev3-about .n5-sector-tabs button:last-child { border-right: 0; }
+.dev3-about .n5-sector-tabs button::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 3px; background: var(--blue); transform: scaleX(0); transform-origin: left; transition: transform .5s cubic-bezier(.2, .8, .2, 1); }
+.dev3-about .n5-sector-tabs button:hover, .dev3-about .n5-sector-tabs button[aria-selected="true"] { background: var(--mist); color: var(--ink); }
+.dev3-about .n5-sector-tabs button[aria-selected="true"]::after { transform: scaleX(1); }
+.dev3-about .n5-sector-tab-top { display: flex; align-items: center; justify-content: space-between; width: 100%; color: var(--blue); font: 600 13px Jakarta, Arial, sans-serif; }
+.dev3-about .n5-sector-tab-top svg { width: 22px; height: 22px; }
+.dev3-about .n5-sector-tabs strong { font: 600 17px/1.2 Outfit, Arial, sans-serif; letter-spacing: -.01em; }
+.dev3-about .n5-sector-panels { display: grid; }
+.dev3-about .n5-sector-panel { grid-area: 1 / 1; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 4vw, 56px); padding: clamp(24px, 3.4vw, 44px); background: var(--mist); opacity: 0; visibility: hidden; transform: translateY(10px); transition: opacity .45s ease, transform .6s cubic-bezier(.2, .8, .2, 1), visibility 0s .45s; }
+.dev3-about .n5-sector-panel[data-active="true"] { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+.dev3-about .n5-sector-kicker { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; color: var(--blue); font: 600 13px Jakarta, Arial, sans-serif; }
+.dev3-about .n5-sector-kicker svg { width: 20px; height: 20px; }
+.v2 .dev3-about .n5-sector-lead h3 { margin-bottom: 8px; font: 600 clamp(26px, 2.6vw, 36px)/1.08 Outfit, Arial, sans-serif; letter-spacing: -.035em; color: var(--ink); }
+.dev3-about .n5-sector-note { margin: 0 0 14px; color: var(--blue); font: 600 18px/1.35 Outfit, Arial, sans-serif; }
+.dev3-about .n5-sector-lead > p:not([class]) { margin: 0 0 22px; color: var(--muted); font-size: 16px; line-height: 1.7; }
+.dev3-about .n5-sector-support { padding-left: clamp(0px, 3vw, 40px); border-left: 1px dashed var(--line-strong); }
+.dev3-about .n5-sector-support ul { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.dev3-about .n5-sector-support a { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px; min-height: 76px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 16px; background: var(--ice); color: var(--ink); transition: border-color .3s, transform .4s cubic-bezier(.34, 1.4, .64, 1); }
+.dev3-about .n5-sector-support a:hover { border-color: var(--blue); transform: translateX(4px); }
+.dev3-about .n5-sector-icon { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: var(--blue); color: #fff; }
+.dev3-about .n5-sector-icon svg { width: 20px; height: 20px; }
+.dev3-about .n5-sector-support strong { display: block; font: 600 16px/1.25 Outfit, Arial, sans-serif; }
+.dev3-about .n5-sector-support small { display: block; margin-top: 2px; color: var(--muted); font-size: 13px; line-height: 1.45; }
+.dev3-about .n5-sector-support a > svg { width: 18px; height: 18px; color: var(--blue); }
+
+/* ---------- Industries: invitation ---------- */
+.dev3-about .n5-invite-card { display: grid; grid-template-columns: 1.2fr 1fr auto; gap: 28px; align-items: center; padding: clamp(24px, 3.4vw, 44px); border-radius: 28px; background: linear-gradient(135deg, var(--blue), #0a3f74 70%, #080a0b); color: rgba(255, 255, 255, .78); }
+.v2 .dev3-about .n5-invite-card h2 { margin: 0 0 10px; color: #fff; font-size: clamp(30px, 3.4vw, 46px); }
+.dev3-about .n5-invite-card .n5-eyebrow { color: #9ad2ff; }
+.dev3-about .n5-invite-card p:not(.n5-eyebrow) { margin: 0; font-size: 16px; line-height: 1.65; }
+.dev3-about .n5-invite-card ul { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.dev3-about .n5-invite-card li { display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border: 1px solid rgba(255, 255, 255, .22); border-radius: 999px; color: #fff; font-size: 14px; font-weight: 600; }
+.dev3-about .n5-invite-card li svg { width: 16px; height: 16px; color: #9ad2ff; }
+.dev3-about .n5-invite-card .n5-btn { background: #fff; color: var(--blue); box-shadow: none; }
+.v3-preview .dev3-about .n5-invite-card .n5-btn { color: #0e579e; }
+
+@keyframes n5-pf-draw { to { stroke-dashoffset: 0; } }
+@keyframes n5-pf-flow { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes n5-pf-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+@keyframes n5-pf-swap { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes n5-pf-rise { to { opacity: 1; transform: none; } }
+@keyframes n5-pf-pop { from { transform: scale(0); } to { transform: scale(1); } }
+
+@media (max-width: 1000px) {
+ .dev3-about .n5-titleblock-grid { grid-template-columns: repeat(2, 1fr); }
+ .dev3-about .n5-invite-card { grid-template-columns: 1fr; }
+ .dev3-about .n5-invite-card .n5-btn { justify-self: start; }
+}
+@media (max-width: 900px) {
+ .dev3-about .n5-scale-detail, .dev3-about .n5-svc-panel, .dev3-about .n5-sector-panel { grid-template-columns: 1fr; }
+ .dev3-about .n5-sector-support { padding-left: 0; padding-top: 18px; border-left: 0; border-top: 1px dashed var(--line-strong); }
+ .dev3-about .n5-sector-tabs { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(160px, 42%); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+ .dev3-about .n5-sector-tabs::-webkit-scrollbar { display: none; }
+ .dev3-about .n5-sector-tabs button { min-height: 92px; scroll-snap-align: start; }
+ .dev3-about .n5-svc-spec { padding-left: 0; padding-top: 18px; border-left: 0; border-top: 1px dashed var(--line-strong); }
+ .dev3-about .n5-svc-tabs { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(170px, 42%); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+ .dev3-about .n5-svc-tabs::-webkit-scrollbar { display: none; }
+ .dev3-about .n5-svc-tabs button { min-height: 96px; scroll-snap-align: start; }
+ .dev3-about .n5-svc-panel { scroll-margin-top: 190px; }
+}
+@media (max-width: 640px) {
+ .dev3-about .n5-scale-lens { width: 64px; height: 64px; }
+ .dev3-about .n5-scale-ruler { top: 32px; }
+ .dev3-about .n5-scale-label { font-size: 14px; }
+ .dev3-about .n5-scale-unit { font-size: 11px; }
+ .dev3-about .n5-titleblock-grid { grid-template-columns: 1fr; }
+ .dev3-about .n5-titleblock-grid > div { min-height: 0; }
+ .dev3-about .n5-titleblock-head span:not(:first-child) { display: none; }
+ .dev3-about .n5-titleblock-foot span:last-child { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+ .dev3-about .n5-feature *, .dev3-about .n5-feature *::before, .dev3-about .n5-feature *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; animation-delay: 0s !important; transition-duration: .001ms !important; }
+}
+
+/* Outrank the global article[id] reset so a deep link keeps the service tabs in view. */
+.v2 .dev3-about article.n5-svc-panel { scroll-margin-top: 240px; }
+@media (max-width: 900px) { .v2 .dev3-about article.n5-svc-panel { scroll-margin-top: 190px; } }
+
+/* ---------- About hero: gyroscope ---------- */
+.v2 .dev3-about .n5-about-hero { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(20px, 4vw, 64px); align-items: center; }
+.v2 .dev3-about .n5-about-hero h1 { font-size: clamp(40px, 4.6vw, 66px); }
+.dev3-about .n5-orbit { position: relative; width: 100%; max-width: 620px; aspect-ratio: 1; margin: 0 0 0 auto; --orbit-core-a: #fff; --orbit-core-b: #e6f0f9; }
+.v3-preview .dev3-about .n5-orbit { --orbit-core-a: #16324d; --orbit-core-b: #0b1826; }
+.dev3-about .n5-orbit svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; transform: perspective(1200px) rotateX(calc(var(--ty, 0) * -10deg)) rotateY(calc(var(--tx, 0) * 12deg)); transition: transform .8s cubic-bezier(.2, .8, .2, 1); }
+.dev3-about .n5-orbit-dust { fill: none; stroke: var(--line-strong); stroke-dasharray: 1 9; stroke-linecap: round; transform-origin: 300px 300px; animation: n5-orbit-spin 120s linear infinite; }
+.dev3-about .n5-orbit-frame { fill: none; stroke: var(--line); }
+.dev3-about .n5-orbit-ring { fill: none; stroke: var(--blue); stroke-width: 1.2; opacity: .28; stroke-dasharray: 1; stroke-dashoffset: 0; }
+.dev3-about .n5-orbit[data-moving="true"] .n5-orbit-ring { stroke-dasharray: 2600; stroke-dashoffset: 2600; animation: n5-orbit-draw 2.4s cubic-bezier(.65, 0, .35, 1) forwards; }
+.dev3-about .n5-orbit[data-moving="true"] .n5-orbit-ring-1 { animation-delay: .25s; } .dev3-about .n5-orbit[data-moving="true"] .n5-orbit-ring-2 { animation-delay: .5s; }
+.dev3-about .n5-orbit-halo { fill: var(--blue); opacity: 0; transition: opacity .5s; }
+.dev3-about .n5-orbit-dot { fill: var(--ice); stroke: var(--blue); stroke-width: 2; transition: fill .4s, r .4s; }
+.dev3-about .n5-orbit-rider text { fill: var(--ink); font: 600 15px Jakarta, Arial, sans-serif; opacity: 0; transition: opacity .5s; }
+.dev3-about .n5-orbit-rider.is-on .n5-orbit-dot { fill: var(--blue); r: 9; }
+.dev3-about .n5-orbit-rider.is-on .n5-orbit-halo { opacity: .14; animation: n5-orbit-halo 2.8s ease-in-out infinite; }
+.dev3-about .n5-orbit-rider.is-on text { opacity: 1; }
+.dev3-about .n5-orbit-glow { fill: var(--blue); opacity: .07; filter: blur(24px); }
+.dev3-about .n5-orbit-core { stroke: var(--line); filter: drop-shadow(0 24px 48px rgba(14, 87, 158, .18)); }
+.dev3-about .n5-orbit-label { position: absolute; left: 50%; top: 50%; width: 30%; transform: translate(-50%, -50%); text-align: center; pointer-events: none; }
+.dev3-about .n5-orbit-label span { display: block; color: var(--blue); font: 600 13px Jakarta, Arial, sans-serif; letter-spacing: .1em; }
+.dev3-about .n5-orbit-label strong { display: block; margin-top: 4px; color: var(--ink); font: 650 clamp(24px, 2.6vw, 38px)/1.05 Outfit, Arial, sans-serif; letter-spacing: -.045em; animation: n5-pf-swap .6s ease; }
+@keyframes n5-orbit-spin { to { transform: rotate(360deg); } }
+@keyframes n5-orbit-draw { to { stroke-dashoffset: 0; } }
+@keyframes n5-orbit-halo { 0%, 100% { opacity: .1; } 50% { opacity: .22; } }
+@media (max-width: 900px) {
+ .v2 .dev3-about .n5-about-hero { grid-template-columns: 1fr; }
+ .dev3-about .n5-orbit { max-width: 440px; margin: 8px auto 0; }
+}
+@media (max-width: 640px) { .dev3-about .n5-orbit-rider text { font-size: 20px; } .dev3-about .n5-orbit-label strong { font-size: 24px; } }
+@media (prefers-reduced-motion: reduce) { .dev3-about .n5-orbit-dust { animation: none; } .dev3-about .n5-orbit svg { transform: none; } }
