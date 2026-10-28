@@ -34,3 +34,16 @@
 @media(max-width:600px){.n5-industry-bento{gap:12px}.n5-bento-card{grid-column:1/-1;min-height:235px;padding:24px}.n5-bento-card-0{grid-row:auto;min-height:0}.n5-bento-card-0>.n5-industry-art{position:absolute;right:-15px;top:55px;width:180px;margin:0;opacity:.3;z-index:-1}.n5-bento-card-0 .n5-bento-statement{font-size:26px;max-width:230px;margin-top:25px}.n5-bento-card-0 .n5-bento-description{padding-top:16px}.v2 .n5-bento-card h3{font-size:25px}.n5-bento-description{padding-top:32px}}
 @media(prefers-reduced-motion:reduce){.n5-industry-art *{animation:none!important}.n5-bento-link>svg{transition:none}}
 .n5-industry-art [data-step="1"]{animation-delay:.4s}.n5-industry-art [data-step="2"]{animation-delay:.8s}.n5-industry-art [data-step="3"]{animation-delay:1.2s}.n5-industry-art [data-step="4"]{animation-delay:1.6s}
+/* Equal cards, three per desktop row, sharing the automotive surface. */
+.n5-industry-bento{gap:18px;align-items:stretch}
+.v2 .n5-sectors[data-standalone="true"]{padding-top:36px}
+.v2 .n5-bento-card{grid-row:auto;min-height:0;padding:28px;border-radius:14px;background:linear-gradient(155deg,#1b69a6,#10324f 70%,#101214);border-color:transparent;color:#fff}
+.v2 .n5-bento-card>.n5-industry-art{position:relative;right:auto;top:auto;display:flex;align-items:center;justify-content:center;width:100%;max-width:none;height:116px;aspect-ratio:auto;margin:0 0 20px;border:1px solid #aadfff16;border-radius:10px;background:radial-gradient(ellipse at center,#70c4ff0f,transparent 75%);opacity:1;z-index:0;color:#bce7ff}
+.v2 .n5-bento-card>.n5-industry-art>svg{width:155px;height:106px;overflow:visible}
+.v2 .n5-bento-card .n5-bento-description{margin:0 0 24px;padding-top:0;font-size:13px;line-height:1.8}
+.v2 .n5-bento-card h3{font-size:27px;line-height:1.1;margin-bottom:14px;max-width:none}
+.n5-bento-top{margin-bottom:28px}
+.n5-bento-link{margin-top:auto;padding-top:18px}
+.n5-bento-statement{font-size:26px}
+@media(min-width:701px){.n5-industry-bento{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:700px){.n5-industry-bento{grid-template-columns:1fr}.v2 .n5-bento-card{grid-column:auto}}

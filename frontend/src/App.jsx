@@ -8,7 +8,8 @@ import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import WhatsApp from './components/WhatsApp.jsx';
 import PageContent from './pages/PageContent.jsx';
-import BoardMembers from './v2/BoardMembers.jsx';
+import BoardMembers,{MemberProfile} from './v2/BoardMembers.jsx';
+import {boardMembers,leadershipMembers,memberSlug} from './content.js';
 import VersionThree from './v3/VersionThree.jsx';
 import {ThemeShell} from './v3/Theme.jsx';
 import SignOut from './components/SignOut.jsx';
@@ -23,7 +24,9 @@ function Site({path='/',config={},navigate}){
   reveal();window.addEventListener('hashchange',reveal);document.addEventListener('click',click);return()=>{window.removeEventListener('hashchange',reveal);document.removeEventListener('click',click)};
  },[]);
  const discipline=disciplinePages.find(page=>path==='/'+page.slug);
- if(['/','/about','/expertise','/contact'].includes(path)||discipline)return <><VersionThree config={config} page={path==='/'?'home':path.slice(1)} discipline={discipline} onDisciplineSelect={index=>navigate(index===null||discipline===disciplinePages[index]?'/':'/'+disciplinePages[index].slug)}/><WhatsApp number={config.whatsapp}/></>;
+ const member=[...leadershipMembers,...boardMembers].find(person=>path==='/team/'+memberSlug(person));
+ if(member)return <ThemeShell><MemberProfile member={member}/><WhatsApp number={config.whatsapp}/></ThemeShell>;
+ if(['/','/about','/services','/industries','/collaboration','/contact'].includes(path)||discipline)return <><VersionThree config={config} page={path==='/'?'home':path.slice(1)} discipline={discipline} onDisciplineSelect={index=>navigate(index===null||discipline===disciplinePages[index]?'/':'/'+disciplinePages[index].slug)}/><WhatsApp number={config.whatsapp}/></>;
  if(path==='/team')return <ThemeShell><BoardMembers/><WhatsApp number={config.whatsapp}/></ThemeShell>;
  return <><ScrollProgress/><a className="skip-link" href="#main">Skip to content</a><Header path={path}/><main id="main"><PageContent path={path} config={config}/></main><Footer/><WhatsApp number={config.whatsapp}/></>;
 }

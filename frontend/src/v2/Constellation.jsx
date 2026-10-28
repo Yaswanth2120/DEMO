@@ -9,19 +9,9 @@ const glyphs=['atom','gear','flask','layers','leaf'];
 const star=`M${points[0]}L${points[2]}L${points[4]}L${points[1]}L${points[3]}Z`;
 
 export default function Constellation({onSelect,initialActive=null}){
- const [active,setActive]=useState(initialActive??0);
- useEffect(()=>{if(initialActive!==null)setActive(initialActive)},[initialActive]);
- const [held,setHeld]=useState(false);
+ const [active,setActive]=useState(initialActive);
+ useEffect(()=>{setActive(initialActive)},[initialActive]);
  const root=useRef(null);
-
- useEffect(()=>{
-  if(held||reducedMotion())return;
-  let visible=true;
-  const observer=new IntersectionObserver(([entry])=>{visible=entry.isIntersecting});
-  observer.observe(root.current);
-  const timer=setInterval(()=>{if(visible&&!document.hidden)setActive(index=>(index+1)%points.length)},3600);
-  return()=>{clearInterval(timer);observer.disconnect()};
- },[held]);
 
  useEffect(()=>{
   const element=root.current;
@@ -41,10 +31,9 @@ export default function Constellation({onSelect,initialActive=null}){
   return()=>{cancelAnimationFrame(frame);element.removeEventListener('pointermove',move);element.removeEventListener('pointerleave',leave)};
  },[]);
 
- const [name,text]=disciplines[active];
- return <figure id="about" className="n5-const" ref={root} data-active={active}
-  onPointerEnter={()=>setHeld(true)} onPointerLeave={()=>setHeld(false)}
-  onFocus={()=>setHeld(true)} onBlur={event=>{if(!event.currentTarget.contains(event.relatedTarget))setHeld(false)}}>
+ const selected=active!==null;
+ const [name,text]=selected?disciplines[active]:['Five disciplines','Choose a discipline to explore its perspective.'];
+ return <figure id="about" className="n5-const" ref={root} data-active={selected?active:'none'}>
   <div className="n5-const-stage">
    <svg className="n5-const-svg" viewBox="0 0 520 520" aria-hidden="true" focusable="false">
     <defs>
@@ -63,8 +52,8 @@ export default function Constellation({onSelect,initialActive=null}){
    {disciplines.map(([discipline],i)=><button key={discipline} type="button" className={`n5-node n5-node-${i}`} aria-pressed={active===i} onClick={()=>{setActive(i);onSelect?.(i)}}>
     <span className="n5-node-ring"><Glyph name={glyphs[i]}/></span><span className="n5-node-label">{discipline}</span>
    </button>)}
-   <div className="n5-core" aria-hidden="true"><span className="n5-core-index">{pad(active)}<i>/05</i></span><strong key={active}>{name}</strong></div>
+   <div className="n5-core" aria-hidden="true"><span className="n5-core-index">{selected?<>{pad(active)}<i>/05</i></>:'05'}</span><strong key={active}>{name}</strong></div>
   </div>
-  <figcaption className="n5-const-caption" aria-live="polite"><span>{pad(active)} · {name}</span><p key={active}>{text}</p></figcaption>
+  <figcaption className="n5-const-caption" aria-live="polite"><span>{selected?`${pad(active)} · ${name}`:'One connected perspective'}</span><p key={active}>{text}</p></figcaption>
  </figure>;
 }

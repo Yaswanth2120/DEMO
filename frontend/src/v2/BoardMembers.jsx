@@ -2,12 +2,13 @@ import HeaderNavigation,{primaryNavigation} from './HeaderNavigation.jsx';
 import CommandPalette from './CommandPalette.jsx';
 import BrandMark from '../components/BrandMark.jsx';
 import {useEffect,useRef,useState} from 'react';
-import {boardMembers,company} from '../content.js';
+import {boardMembers,leadershipMembers,company,memberSlug} from '../content.js';
 import Glyph from './Glyph.jsx';
 import BoardIntro from './BoardIntro.jsx';
 import {ThemeControl} from '../v3/Theme.jsx';
 import {useReveal} from './motion.js';
 import './v2.css';
+import './member-profile.css';
 
 const links=primaryNavigation;
 
@@ -33,10 +34,14 @@ function BoardHeader({basePath}){
 
 function BoardCard({member}){
  const initials=member.name.split(/\s+/).map(part=>part[0]).slice(0,2).join('');
- return <article className="n5-board-card n5-r">
+ return <a href={`/team/${memberSlug(member)}`} className="n5-board-card n5-r" aria-label={`View ${member.name}’s profile`}>
   {member.image?<img className="n5-board-portrait" src={member.image} alt={`Portrait of ${member.name}`} loading="lazy" width="720" height="840"/>:<div className="n5-board-initials" aria-hidden="true">{initials}</div>}
-  <div className="n5-board-card-copy">{member.demo&&<span className="n5-demo-badge">Demo profile</span>}<p className="n5-board-role">{member.role}</p><h2>{member.name}</h2><p>{member.bio}</p><div className="n5-board-contact">{member.email&&<a href={`mailto:${member.email}`}><Glyph name="mail"/>{member.email}</a>}{member.phone&&<a href={`tel:${member.phone.replace(/[^+\d]/g,'')}`}><Glyph name="phone"/>{member.phone}</a>}</div></div>
- </article>;
+  <div className="n5-board-card-copy">{member.demo&&<span className="n5-demo-badge">Demo profile</span>}<p className="n5-board-role">{member.role}</p><h2>{member.name}</h2><p>{member.bio}</p><span className="n5-team-profile-link">View profile<Glyph name="arrow"/></span></div>
+ </a>;
+}
+
+export function MemberProfile({member}){
+ return <div className="v2 n5-board-page n5-member-page"><BoardHeader/><main className="n5-member-main"><div className="n5-wrap"><a className="n5-link" href="/team">← All leadership &amp; advisors</a><div className="n5-member-layout"><div className="n5-member-image">{member.image?<img src={member.image} alt={member.name}/>:<span>{member.name}</span>}</div><div>{member.demo&&<span className="n5-demo-badge">Demo profile</span>}<p className="n5-eyebrow">{member.role}</p><h1>{member.name}</h1><p className="n5-member-summary">{member.bio}</p><h2>About {member.name.split(' ')[0]}</h2>{(member.details||[member.bio]).map(text=><p key={text}>{text}</p>)}{member.areas&&<><h2>Areas of focus</h2><ul>{member.areas.map(area=><li key={area}>{area}</li>)}</ul></>}<a className="n5-btn" href="/contact">Contact NexaFive<Glyph name="arrow"/></a></div></div></div></main></div>;
 }
 
 export default function BoardMembers({basePath=''}){
@@ -44,13 +49,14 @@ export default function BoardMembers({basePath=''}){
  const destination=href=>href;
  return <div className="v2 n5-board-page">
   <BoardIntro members={boardMembers}/>
-  <a className="n5-skip" href="#board-content">Skip to our board</a>
+  <a className="n5-skip" href="#team-content">Skip to team content</a>
   <BoardHeader basePath={basePath}/>
-  <main id="board-content">
-   <section className="n5-board-hero"><div className="n5-wrap n5-board-hero-grid"><div><p className="n5-kicker"><span className="n5-live" aria-hidden="true"/>NexaFive Global · Governance</p><h1>Leadership for the work that matters next.</h1><p>Our board helps guide NexaFive Global with long-term perspective across science, engineering, manufacturing, and responsible growth.</p></div><aside className="n5-board-hero-note"><Glyph name="layers"/><p>Grounded in technical rigor. Focused on durable impact.</p></aside></div></section>
-   <section className="n5-board-list"><div className="n5-wrap"><header className="n5-board-heading"><p className="n5-eyebrow">Our Board</p><h2>Guidance informed by<br/><span>experience and evidence.</span></h2><p>Meet the people who support the company’s long-term direction and governance.</p>{boardMembers.some(member=>member.demo)&&<p className="n5-demo-notice">Demo profiles and contact details are shown for layout review only. Replace them with approved board information before launch.</p>}</header>{boardMembers.length?<div className="n5-board-grid">{boardMembers.map(member=><BoardCard key={member.email||member.name} member={member}/>)}</div>:<section className="n5-board-pending" aria-labelledby="board-pending-title"><Glyph name="layers"/><div><p className="n5-eyebrow">Board profiles</p><h2 id="board-pending-title">Board member details are being confirmed.</h2><p>For board-related correspondence, please contact the NexaFive Global team directly.</p><a className="n5-link" href={`mailto:${company.email}`}><Glyph name="mail"/>{company.email}</a></div></section>}</div></section>
+  <main id="team-content">
+   <section className="n5-leadership-intro"><div className="n5-wrap"><h1 className="n5-team-title">Leadership &amp; Advisory Board</h1><p className="n5-team-tagline">Experience that guides. Vision that moves us forward.</p></div></section>
+   <section className="n5-board-list" aria-labelledby="leadership-title"><div className="n5-wrap"><h2 className="n5-team-group-title" id="leadership-title">Leadership</h2><div className="n5-board-grid">{leadershipMembers.map(member=><BoardCard key={member.name} member={member}/>)}</div></div></section>
+   <section className="n5-board-list n5-board-advisors" aria-labelledby="advisors-title"><div className="n5-wrap"><h2 className="n5-team-group-title" id="advisors-title">Board of Advisors</h2>{boardMembers.length?<div className="n5-board-grid">{boardMembers.map(member=><BoardCard key={member.email||member.name} member={member}/>)}</div>:<section className="n5-board-pending" aria-labelledby="board-pending-title"><Glyph name="layers"/><div><p className="n5-eyebrow">Advisor profiles</p><h2 id="board-pending-title">Advisor details are being confirmed.</h2><p>For advisor-related correspondence, please contact the NexaFive Global team directly.</p><a className="n5-link" href={`mailto:${company.email}`}><Glyph name="mail"/>{company.email}</a></div></section>}</div></section>
    <section className="n5-board-cta"><div className="n5-wrap"><p className="n5-eyebrow">Work with NexaFive</p><h2>Bring a challenging question.<br/><span>We’ll help find a practical way forward.</span></h2><a className="n5-btn" href="/contact">Start a project<Glyph name="arrow"/></a></div></section>
   </main>
-  <footer className="n5-foot"><div className="n5-wrap"><div className="n5-foot-top"><a className="n5-logo n5-logo-foot" href={`${basePath||'/'}#hero`} aria-label="NexaFive Global home"><BrandMark/></a><p className="n5-foot-tag">Connected expertise.<br/><span>Boundless possibilities.</span></p><nav className="n5-foot-nav" aria-label="Footer navigation">{links.map(([href,label])=><a key={href} href={destination(href)}>{label}</a>)}<a href="/contact">Contact</a></nav></div><div className="n5-foot-bottom"><span>© {new Date().getFullYear()} NexaFive Global. {company.tagline}</span><a href={`${basePath||'/'}#hero`}>Back to site<Glyph name="up"/></a></div></div></footer>
+  <footer className="n5-foot"><div className="n5-wrap"><div className="n5-foot-top"><a className="n5-logo n5-logo-foot" href={`${basePath||'/'}#hero`} aria-label="NexaFive Global home"><BrandMark/></a><p className="n5-foot-tag">Connected expertise.<br/><span>Boundless possibilities.</span></p><nav className="n5-foot-nav" aria-label="Footer navigation">{links.map(([href,label])=><a key={href} href={destination(href)}>{label}</a>)}</nav></div><div className="n5-foot-bottom"><span>© {new Date().getFullYear()} NexaFive Global. {company.tagline}</span><a href={`${basePath||'/'}#hero`}>Back to site<Glyph name="up"/></a></div></div></footer>
  </div>;
 }

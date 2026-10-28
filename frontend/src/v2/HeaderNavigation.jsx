@@ -1,6 +1,6 @@
 import './header-navigation.css';
 
-export const primaryNavigation=[['/','Home'],['/about','About'],['/expertise','Expertise'],['/team','Team'],['/contact','Contact']];
+export const primaryNavigation=[['/','Home'],['/about','About'],['/services','Services'],['/industries','Industries'],['/collaboration','Collaboration'],['/team','Team'],['/contact','Contact']];
 
 export default function HeaderNavigation({id='n5-nav',currentPath='/',teamPage=false,onNavigate=()=>{}}){
  const active=teamPage?'/team':currentPath;

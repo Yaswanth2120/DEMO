@@ -8,7 +8,7 @@ import {reducedMotion,useInView,pad,scrollToHash} from './motion.js';
 
 const subjectFor={'battery-engineering':'Energy / BEV engineering','lightweight-automotive':'Engineering consultation','tooling-manufacturing':'Manufacturing and tooling support','ai-optimization':'AI/ML platform inquiry','corrosion-mitigation':'Corrosion testing and mitigation'};
 
-export default function Capabilities({dark=false,mobileCompact=false}){
+export default function Capabilities({dark=false,mobileCompact=false,showIntro=true}){
  const [active,setActive]=useState(0);
  const [playing,setPlaying]=useState(false);
  const section=useRef(null),tabs=useRef([]);
@@ -36,16 +36,16 @@ export default function Capabilities({dark=false,mobileCompact=false}){
   event.preventDefault();choose(next,true);
  };
 
- return <section id="pillars" ref={section} className="n5-cap" data-tone={dark?'dark':'light'} data-playing={playing&&inView}>
+ return <section id="pillars" ref={section} className="n5-cap" data-tone={dark?'dark':'light'} data-playing={playing&&inView} data-standalone={!showIntro}>
   <div className="n5-wrap">
-   <header className="n5-head n5-head-row n5-r">
-    <div><p className="n5-eyebrow">Capabilities</p><h2>Five capabilities.<br/><span>One connected system.</span></h2></div>
+   {showIntro?<header className="n5-head n5-head-row n5-r">
+    <div><p className="n5-eyebrow">Services we offer</p><h2>Five services.<br/><span>One connected system.</span></h2></div>
     <div className="n5-head-side"><p>A shared understanding of how materials, processes, and performance depend on each other — from a single cell to a full production line.</p>
      <button type="button" className="n5-play" onClick={()=>setPlaying(value=>!value)} aria-pressed={!playing} aria-label={playing?'Pause automatic tour':'Start automatic tour'}><Glyph name={playing?'pause':'play'}/><span>{playing?'Pause tour':'Play tour'}</span></button>
     </div>
-   </header>
+   </header>:<div className="n5-service-tour"><button type="button" className="n5-play" onClick={()=>setPlaying(value=>!value)} aria-pressed={playing} aria-label={playing?'Pause automatic tour':'Start automatic tour'}><Glyph name={playing?'pause':'play'}/><span>{playing?'Pause tour':'Play tour'}</span></button></div>}
    <div className="n5-cap-stage n5-r">
-    <div className="n5-cap-tabs" role="tablist" aria-label="NexaFive capabilities" onKeyDown={onKeyDown}>
+    <div className="n5-cap-tabs" role="tablist" aria-label="NexaFive services" onKeyDown={onKeyDown}>
      {services.map((service,i)=><button key={service.slug} ref={node=>{tabs.current[i]=node}} type="button" role="tab" id={`tab-${service.slug}`} aria-selected={i===active} aria-controls={service.slug} tabIndex={i===active?0:-1} className="n5-cap-tab" onClick={()=>choose(i)}>
       <span className="n5-cap-num">{pad(i)}</span>
       <span className="n5-cap-name"><small>{service.category}</small>{service.title}</span>

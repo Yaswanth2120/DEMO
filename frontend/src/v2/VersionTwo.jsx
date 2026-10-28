@@ -1,4 +1,4 @@
-import {AboutPage,PageIntro,PageContact} from './SitePages.jsx';
+import {AboutPage,CollaborationPage,PageIntro,PageContact} from './SitePages.jsx';
 import HeaderNavigation,{primaryNavigation} from './HeaderNavigation.jsx';
 import DisciplinePage from './DisciplinePage.jsx';
 import {disciplinePages} from './discipline-content.js';
@@ -147,11 +147,18 @@ export default function VersionTwo({config={},mobileCompact=false,discipline,onD
   {(discipline||page==='home')&&<Rail discipline={discipline}/>}
   <main id="main">
    {(discipline||page==='home')&&<Hero mobileCompact={mobileCompact} discipline={discipline} onDisciplineSelect={onDisciplineSelect}/>}
-   {discipline?<DisciplinePage discipline={discipline} onHome={()=>onDisciplineSelect(null)}/>:page==='about'?<AboutPage/>:page==='contact'?<>
+   {discipline?<DisciplinePage discipline={discipline} onHome={()=>onDisciplineSelect(null)}/>:page==='about'?<AboutPage/>:page==='collaboration'?<CollaborationPage verified={config.verified}/>:page==='contact'?<>
     <PageIntro eyebrow="Contact NexaFive" title="A good conversation." accent="A clearer next step." text="Tell us about your application, the challenge you’re facing, and what you need to understand next."/>
     <Enquiry mobileCompact={mobileCompact}/>
+   </>:page==='services'?<>
+    <PageIntro eyebrow="Services" title="Connected expertise." accent="Practical engineering." text="Explore the engineering services NexaFive offers across mobility, materials, manufacturing, and durability."/>
+    <Capabilities mobileCompact={mobileCompact} showIntro={false}/>
+    <Method mobileCompact={mobileCompact}/>
+   </>:page==='industries'?<>
+    <PageIntro eyebrow="Industries we serve" title="Engineering for" accent="the world you build." text="From mobility and energy to healthcare and manufacturing, we bring materials, design, and production thinking to the challenges specific to your sector."/>
+    <Sectors showIntro={false}/>
+    <PageContact eyebrow="Work with NexaFive" title="Bring the challenge. Let’s make the next step clear."/>
    </>:<>
-    {page==='expertise'&&<PageIntro eyebrow="Services & industries" title="Connected expertise." accent="Practical applications." text="Explore our engineering services, the industries we work across, and how research and manufacturing insight come together in your program."/>}
     <Capabilities mobileCompact={mobileCompact}/>
     <Method mobileCompact={mobileCompact}/>
     <Sectors/>
