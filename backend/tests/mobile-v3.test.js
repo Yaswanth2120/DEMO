@@ -12,7 +12,7 @@ test('single homepage keeps compact mobile content and accessible server renderi
   }
   const html=await(await fetch(base+'/')).text();assert.match(html,/n5-mobile-compact/);
   for(const id of ['contact-form','faq','about','solutions','battery-engineering','corrosion-mitigation'])assert.match(html,new RegExp(`id="${id}"`));
-  assert.match(html,/Send a project enquiry/);assert.match(html,/Testing methods &amp; standards/);
+  assert.match(html,/Send a project enquiry/);assert.match(html,/Explore our five disciplines/);
   assert.match(html,/data-ready="false"/,'server content remains accessible before enhancement');
  }finally{await new Promise(resolve=>server.close(resolve))}
 });

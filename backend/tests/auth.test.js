@@ -94,3 +94,10 @@ test('discipline return URLs survive login and are protected',()=>withAccess(asy
  const cookie=response.headers.get('set-cookie').split(';')[0];
  const page=await fetch(base+'/science',{headers:{cookie}});assert.equal(page.status,200);assert.match(await page.text(),/Science into solutions/);
 }));
+
+test('standalone page URLs survive the login gate',()=>withAccess(async({base,login})=>{
+ for(const path of ['/about','/services','/industries']){
+  const anonymous=await fetch(base+path,{redirect:'manual'});assert.equal(anonymous.headers.get('location'),'/login?next='+encodeURIComponent(path));
+  const signedIn=await login({next:path});assert.equal(signedIn.headers.get('location'),path);
+ }
+}));

@@ -1,18 +1,8 @@
-import {disciplinePages} from './discipline-content.js';
 import Glyph from './Glyph.jsx';
-import Method from './Method.jsx';
 import './site-pages.css';
 
 export function PageIntro({eyebrow,title,accent,text,plain=false,contained=false}){
  return <section id="hero" className={`n5-page-intro${plain?' n5-page-intro-plain':''}${contained?' n5-contained-intro':''}`}><div className="n5-wrap"><p className="n5-eyebrow">{eyebrow}</p><h1>{title}<br/><span>{accent}</span></h1><p>{text}</p></div></section>;
-}
-
-export function AboutPage({mobileCompact=false}){
- return <>
-  <section id="hero" className="n5-page-intro n5-about-intro n5-contained-intro" aria-labelledby="about-title"><div className="n5-wrap" id="about"><p className="n5-eyebrow">About NexaFive</p><h1 id="about-title">Five disciplines.<br/><span>One connected perspective.</span></h1><div className="n5-about-intro-copy"><p>We are an engineering and technology consultancy connecting advanced materials science, research, and manufacturing innovation—from concept through production.</p><p>Based in Minneapolis, Minnesota, we bring material behavior, component design, diagnostics, and production requirements together to help teams in mobility and industry turn complex engineering questions into practical next steps.</p><a className="n5-link" href="/contact">Talk with our team<Glyph name="arrow"/></a></div></div></section>
-  <section id="disciplines" className="n5-about-disciplines"><div className="n5-wrap"><div className="n5-page-section-head n5-r"><p className="n5-eyebrow">How we think</p><h2>Different lenses.<br/><span>A more complete picture.</span></h2></div><div className="n5-about-discipline-grid n5-r">{disciplinePages.map(page=><a key={page.slug} href={'/'+page.slug}><Glyph name={page.icon}/><h3>{page.name}</h3><p>{page.summary}</p><span>Explore {page.name}<Glyph name="arrow"/></span></a>)}</div></div></section>
-  <Method mobileCompact={mobileCompact}/>
- </>;
 }
 
 export function WhatToExpect(){

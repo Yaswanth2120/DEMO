@@ -1,4 +1,5 @@
-import {AboutPage,CollaborationPage,PageIntro,PageContact,WhatToExpect} from './SitePages.jsx';
+import {AboutStudio,ServiceWorkbench,IndustryAtlas} from './pages/RedesignedPages.jsx';
+import {CollaborationPage,PageIntro,PageContact} from './SitePages.jsx';
 import HeaderNavigation,{primaryNavigation} from './HeaderNavigation.jsx';
 import DisciplinePage from './DisciplinePage.jsx';
 import {disciplinePages} from './discipline-content.js';
@@ -146,17 +147,10 @@ export default function VersionTwo({config={},mobileCompact=false,discipline,onD
   {(discipline||page==='home')&&<Rail discipline={discipline}/>}
   <main id="main">
    {(discipline||page==='home')&&<Hero mobileCompact={mobileCompact} discipline={discipline} onDisciplineSelect={onDisciplineSelect}/>}
-   {discipline?<DisciplinePage discipline={discipline}/>:page==='about'?<AboutPage mobileCompact={mobileCompact}/>:page==='collaboration'?<CollaborationPage verified={config.verified}/>:page==='contact'?<>
+   {discipline?<DisciplinePage discipline={discipline}/>:page==='about'?<AboutStudio/>:page==='collaboration'?<CollaborationPage verified={config.verified}/>:page==='contact'?<>
     <PageIntro eyebrow="Contact NexaFive" title="A good conversation." accent="A clearer next step." text="Tell us about your application, the challenge you’re facing, and what you need to understand next."/>
     <Enquiry mobileCompact={mobileCompact}/>
-   </>:page==='services'?<>
-    <PageIntro contained eyebrow="Services" title="Connected expertise." accent="Practical engineering." text="Explore the engineering services NexaFive offers across mobility, materials, manufacturing, and durability."/>
-    <Capabilities mobileCompact={mobileCompact} showIntro={false}/>
-    <WhatToExpect/>
-   </>:page==='industries'?<>
-    <PageIntro contained eyebrow="Industries we serve" title="Engineering for" accent="the world you build." text="From mobility and energy to healthcare and manufacturing, we bring materials, design, and production thinking to the challenges specific to your sector."/>
-    <Sectors showIntro={false}/>
-   </>:<>
+   </>:page==='services'?<ServiceWorkbench/>:page==='industries'?<IndustryAtlas/>:<>
     <Capabilities mobileCompact={mobileCompact}/>
     <Method mobileCompact={mobileCompact}/>
     <Sectors/>
