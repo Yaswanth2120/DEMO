@@ -2,6 +2,7 @@ import {useRef} from 'react';
 import {services} from '../../content.js';
 import Glyph from '../Glyph.jsx';
 import EngineeringScene from './EngineeringScene.jsx';
+import ServiceHub from './ServiceHub.jsx';
 import {useSelection} from './usePageSelection.js';
 import './visual-pages.css';
 import './services-page.css';
@@ -28,8 +29,8 @@ export function ServiceGallery(){
  const preview=(event,i)=>{if(event.pointerType==='mouse'&&window.matchMedia('(min-width: 901px)').matches&&i!==active)select(i)};
  return <div className="rd-pages vp-services">
   <section id="hero" className="sx-hero"><div className="n5-wrap sx-hero-grid">
-   <div><p className="n5-eyebrow">Services / Engineering in depth</p><h1>Complex challenges.<br/><em>Tangible possibilities.</em></h1></div>
-   <div><p className="sx-hero-lede">Materials science, engineering, and manufacturing knowledge, brought into focus around your application — from concept through production.</p><a className="n5-link" href="#pillars">Explore the five services<Glyph name="arrow"/></a></div>
+   <div className="sx-hero-copy"><p className="n5-eyebrow">Services / Engineering in depth</p><h1>Complex challenges.<br/><em>Tangible possibilities.</em></h1><p className="sx-hero-lede">Five specialized services, one connected approach. Materials science, engineering, and manufacturing knowledge brought into focus around your application — from concept through production.</p><a className="n5-btn" href="#pillars">Explore the services<Glyph name="arrow"/></a></div>
+   <ServiceHub onSelect={i=>{select(i);document.getElementById('pillars')?.scrollIntoView({behavior:'smooth',block:'start'})}}/>
   </div></section>
   <section id="pillars" className="sx-index"><div className="n5-wrap">
    <div className="sx-head n5-r"><div><p className="n5-eyebrow">Our services</p><h2>Five services.<br/><span>One connected approach.</span></h2></div><p>Choose a service to see what it covers, the disciplines it draws on, and where a conversation can start.</p></div>
