@@ -108,3 +108,16 @@
 .n5-ruler-stops button { min-height: 52px; padding-block: 6px; }
 .n5-ruler-stops strong { font-size: 15px; }
 @media (max-width: 900px) { .n5-lens { max-width: 280px; } }
+
+/* Story band sized to match the compact scale section. */
+.n5-story { padding-block: clamp(48px, 7vh, 80px); }
+.n5-story-grid { gap: clamp(24px, 4vw, 56px); align-items: center; }
+.v2 .n5-story-lead h2 { margin-bottom: 14px; font-size: clamp(30px, 3.2vw, 44px); }
+.n5-story-lead > p:last-child { font-size: 16px; line-height: 1.7; }
+.n5-story-points li { grid-template-columns: 30px 40px 1fr; gap: 12px; padding: 14px 0; }
+.n5-story-num { padding-top: 9px; font-size: 12px; }
+.n5-story-icon { width: 40px; height: 40px; border-radius: 12px; }
+.n5-story-icon svg { width: 19px; height: 19px; }
+.v2 .n5-story-points h3 { margin: 2px 0 4px; font-size: 17px; }
+.n5-story-points p { font-size: 14px; line-height: 1.55; }
+@media (max-width: 560px) { .n5-story-points li { grid-template-columns: 40px 1fr; } }
