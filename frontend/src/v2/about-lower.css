@@ -45,7 +45,6 @@
 .n5-lens-art .n5-lens-loop { fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
 .n5-zoom[data-playing="true"] .n5-lens-art[data-active="true"] .n5-lens-loop { stroke-dasharray: 12 8; animation: n5-lens-flow 2s linear infinite; }
 .n5-lens-tag { position: absolute; left: 50%; bottom: 12%; padding: 5px 12px; border-radius: 999px; background: var(--blue); color: #fff; font: 600 12px Jakarta, Arial, sans-serif; letter-spacing: .06em; text-transform: uppercase; transform: translateX(-50%); white-space: nowrap; }
-.n5-lens-unit { position: absolute; top: 3%; right: 3%; display: grid; place-items: center; min-width: 76px; height: 76px; padding: 0 10px; border: 1px solid var(--line); border-radius: 50%; background: var(--mist, #fff); color: var(--ink); font: 650 18px Outfit, Arial, sans-serif; box-shadow: 0 14px 30px -18px rgba(14, 87, 158, .5); animation: n5-lens-pop .5s cubic-bezier(.34, 1.5, .64, 1); }
 .n5-zoom-copy { animation: n5-lens-swap .5s cubic-bezier(.2, .8, .2, 1); }
 .n5-zoom-kicker { margin: 0 0 10px; color: var(--blue); font: 600 13px Jakarta, Arial, sans-serif; letter-spacing: .06em; text-transform: uppercase; }
 .v2 .n5-zoom-copy h3 { margin: 0 0 12px; font: 600 clamp(30px, 3.2vw, 44px)/1.05 Outfit, Arial, sans-serif; letter-spacing: -.035em; color: var(--ink); }
@@ -68,9 +67,7 @@
 .n5-ruler-stops { display: grid; grid-template-columns: repeat(5, 1fr); margin-top: 8px; }
 .n5-ruler-stops button { position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; min-height: 64px; padding: 10px 4px; border: 0; background: none; color: var(--muted); cursor: pointer; }
 .n5-ruler-stops strong { color: inherit; font: 600 17px Outfit, Arial, sans-serif; transition: color .3s; }
-.n5-ruler-stops span { font: 600 12px Jakarta, Arial, sans-serif; letter-spacing: .06em; }
 .n5-ruler-stops button:hover, .n5-ruler-stops button[aria-pressed="true"] { color: var(--ink); }
-.n5-ruler-stops button[aria-pressed="true"] span { color: var(--blue); }
 .n5-ruler-progress { width: 44px; height: 2px; margin-top: 6px; border-radius: 2px; background: var(--line); overflow: hidden; opacity: 0; }
 .n5-ruler-stops button[aria-pressed="true"] .n5-ruler-progress { opacity: 1; }
 .n5-ruler-progress b { display: block; height: 100%; background: var(--blue); transform: scaleX(1); transform-origin: left; }
@@ -91,9 +88,7 @@
  .n5-story-points li { grid-template-columns: 44px 1fr; }
  .n5-story-num { display: none; }
  .n5-ruler-stops strong { font-size: 13px; }
- .n5-ruler-stops span { font-size: 10px; letter-spacing: .02em; }
- .n5-lens-unit { min-width: 60px; height: 60px; font-size: 15px; }
-}
+  }
 @media (prefers-reduced-motion: reduce) {
  .n5-lens-art, .n5-ruler-marker, .n5-lens-ring { transition: none; }
  .n5-lens-art { filter: none; }

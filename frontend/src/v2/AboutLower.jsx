@@ -35,11 +35,11 @@ export function AboutStory(){
 /* ---------------- From the surface to the whole lifecycle: zoom lens ---------------- */
 
 const scales=[
- {label:'Surface',unit:'nm – µm',zoom:'Atomic & surface',title:'Surface & chemistry',text:'Corrosion chemistry, surface treatment, conversion coatings, and adhesion — where many durability questions begin.',services:['corrosion-mitigation']},
- {label:'Interface',unit:'mm',zoom:'Cross-section',title:'Materials & interfaces',text:'Metals, polymers, composites, and the dissimilar-material joints, coatings, and seals between them.',services:['lightweight-automotive','corrosion-mitigation']},
- {label:'Component',unit:'cm',zoom:'Part',title:'Parts & tooling',text:'Formed, cast, and molded parts — and the tooling and process decisions that shape them.',services:['tooling-manufacturing','ai-optimization']},
- {label:'System',unit:'m',zoom:'Assembly',title:'Modules, packs & structures',text:'Battery modules and packs, multi-material body structures, and their thermal and structural integrity.',services:['battery-engineering','lightweight-automotive']},
- {label:'Lifecycle',unit:'years',zoom:'Over time',title:'Performance over time',text:'Weight, durability, and environmental impact considered across the life of the product.',services:['lightweight-automotive','corrosion-mitigation']}
+ {label:'Surface',zoom:'Atomic & surface',title:'Surface & chemistry',text:'Corrosion chemistry, surface treatment, conversion coatings, and adhesion — where many durability questions begin.',services:['corrosion-mitigation']},
+ {label:'Interface',zoom:'Cross-section',title:'Materials & interfaces',text:'Metals, polymers, composites, and the dissimilar-material joints, coatings, and seals between them.',services:['lightweight-automotive','corrosion-mitigation']},
+ {label:'Component',zoom:'Part',title:'Parts & tooling',text:'Formed, cast, and molded parts — and the tooling and process decisions that shape them.',services:['tooling-manufacturing','ai-optimization']},
+ {label:'System',zoom:'Assembly',title:'Modules, packs & structures',text:'Battery modules and packs, multi-material body structures, and their thermal and structural integrity.',services:['battery-engineering','lightweight-automotive']},
+ {label:'Lifecycle',zoom:'Over time',title:'Performance over time',text:'Weight, durability, and environmental impact considered across the life of the product.',services:['lightweight-automotive','corrosion-mitigation']}
 ];
 
 function LensArt({index}){
@@ -96,7 +96,6 @@ export function AboutZoom(){
      {scales.map((scale,i)=><svg key={scale.label} viewBox="0 0 300 300" className="n5-lens-art" data-active={i===active} data-dir={i<active?'out':'in'} focusable="false"><LensArt index={i}/></svg>)}
      <span className="n5-lens-tag">{current.zoom}</span>
     </div>
-    <span className="n5-lens-unit" key={current.unit}>{current.unit}</span>
    </figure>
    <div className="n5-zoom-copy" key={current.label} aria-live="polite">
     <p className="n5-zoom-kicker">{pad(active)} / 05 · {current.label}</p>
@@ -110,7 +109,7 @@ export function AboutZoom(){
    <div className="n5-ruler-scale" aria-hidden="true">{Array.from({length:41},(_,i)=><i key={i} className={i%10===0?'is-major':undefined}/>)}<span className="n5-ruler-marker"/></div>
    <div className="n5-ruler-stops" role="group" aria-label="Scales of engineering work">
     {scales.map((scale,i)=><button key={scale.label} type="button" aria-pressed={i===active} onClick={()=>choose(i)}>
-     <strong>{scale.label}</strong><span>{scale.unit}</span>
+     <strong>{scale.label}</strong>
      <i className="n5-ruler-progress" aria-hidden="true"><b key={i===active?`run-${active}`:'idle'}/></i>
     </button>)}
    </div>
