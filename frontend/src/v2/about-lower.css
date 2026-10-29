@@ -93,3 +93,18 @@
  .n5-lens-art, .n5-ruler-marker, .n5-lens-ring { transition: none; }
  .n5-lens-art { filter: none; }
 }
+
+/* Compact sizing for the scale section. */
+.n5-zoom { padding-block: clamp(48px, 7vh, 80px); }
+.n5-zoom-head { margin-bottom: clamp(18px, 3vh, 30px); }
+.v2 .n5-zoom-head h2 { font-size: clamp(30px, 3.2vw, 44px); }
+.n5-zoom-head > p { font-size: 16px; }
+.n5-zoom-stage { grid-template-columns: minmax(220px, 320px) 1fr; gap: clamp(24px, 4vw, 56px); }
+.v2 .n5-zoom-copy h3 { font-size: clamp(24px, 2.4vw, 32px); margin-bottom: 8px; }
+.n5-zoom-copy > p:not([class]) { font-size: 16px; margin-bottom: 18px; }
+.n5-zoom-services a { min-height: 44px; font-size: 14px; }
+.n5-lens-tag { font-size: 11px; padding: 4px 10px; }
+.n5-ruler { margin-top: clamp(20px, 3vh, 32px); }
+.n5-ruler-stops button { min-height: 52px; padding-block: 6px; }
+.n5-ruler-stops strong { font-size: 15px; }
+@media (max-width: 900px) { .n5-lens { max-width: 280px; } }
