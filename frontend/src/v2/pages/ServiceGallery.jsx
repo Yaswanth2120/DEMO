@@ -14,9 +14,6 @@ const presentations=[
  {label:'Corrosion & durability',headline:'Protection is a system decision.',text:'Consider the material, surface, joint, and environment together. Connect investigation with mitigation options and their validation.',domains:['Coatings and surface treatments','Dissimilar-material interfaces','Sealing, diagnostics, and validation'],focus:'From surface to service performance'}
 ];
 
-function EngineeringFlow(){
- return <div className="vp-hero-flow"><div className="vp-flow-caption"><span>CONNECTED EXPERTISE</span><span>01 — 03</span></div><svg viewBox="0 0 520 280" fill="none" role="img" aria-label="Materials, engineering and manufacturing converge into one application"><g className="vp-flow-guides"><path d="M0 70H520M0 140H520M0 210H520M130 0V280M260 0V280M390 0V280"/></g><g className="vp-flow-traces"><path d="M40 60H140C200 60 180 140 250 140H470"/><path d="M40 140H470"/><path d="M40 220H140C200 220 180 140 250 140"/></g><g className="vp-flow-signals"><path d="M40 60H140C200 60 180 140 250 140H470"/><path d="M40 140H470"/><path d="M40 220H140C200 220 180 140 250 140H470"/></g><g className="vp-flow-labels"><text x="40" y="42">Materials</text><text x="40" y="122">Engineering</text><text x="40" y="202">Manufacturing</text><text x="360" y="122">Application</text></g><g className="vp-flow-junction"><path d="m285 102 38 38-38 38-38-38Z"/><path d="m285 118 22 22-22 22-22-22Z"/><circle cx="285" cy="140" r="5"/></g><g className="vp-flow-terminals"><circle cx="40" cy="60" r="4"/><circle cx="40" cy="140" r="4"/><circle cx="40" cy="220" r="4"/><circle cx="470" cy="140" r="6"/></g></svg><p>Materials science, engineering, and manufacturing knowledge—brought into focus around your application.</p></div>;
-}
 
 const drawsOn={'battery-engineering':['engineering','material','science'],'lightweight-automotive':['material','engineering','eco'],'tooling-manufacturing':['engineering','material'],'ai-optimization':['research','material'],'corrosion-mitigation':['science','research','material']};
 const steps=[
@@ -30,7 +27,10 @@ export function ServiceGallery(){
  const keyboard=(event,i)=>{let next;if(['ArrowRight','ArrowDown'].includes(event.key))next=(i+1)%5;else if(['ArrowLeft','ArrowUp'].includes(event.key))next=(i+4)%5;else if(event.key==='Home')next=0;else if(event.key==='End')next=4;else return;event.preventDefault();select(next);rows.current[next]?.focus()};
  const preview=(event,i)=>{if(event.pointerType==='mouse'&&window.matchMedia('(min-width: 901px)').matches&&i!==active)select(i)};
  return <div className="rd-pages vp-services">
-  <section id="hero" className="vp-services-heading"><div className="n5-wrap"><p className="n5-eyebrow">Services / Engineering in depth</p><div><h1>Complex challenges.<br/><em>Tangible possibilities.</em></h1><EngineeringFlow/></div></div></section>
+  <section id="hero" className="sx-hero"><div className="n5-wrap sx-hero-grid">
+   <div><p className="n5-eyebrow">Services / Engineering in depth</p><h1>Complex challenges.<br/><em>Tangible possibilities.</em></h1></div>
+   <div><p className="sx-hero-lede">Materials science, engineering, and manufacturing knowledge, brought into focus around your application — from concept through production.</p><a className="n5-link" href="#pillars">Explore the five services<Glyph name="arrow"/></a></div>
+  </div></section>
   <section id="pillars" className="sx-index"><div className="n5-wrap">
    <div className="sx-head n5-r"><div><p className="n5-eyebrow">Our services</p><h2>Five services.<br/><span>One connected approach.</span></h2></div><p>Choose a service to see what it covers, the disciplines it draws on, and where a conversation can start.</p></div>
    <div className="sx-layout n5-r">
