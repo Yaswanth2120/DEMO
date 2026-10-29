@@ -4,6 +4,7 @@ import Glyph from '../Glyph.jsx';
 import EngineeringScene from './EngineeringScene.jsx';
 import {useSelection} from './usePageSelection.js';
 import './visual-pages.css';
+import './services-page.css';
 
 const presentations=[
  {label:'Battery systems',headline:'Energy, engineered as a system.',text:'Connect cells, modules, and packs with the thermal, structural, and material decisions that shape the whole assembly.',domains:['Module & pack architecture','Thermal and structural considerations','Interfaces and corrosion prevention'],focus:'From cell to system'},
@@ -17,21 +18,48 @@ function EngineeringFlow(){
  return <div className="vp-hero-flow"><div className="vp-flow-caption"><span>CONNECTED EXPERTISE</span><span>01 — 03</span></div><svg viewBox="0 0 520 280" fill="none" role="img" aria-label="Materials, engineering and manufacturing converge into one application"><g className="vp-flow-guides"><path d="M0 70H520M0 140H520M0 210H520M130 0V280M260 0V280M390 0V280"/></g><g className="vp-flow-traces"><path d="M40 60H140C200 60 180 140 250 140H470"/><path d="M40 140H470"/><path d="M40 220H140C200 220 180 140 250 140"/></g><g className="vp-flow-signals"><path d="M40 60H140C200 60 180 140 250 140H470"/><path d="M40 140H470"/><path d="M40 220H140C200 220 180 140 250 140H470"/></g><g className="vp-flow-labels"><text x="40" y="42">Materials</text><text x="40" y="122">Engineering</text><text x="40" y="202">Manufacturing</text><text x="360" y="122">Application</text></g><g className="vp-flow-junction"><path d="m285 102 38 38-38 38-38-38Z"/><path d="m285 118 22 22-22 22-22-22Z"/><circle cx="285" cy="140" r="5"/></g><g className="vp-flow-terminals"><circle cx="40" cy="60" r="4"/><circle cx="40" cy="140" r="4"/><circle cx="40" cy="220" r="4"/><circle cx="470" cy="140" r="6"/></g></svg><p>Materials science, engineering, and manufacturing knowledge—brought into focus around your application.</p></div>;
 }
 
+const drawsOn={'battery-engineering':['engineering','material','science'],'lightweight-automotive':['material','engineering','eco'],'tooling-manufacturing':['engineering','material'],'ai-optimization':['research','material'],'corrosion-mitigation':['science','research','material']};
+const steps=[
+ ['Start with the context','We begin with the application, its constraints, and the decision your team needs to make.'],
+ ['Bring the right perspectives together','Materials, engineering, research, and manufacturing are considered together when they affect the outcome.'],
+ ['Leave with a clear next step','We align on scope, relevant evidence, and practical deliverables before the work moves forward.']
+];
+
 export function ServiceGallery(){
- const [active,select]=useSelection(services),tabs=useRef([]),presentation=presentations[active],service=services[active];
- const keyboard=(event,i)=>{let next;if(['ArrowRight','ArrowDown'].includes(event.key))next=(i+1)%5;else if(['ArrowLeft','ArrowUp'].includes(event.key))next=(i+4)%5;else if(event.key==='Home')next=0;else if(event.key==='End')next=4;else return;event.preventDefault();select(next);tabs.current[next]?.focus()};
+ const [active,select]=useSelection(services),rows=useRef([]);
+ const keyboard=(event,i)=>{let next;if(['ArrowRight','ArrowDown'].includes(event.key))next=(i+1)%5;else if(['ArrowLeft','ArrowUp'].includes(event.key))next=(i+4)%5;else if(event.key==='Home')next=0;else if(event.key==='End')next=4;else return;event.preventDefault();select(next);rows.current[next]?.focus()};
+ const preview=(event,i)=>{if(event.pointerType==='mouse'&&window.matchMedia('(min-width: 901px)').matches&&i!==active)select(i)};
  return <div className="rd-pages vp-services">
   <section id="hero" className="vp-services-heading"><div className="n5-wrap"><p className="n5-eyebrow">Services / Engineering in depth</p><div><h1>Complex challenges.<br/><em>Tangible possibilities.</em></h1><EngineeringFlow/></div></div></section>
-  <section id="pillars" className="vp-service-showcase"><div className="n5-wrap">
-   <div className="vp-service-tabs" role="tablist" aria-label="Explore engineering services">{services.map((item,i)=><button ref={e=>{tabs.current[i]=e}} type="button" role="tab" id={`visual-service-tab-${i}`} aria-selected={active===i} aria-controls="visual-service-panel" tabIndex={active===i?0:-1} key={item.slug} onClick={()=>select(i)} onKeyDown={event=>keyboard(event,i)}><span>0{i+1}</span><Glyph name={item.icon}/><strong>{presentations[i].label}</strong></button>)}</div>
-   <div className="vp-service-stage" id="visual-service-panel" role="tabpanel" tabIndex={0} aria-labelledby={`visual-service-tab-${active}`}>
-    {services.map(item=><span className="vp-service-anchor" id={item.slug} key={item.slug}/>)}
-    <div className="vp-service-stage-meta"><span>{service.category}</span><span>0{active+1} / 05</span></div>
-    <div className="vp-service-stage-grid"><div className="vp-service-scene" key={service.slug+'-art'}><EngineeringScene kind={active}/><span className="vp-scene-caption">{presentation.focus}</span></div><div className="vp-service-copy" key={service.slug+'-copy'}><span className="vp-service-overline">{service.title}</span><h2>{presentation.headline}</h2><p>{presentation.text}</p><a className="vp-service-link" href="/contact#contact-form">Discuss your application<Glyph name="arrow"/></a></div></div>
-    <div className="vp-service-domains">{presentation.domains.map((domain,i)=><div key={domain}><span>0{i+1}</span><p>{domain}</p></div>)}</div>
+  <section id="pillars" className="sx-index"><div className="n5-wrap">
+   <div className="sx-head n5-r"><div><p className="n5-eyebrow">Our services</p><h2>Five services.<br/><span>One connected approach.</span></h2></div><p>Choose a service to see what it covers, the disciplines it draws on, and where a conversation can start.</p></div>
+   <div className="sx-layout n5-r">
+    <div className="sx-list" role="tablist" aria-label="Explore engineering services" aria-orientation="vertical">
+     {services.map((item,i)=><button key={item.slug} ref={e=>{rows.current[i]=e}} type="button" role="tab" id={`visual-service-tab-${i}`} aria-selected={active===i} aria-controls={`sx-panel-${i}`} tabIndex={active===i?0:-1} onClick={()=>select(i)} onKeyDown={event=>keyboard(event,i)} onPointerEnter={event=>preview(event,i)}>
+      <span className="sx-num">0{i+1}</span><span className="sx-icon"><Glyph name={item.icon}/></span><span className="sx-name"><small>{item.category}</small>{item.title}</span><Glyph name="arrow"/>
+     </button>)}
+    </div>
+    <div className="sx-panels">{services.map((item,i)=>{const p=presentations[i];return <article key={item.slug} id={`sx-panel-${i}`} role="tabpanel" aria-labelledby={`visual-service-tab-${i}`} className="sx-panel" data-active={active===i} inert={active!==i}>
+     <span className="vp-service-anchor" id={item.slug}/>
+     <div className="sx-art"><EngineeringScene kind={i}/><span>{p.focus}</span></div>
+     <div className="sx-copy">
+      <p className="sx-kicker">{item.category} · 0{i+1} / 05</p>
+      <h3>{item.title}</h3>
+      <p className="sx-headline">{p.headline}</p>
+      <p>{item.description}</p>
+      <div className="sx-cols">
+       <div><p className="sx-label">What it covers</p><ul>{item.applications.map(x=><li key={x}>{x}</li>)}</ul></div>
+       <div><p className="sx-label">Draws on</p><div className="sx-chips">{drawsOn[item.slug].map(slug=><a key={slug} href={'/'+slug}>{slug[0].toUpperCase()+slug.slice(1)}</a>)}</div></div>
+      </div>
+      <a className="n5-btn" href="/contact">Discuss this service<Glyph name="arrow"/></a>
+     </div>
+    </article>})}</div>
    </div>
-   <div className="vp-service-stage-foot"><span>One application. Connected disciplines.</span><a className="n5-link" href="/industries">Explore the industry context<Glyph name="arrow"/></a></div>
   </div></section>
-  <section className="vp-service-bridge"><div className="n5-wrap"><div><p className="n5-eyebrow">The work behind the outcome</p><h2>Built around<br/><span>your application.</span></h2></div><div><p>Support can begin with a material decision, a design requirement, a production constraint, or an observed failure. The scope is shaped by what your team needs to understand and where the program stands.</p><p className="vp-service-small">Methods, deliverables, and validation requirements are agreed for each program.</p><a className="n5-btn" href="/contact#contact-form">Talk through your project<Glyph name="arrow"/></a></div></div></section>
+  <section className="sx-steps"><div className="n5-wrap">
+   <div className="sx-head n5-r"><div><p className="n5-eyebrow">How an engagement starts</p><h2>Built around<br/><span>your application.</span></h2></div><p>Support can begin with a material decision, a design requirement, a production constraint, or an observed failure. Methods, deliverables, and validation are agreed for each program.</p></div>
+   <ol className="sx-step-list">{steps.map(([title,text],i)=><li key={title} className="n5-r"><span>0{i+1}</span><h3>{title}</h3><p>{text}</p></li>)}</ol>
+   <div className="sx-cta n5-r"><p>Have a challenge in mind?</p><a className="n5-btn" href="/contact">Talk through your project<Glyph name="arrow"/></a><a className="n5-link" href="/industries">Explore industries<Glyph name="arrow"/></a></div>
+  </div></section>
  </div>;
 }
