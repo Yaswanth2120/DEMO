@@ -1,4 +1,4 @@
-.n5-about-orbit{--orbit-core-light:#fff;--orbit-core-shade:#e7f1fa;position:relative;width:100%;max-width:400px;margin:0 auto;color:var(--blue)}
+.n5-about-orbit{--orbit-core-light:#fff;--orbit-core-shade:#e7f1fa;position:relative;width:100%;max-width:600px;margin:0 auto;color:var(--blue)}
 .n5-about-orbit-stage{position:relative;width:100%;aspect-ratio:1;isolation:isolate}
 .n5-about-orbit-stage::before{content:'';position:absolute;inset:20%;border-radius:50%;background:radial-gradient(circle,#6fb3ea1a,transparent 70%);z-index:-1}
 .n5-about-orbit-stage>svg{display:block;width:100%;height:100%;overflow:visible}

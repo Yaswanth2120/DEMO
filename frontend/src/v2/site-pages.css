@@ -51,11 +51,12 @@
 .v2 .n5-cap[data-standalone="true"]+.n5-about-principles{padding-top:40px}
 @media(max-width:700px){.v2 .n5-about-disciplines:has(+.n5-method),.v2 .n5-cap[data-standalone="true"]{padding-bottom:24px}.v2 .n5-about-disciplines+.n5-method,.v2 .n5-cap[data-standalone="true"]+.n5-about-principles{padding-top:28px}}
 
-.n5-about-intro-layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(320px,1fr);grid-template-areas:"copy orbit" "contact orbit";column-gap:clamp(28px,4vw,56px);row-gap:24px;align-items:start}
+.n5-about-intro-layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(360px,1fr);grid-template-areas:"copy orbit" "contact orbit";column-gap:clamp(28px,4vw,56px);row-gap:24px;align-items:start}
 .n5-about-intro-layout>*{min-width:0}
 .n5-about-intro-text{grid-area:copy}.n5-about-intro-copy p:last-child{margin-bottom:0}
 .n5-about-intro-layout>.n5-about-orbit{grid-area:orbit;align-self:start}
 .n5-about-intro-contact{grid-area:contact;justify-self:start}
-.v2 .n5-about-intro .n5-about-intro-layout h1{font-size:clamp(40px,4.6vw,64px)}
+.v2 .n5-about-intro .n5-about-intro-layout h1{font-size:clamp(44px,5vw,72px)}
+@media(min-width:1051px){.n5-about-intro-text>.n5-eyebrow{font-size:16px}.n5-about-intro-copy p{font-size:18px}}
 @media(max-width:1050px){.n5-about-intro-layout{grid-template-columns:1fr;grid-template-areas:"copy" "orbit" "contact"}.n5-about-intro-layout>.n5-about-orbit{max-width:360px}.v2 .n5-about-intro .n5-about-intro-layout h1{max-width:900px}}
 @media(max-width:700px){.n5-about-intro-layout{gap:24px}.n5-about-intro-layout>.n5-about-orbit{max-width:320px}.v2 .n5-about-intro .n5-about-intro-layout h1{font-size:38px}}
