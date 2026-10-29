@@ -18,9 +18,9 @@ const particles=[{orbit:0,duration:26,start:0},{orbit:1,duration:32,start:-7},{o
 
 export default function AboutOrbit(){
  const root=useRef(null),svg=useRef(null),inView=useInView(root,.15);
- const [active,setActive]=useState(0),[hovered,setHovered]=useState(false),[focused,setFocused]=useState(false),[reduced,setReduced]=useState(false),[visible,setVisible]=useState(true);
+ const [active,setActive]=useState(0),[reduced,setReduced]=useState(false),[visible,setVisible]=useState(true);
  const unique=useId().replace(/:/g,'');
- const moving=inView&&visible&&!hovered&&!focused&&!reduced;
+ const moving=inView&&visible&&!reduced;
  const discipline=disciplinePages[active];
 
  useEffect(()=>{
@@ -39,7 +39,7 @@ export default function AboutOrbit(){
   return()=>clearTimeout(timer);
  },[moving,active]);
 
- return <figure ref={root} className="n5-about-orbit" data-moving={moving} onMouseEnter={()=>setHovered(true)} onMouseLeave={()=>setHovered(false)} onFocusCapture={()=>setFocused(true)} onBlurCapture={event=>{if(!event.currentTarget.contains(event.relatedTarget))setFocused(false)}}>
+ return <figure ref={root} className="n5-about-orbit" data-moving={moving}>
   <div className="n5-about-orbit-stage" aria-hidden="true">
    <svg ref={svg} viewBox="0 0 480 480" focusable="false">
     <defs><radialGradient id={`orbit-core-${unique}`} cx="40%" cy="30%" r="80%"><stop offset="0" stopColor="var(--orbit-core-light)"/><stop offset="1" stopColor="var(--orbit-core-shade)"/></radialGradient></defs>
