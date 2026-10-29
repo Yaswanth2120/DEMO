@@ -16,7 +16,7 @@ const presentations=[
 ];
 
 
-const drawsOn={'battery-engineering':['engineering','material','science'],'lightweight-automotive':['material','engineering','eco'],'tooling-manufacturing':['engineering','material'],'ai-optimization':['research','material'],'corrosion-mitigation':['science','research','material']};
+const appliesTo={'battery-engineering':[['automotive','Automotive OEMs'],['energy','Energy / BEV']],'lightweight-automotive':[['automotive','Automotive OEMs'],['suppliers','Tier suppliers']],'tooling-manufacturing':[['suppliers','Tier suppliers'],['manufacturing','Industrial manufacturing']],'ai-optimization':[['manufacturing','Industrial manufacturing']],'corrosion-mitigation':[['automotive','Automotive OEMs'],['suppliers','Tier suppliers'],['energy','Energy / BEV']]};
 const steps=[
  ['Start with the context','We begin with the application, its constraints, and the decision your team needs to make.'],
  ['Bring the right perspectives together','Materials, engineering, research, and manufacturing are considered together when they affect the outcome.'],
@@ -29,11 +29,10 @@ export function ServiceGallery(){
  const preview=(event,i)=>{if(event.pointerType==='mouse'&&window.matchMedia('(min-width: 901px)').matches&&i!==active)select(i)};
  return <div className="rd-pages vp-services">
   <section id="hero" className="sx-hero"><div className="n5-wrap sx-hero-grid">
-   <div className="sx-hero-copy"><p className="n5-eyebrow">Services / Engineering in depth</p><h1>Complex challenges.<br/><em>Tangible possibilities.</em></h1><p className="sx-hero-lede">Five specialized services, one connected approach. Materials science, engineering, and manufacturing knowledge brought into focus around your application — from concept through production.</p><a className="n5-btn" href="#pillars">Explore the services<Glyph name="arrow"/></a></div>
+   <div className="sx-hero-copy"><p className="n5-eyebrow">Services / Engineering in depth</p><h1>Engineering services,<br/><em>from battery packs to corrosion.</em></h1><p className="sx-hero-lede">Battery module and pack engineering, lightweight automotive structures, tooling and manufacturing, AI/ML-guided materials decisions, and corrosion mitigation — supported from concept through production.</p><a className="n5-btn" href="#pillars">Explore the services<Glyph name="arrow"/></a></div>
    <ServiceHub onSelect={i=>{select(i);document.getElementById('pillars')?.scrollIntoView({behavior:'smooth',block:'start'})}}/>
   </div></section>
   <section id="pillars" className="sx-index"><div className="n5-wrap">
-   <div className="sx-head n5-r"><div><p className="n5-eyebrow">Our services</p><h2>Five services.<br/><span>One connected approach.</span></h2></div><p>Choose a service to see what it covers, the disciplines it draws on, and where a conversation can start.</p></div>
    <div className="sx-layout n5-r">
     <div className="sx-list" role="tablist" aria-label="Explore engineering services" aria-orientation="vertical">
      {services.map((item,i)=><button key={item.slug} ref={e=>{rows.current[i]=e}} type="button" role="tab" id={`visual-service-tab-${i}`} aria-selected={active===i} aria-controls={`sx-panel-${i}`} tabIndex={active===i?0:-1} onClick={()=>select(i)} onKeyDown={event=>keyboard(event,i)} onPointerEnter={event=>preview(event,i)}>
@@ -50,7 +49,7 @@ export function ServiceGallery(){
       <p>{item.description}</p>
       <div className="sx-cols">
        <div><p className="sx-label">What it covers</p><ul>{item.applications.map(x=><li key={x}>{x}</li>)}</ul></div>
-       <div><p className="sx-label">Draws on</p><div className="sx-chips">{drawsOn[item.slug].map(slug=><a key={slug} href={'/'+slug}>{slug[0].toUpperCase()+slug.slice(1)}</a>)}</div></div>
+       <div><p className="sx-label">Where it applies</p><div className="sx-chips">{appliesTo[item.slug].map(([slug,name])=><a key={slug} href={'/industries#'+slug}>{name}</a>)}</div></div>
       </div>
       <a className="n5-btn" href="/contact">Discuss this service<Glyph name="arrow"/></a>
      </div>
